@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COMMAND_CORE // TOURNAMENT_OVERWATCH</title>
+    <title>COMMAND_CORE // ADMIN_CONSOLE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
@@ -16,14 +16,11 @@
             --void-panel: #0b0c15;
             --neon-cyan: #00f2ff;
             --neon-purple: #bc13fe;
-            --neon-amber: #ffae00;
-            --holo-glass: rgba(16, 20, 35, 0.7);
+            --holo-glass: rgba(16, 20, 35, 0.85);
             --holo-border: rgba(255, 255, 255, 0.08);
             --text-main: #e0e6ed;
             --text-muted: #6c7893;
-            
-            /* Spacing & Easing */
-            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --input-bg: rgba(0, 0, 0, 0.4);
         }
 
         * {
@@ -33,13 +30,20 @@
             outline: none;
         }
 
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar { height: 8px; width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--void-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); }
+
         body {
             background-color: var(--void-dark);
             background-image: 
-                radial-gradient(circle at 15% 50%, rgba(188, 19, 254, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 85% 30%, rgba(0, 242, 255, 0.06) 0%, transparent 50%),
-                linear-gradient(0deg, rgba(0,0,0,0.2) 0%, transparent 1px, transparent 100%);
-            background-size: 100% 100%, 100% 100%, 100% 4px;
+                radial-gradient(circle at 15% 50%, rgba(188, 19, 254, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(0, 242, 255, 0.05) 0%, transparent 50%),
+                linear-gradient(0deg, rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
             color: var(--text-main);
             font-family: 'Rajdhani', sans-serif;
             min-height: 100vh;
@@ -47,380 +51,272 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            overflow-x: hidden;
-            position: relative;
         }
 
-        /* Subtle Grid Overlay */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            z-index: -1;
-            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-            pointer-events: none;
-        }
-
-        /* --- Header Section --- */
+        /* --- Layout --- */
         .terminal-header {
             text-align: center;
-            margin-bottom: 40px;
-            opacity: 0;
-            animation: slideDown 1s var(--ease-out-expo) forwards;
-            position: relative;
-            z-index: 10;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease forwards;
         }
 
         .terminal-header h1 {
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             text-transform: uppercase;
             letter-spacing: 0.2em;
-            font-weight: 700;
-            background: linear-gradient(to bottom, #fff, var(--text-muted));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 8px;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            color: white;
+            text-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
         }
 
-        .terminal-header .badge {
-            display: inline-block;
-            padding: 6px 16px;
-            border: 1px solid var(--neon-cyan);
-            color: var(--neon-cyan);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            border-radius: 2px;
-            background: rgba(0, 242, 255, 0.05);
-            box-shadow: 0 0 15px rgba(0, 242, 255, 0.15);
-        }
-
-        /* --- Glass Panel Container --- */
         .glass-panel {
             background: var(--holo-glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--holo-border);
-            border-radius: 4px;
-            box-shadow: 
-                0 0 0 1px rgba(0,0,0,0.2),
-                0 20px 50px rgba(0,0,0,0.6);
-            width: 90%;
-            max-width: 1400px;
+            border-radius: 6px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            width: 95%;
+            max-width: 1600px; /* Wider to fit table */
+            padding: 30px;
             position: relative;
-            overflow: hidden;
-            transition: all 0.5s var(--ease-out-expo);
+            backdrop-filter: blur(10px);
         }
 
-        .glass-panel::after {
+        .glass-panel::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; height: 1px;
+            top: 0; left: 0; width: 100%; height: 2px;
             background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
-            opacity: 0.5;
         }
 
-        /* --- Login Module --- */
+        /* --- Login Box (Centered) --- */
         #login-box {
-            max-width: 450px;
-            padding: 60px 40px;
-            text-align: center;
+            max-width: 400px;
             margin: 0 auto;
+            text-align: center;
+            padding: 40px 0;
         }
 
-        .input-wrapper {
-            position: relative;
-            margin-bottom: 25px;
+        .input-group {
+            margin-bottom: 20px;
             text-align: left;
         }
 
-        .input-wrapper label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--neon-cyan);
-            letter-spacing: 0.1em;
+        .input-group label {
             display: block;
-            margin-bottom: 8px;
-            text-transform: uppercase;
+            color: var(--neon-cyan);
+            font-family: 'JetBrains Mono';
+            font-size: 0.8rem;
+            margin-bottom: 5px;
         }
 
-        .input-wrapper input {
+        .input-group input {
             width: 100%;
-            background: rgba(0,0,0,0.3);
+            padding: 12px;
+            background: var(--input-bg);
             border: 1px solid var(--holo-border);
-            padding: 16px;
             color: white;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
-            transition: 0.3s ease;
-            border-radius: 2px;
+            font-family: 'JetBrains Mono';
         }
 
-        .input-wrapper input:focus {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
-            background: rgba(0, 242, 255, 0.02);
+        /* --- SPREADSHEET STYLING (The Fix) --- */
+        #dashboard { display: none; animation: fadeIn 0.5s ease; }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--holo-border);
         }
 
-        /* --- Dashboard Grid --- */
-        #dashboard {
-            display: none;
-            padding: 40px;
-            animation: fadeIn 0.8s ease forwards;
-        }
-
-        .data-grid {
-            display: grid;
-            grid-template-columns: 2fr repeat(8, 1fr);
-            gap: 2px; /* Tight gap for seamless look */
-            background: rgba(255,255,255,0.02);
+        /* The Scrollable Wrapper */
+        .table-wrapper {
+            overflow-x: auto; /* Allows sideways scrolling */
             border: 1px solid var(--holo-border);
-            padding: 10px;
+            border-radius: 4px;
+            background: rgba(0,0,0,0.2);
+            position: relative;
         }
 
-        .grid-header {
-            font-family: 'JetBrains Mono', monospace;
+        /* The Grid Layout */
+        .admin-grid {
+            display: grid;
+            /* Column 1: 220px fixed (Name)
+               Columns 2-9: 1fr (Rounds, minimum 80px wide) 
+            */
+            grid-template-columns: 220px repeat(8, minmax(80px, 1fr));
+            width: 100%;
+            min-width: 900px; /* Force minimum width to prevent squishing */
+        }
+
+        /* Header Row */
+        .grid-head {
+            display: contents;
+            font-family: 'JetBrains Mono';
+            font-size: 0.8rem;
             color: var(--text-muted);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            text-align: center;
+            font-weight: bold;
+        }
+
+        .grid-head div {
             padding: 15px;
-            background: rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.05);
+            border-bottom: 1px solid var(--holo-border);
+            border-right: 1px solid var(--holo-border);
+            text-align: center;
+        }
+
+        /* Sticky First Column (Name) */
+        .grid-head div:first-child,
+        .player-row .name-cell {
+            position: sticky;
+            left: 0;
+            background: var(--void-panel); /* Opaque bg to hide scrolling numbers */
+            z-index: 10;
+            border-right: 2px solid var(--neon-cyan); /* Divider */
+            text-align: left;
+            padding-left: 20px;
         }
         
-        .grid-header:first-child { text-align: left; padding-left: 25px; }
-
-        .player-row {
-            display: contents; /* Allows children to sit on the main grid */
+        .grid-head div:first-child {
+             z-index: 11; /* Header stays on top of sticky names */
+             background: #1a1b26; 
         }
 
+        /* Player Rows */
+        .player-row { display: contents; }
+
         .player-row input {
+            padding: 15px 5px;
             background: transparent;
             border: none;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            color: var(--text-main);
-            padding: 18px 10px;
-            font-family: 'Rajdhani', sans-serif;
+            border-bottom: 1px solid var(--holo-border);
+            border-right: 1px solid var(--holo-border);
+            color: white;
+            font-family: 'Rajdhani';
             font-size: 1.1rem;
             font-weight: 600;
             text-align: center;
-            transition: all 0.2s;
+            transition: 0.2s;
         }
 
-        .player-row .name-in {
+        .player-row .name-cell input {
             text-align: left;
-            padding-left: 25px;
             color: var(--neon-cyan);
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'JetBrains Mono';
             letter-spacing: -0.5px;
+            border-right: none;
+            width: 100%;
         }
 
+        /* Focus Effects */
         .player-row input:focus {
-            background: rgba(255,255,255,0.03);
-            border-bottom-color: var(--neon-purple);
+            background: rgba(0, 242, 255, 0.1);
+            box-shadow: inset 0 0 0 1px var(--neon-cyan);
         }
 
         .player-row:hover input {
-            background: rgba(255,255,255,0.01);
+            background: rgba(255,255,255,0.02);
+        }
+        
+        /* Ensure sticky column changes color on hover/focus too */
+        .player-row:hover .name-cell {
+            background: #14151f; 
         }
 
-        /* --- Buttons --- */
-        .btn-core {
-            width: 100%;
-            padding: 18px;
-            background: transparent;
-            border: 1px solid var(--neon-cyan);
-            color: var(--neon-cyan);
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .btn-core::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 0%; height: 100%;
-            background: var(--neon-cyan);
-            transition: width 0.3s var(--ease-out-expo);
-            z-index: -1;
-        }
-
-        .btn-core:hover::before {
-            width: 100%;
-        }
-
-        .btn-core:hover {
-            color: var(--void-dark);
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
-        }
-
-        .btn-core:disabled {
-            border-color: var(--text-muted);
-            color: var(--text-muted);
-            cursor: not-allowed;
-            background: transparent;
-        }
-
+        /* --- Action Bar --- */
         .action-bar {
+            margin-top: 25px;
             display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-            gap: 20px;
+            gap: 15px;
         }
 
-        .btn-secondary {
-            border-color: var(--text-muted);
-            color: var(--text-muted);
-        }
-        .btn-secondary:hover::before { background: var(--text-muted); }
-
-        /* --- Status --- */
-        .status-pill {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-muted);
+        .btn {
+            padding: 15px 30px;
+            border: 1px solid var(--neon-cyan);
+            background: rgba(0, 242, 255, 0.1);
+            color: var(--neon-cyan);
+            font-family: 'JetBrains Mono';
+            font-weight: bold;
+            cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            background: var(--void-panel);
-            padding: 8px 16px;
-            border: 1px solid var(--holo-border);
-            border-radius: 50px;
-            z-index: 100;
-        }
-
-        .status-light {
-            width: 8px; height: 8px;
-            background: #ff3333;
-            border-radius: 50%;
-            box-shadow: 0 0 8px #ff3333;
+            flex: 1;
             transition: 0.3s;
         }
 
-        .status-light.active {
+        .btn:hover {
             background: var(--neon-cyan);
-            box-shadow: 0 0 8px var(--neon-cyan);
+            color: black;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
         }
 
-        /* --- Utility --- */
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        #loginError {
+        .btn-danger {
+            border-color: #ff3333;
             color: #ff3333;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            margin-top: 20px;
-            display: none;
+            background: rgba(255, 51, 51, 0.1);
+            flex: 0 0 150px;
         }
 
-        /* Mobile Responsive */
-        @media (max-width: 1024px) {
-            .data-grid {
-                grid-template-columns: 150px repeat(8, 80px);
-                overflow-x: auto;
-                display: block; /* Break grid for scroll */
-                white-space: nowrap;
-            }
-            .player-row { display: flex; }
-            .player-row input { width: 80px; }
-            .player-row .name-in { width: 150px; flex-shrink: 0; position: sticky; left: 0; background: var(--void-panel); z-index: 2; border-right: 1px solid var(--holo-border); }
-            .grid-header { display: inline-block; width: 80px; }
-            .grid-header:first-child { width: 150px; position: sticky; left: 0; background: var(--void-panel); z-index: 3; }
+        .btn-danger:hover {
+            background: #ff3333;
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 51, 51, 0.4);
         }
+
+        /* Utils */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        #loginError { color: #ff3333; margin-top: 15px; font-family: 'JetBrains Mono'; display: none;}
     </style>
 </head>
 <body>
 
     <header class="terminal-header">
-        <h1>Tournament OS</h1>
-        <div class="badge">SECURE_ADMIN_NODE // v2.4.0</div>
+        <h1>Admin Command // OS</h1>
     </header>
 
-    <div class="glass-panel" id="mainPanel">
+    <div class="glass-panel">
         
         <div id="login-box">
-            <div style="margin-bottom: 40px;">
-                <i class="fas fa-shield-alt" style="font-size: 3rem; color: var(--neon-cyan); margin-bottom: 15px;"></i>
-                <h2 style="font-weight: 500; letter-spacing: 2px;">AUTHENTICATION</h2>
+            <h2 style="color:white; margin-bottom:20px;">AUTHENTICATE</h2>
+            <div class="input-group">
+                <label>OPERATOR ID</label>
+                <input type="email" id="email" placeholder="admin@system">
             </div>
-            
-            <div class="input-wrapper">
-                <label for="email">Operator ID</label>
-                <input type="email" id="email" placeholder="user@admin.sys" autocomplete="username">
+            <div class="input-group">
+                <label>ACCESS KEY</label>
+                <input type="password" id="password" placeholder="••••••••">
             </div>
-
-            <div class="input-wrapper">
-                <label for="password">Access Key</label>
-                <input type="password" id="password" placeholder="••••••••" autocomplete="current-password">
-            </div>
-
-            <button id="loginBtn" class="btn-core">
-                Initialize Session
-            </button>
+            <button id="loginBtn" class="btn">INITIALIZE</button>
             <div id="loginError"></div>
         </div>
 
         <div id="dashboard">
-            <div style="display: flex; justify-content: space-between; align-items: end; margin-bottom: 20px; border-bottom: 1px solid var(--holo-border); padding-bottom: 20px;">
-                <div>
-                    <h2 style="font-size: 1.5rem; text-transform: uppercase; color: var(--neon-cyan);">Live Scoreboard</h2>
-                    <p style="color: var(--text-muted); font-family: 'JetBrains Mono'; font-size: 0.8rem; margin-top: 5px;">EDIT MODE: ACTIVE</p>
-                </div>
-                <div style="text-align: right; font-family: 'JetBrains Mono'; font-size: 0.8rem; color: var(--neon-purple);">
-                    <i class="fas fa-satellite-dish"></i> SYNC_READY
-                </div>
+            <div class="dashboard-header">
+                <h3 style="color:var(--neon-cyan)">LIVE DATA GRID</h3>
+                <div style="font-family:'JetBrains Mono'; color:var(--text-muted)">STATUS: EDITABLE</div>
             </div>
 
-            <div class="data-grid">
-                <div class="grid-header">Operative</div>
-                <div class="grid-header">R1</div><div class="grid-header">R2</div>
-                <div class="grid-header">R3</div><div class="grid-header">R4</div>
-                <div class="grid-header">R5</div><div class="grid-header">R6</div>
-                <div class="grid-header">R7</div><div class="grid-header">R8</div>
-                
-                <div id="adminRows" style="display: contents;"></div>
+            <div class="table-wrapper">
+                <div class="admin-grid">
+                    
+                    <div class="grid-head">
+                        <div>PLAYER IDENTITY</div>
+                        <div>R1</div><div>R2</div><div>R3</div><div>R4</div>
+                        <div>R5</div><div>R6</div><div>R7</div><div>R8</div>
+                    </div>
+
+                    <div id="adminRows" style="display: contents;">
+                        </div>
+
+                </div>
             </div>
 
             <div class="action-bar">
-                <button class="btn-core btn-secondary" onclick="firebase.auth().signOut()" style="flex: 1; max-width: 200px;">
-                    Terminate
-                </button>
-                <button id="saveBtn" class="btn-core" style="flex: 2;">
-                    <i class="fas fa-save" style="margin-right: 10px;"></i> Commit Database Changes
-                </button>
+                <button class="btn btn-danger" onclick="firebase.auth().signOut()">LOGOUT</button>
+                <button id="saveBtn" class="btn">SAVE DATABASE CHANGES</button>
             </div>
         </div>
-    </div>
 
-    <div class="status-pill">
-        <div class="status-light" id="statusDot"></div>
-        <span id="statusText">OFFLINE</span>
     </div>
 
     <script type="module">
@@ -428,7 +324,7 @@
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-        // --- FIREBASE CONFIGURATION (PRESERVED) ---
+        // YOUR CONFIG
         const firebaseConfig = {
             apiKey: "AIzaSyCdyOBJXip_6_zS6TwNYwF0aIgW_JnQllI",
             authDomain: "amongus-tournament.firebaseapp.com",
@@ -439,97 +335,64 @@
             appId: "1:203792330122:web:059e399088b9f7ce9d2c73",
             measurementId: "G-H9326EYQP3"
         };
-        // ------------------------------------------
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // Visual State Management
-        function setConnectionState(isConnected) {
-            const dot = document.getElementById('statusDot');
-            const text = document.getElementById('statusText');
-            if(isConnected) {
-                dot.classList.add('active');
-                text.textContent = "UPLINK_ESTABLISHED";
-                text.style.color = "var(--neon-cyan)";
-            } else {
-                dot.classList.remove('active');
-                text.textContent = "NO_SIGNAL";
-                text.style.color = "var(--text-muted)";
-            }
-        }
-
-        // Login Logic
+        // Login UI Logic
         const loginBtn = document.getElementById('loginBtn');
         const loginBox = document.getElementById('login-box');
         const dashboard = document.getElementById('dashboard');
-        const mainPanel = document.getElementById('mainPanel');
 
         loginBtn.addEventListener('click', async () => {
             const email = document.getElementById('email').value;
             const pass = document.getElementById('password').value;
-            const errorDiv = document.getElementById('loginError');
-
-            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> DECRYPTING...';
-            loginBtn.disabled = true;
-            errorDiv.style.display = 'none';
-
             try {
                 await signInWithEmailAndPassword(auth, email, pass);
-                // Auth listener handles transition
             } catch (error) {
-                errorDiv.innerText = `ACCESS_DENIED: ${error.message}`;
-                errorDiv.style.display = 'block';
-                loginBtn.innerText = 'Initialize Session';
-                loginBtn.disabled = false;
+                document.getElementById('loginError').innerText = error.message;
+                document.getElementById('loginError').style.display = 'block';
             }
         });
 
-        // Authentication Listener
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                setConnectionState(true);
                 loginBox.style.display = 'none';
                 dashboard.style.display = 'block';
-                mainPanel.style.maxWidth = '1400px'; // Expand for dashboard
                 loadData();
             } else {
-                setConnectionState(false);
                 loginBox.style.display = 'block';
                 dashboard.style.display = 'none';
-                mainPanel.style.maxWidth = '500px'; // Shrink for login
-                loginBtn.innerHTML = 'Initialize Session';
-                loginBtn.disabled = false;
             }
         });
 
-        // Data Management
+        // Load & Render Data
         function loadData() {
-            const playersRef = ref(db, 'players');
-            onValue(playersRef, (snapshot) => {
+            onValue(ref(db, 'players'), (snapshot) => {
                 const data = snapshot.val() || generateDefaults();
-                renderGrid(data);
+                renderRows(data);
             }, { onlyOnce: true });
         }
 
         function generateDefaults() {
             let data = {};
-            for(let i=1; i<=8; i++) {
-                data[`p${i}`] = { name: `Operative ${i}`, r1:0, r2:0, r3:0, r4:0, r5:0, r6:0, r7:0, r8:0 };
-            }
+            for(let i=1; i<=8; i++) data[`p${i}`] = { name: `Player ${i}`, r1:0,r2:0,r3:0,r4:0,r5:0,r6:0,r7:0,r8:0 };
             return data;
         }
 
-        function renderGrid(data) {
+        function renderRows(data) {
             const container = document.getElementById('adminRows');
             container.innerHTML = '';
 
             Object.keys(data).forEach(key => {
                 const p = data[key];
+                // Note the 'name-cell' class wrapper for the first input
                 let html = `
                     <div class="player-row" id="${key}">
-                        <input type="text" class="name-in" value="${p.name}" spellcheck="false">
+                        <div class="name-cell">
+                            <input type="text" class="name-in" value="${p.name}">
+                        </div>
                         ${[1,2,3,4,5,6,7,8].map(i => 
                             `<input type="number" class="score-in" data-round="r${i}" value="${p['r'+i] || 0}">`
                         ).join('')}
@@ -542,19 +405,14 @@
         // Save Logic
         document.getElementById('saveBtn').addEventListener('click', async () => {
             const btn = document.getElementById('saveBtn');
-            const originalContent = btn.innerHTML;
-            
-            btn.innerHTML = 'UPLOADING PACKETS...';
+            btn.innerHTML = 'SAVING...';
             btn.disabled = true;
 
             const updates = {};
-            const rows = document.querySelectorAll('.player-row');
-            
-            rows.forEach(row => {
+            document.querySelectorAll('.player-row').forEach(row => {
                 const id = row.id;
                 const name = row.querySelector('.name-in').value;
                 let playerData = { name };
-                
                 row.querySelectorAll('.score-in').forEach(input => {
                     playerData[input.dataset.round] = parseInt(input.value) || 0;
                 });
@@ -563,28 +421,11 @@
 
             try {
                 await set(ref(db, 'players'), updates);
-                btn.innerHTML = '<i class="fas fa-check-circle"></i> UPLOAD COMPLETE';
-                btn.style.color = 'var(--void-dark)';
-                btn.style.borderColor = '#00ff00';
-                btn.style.background = '#00ff00';
-                
-                setTimeout(() => {
-                    btn.innerHTML = originalContent;
-                    btn.style = '';
-                    btn.disabled = false;
-                }, 2000);
+                btn.innerHTML = 'SAVED SUCCESSFULLY';
+                setTimeout(() => { btn.innerHTML = 'SAVE DATABASE CHANGES'; btn.disabled = false; }, 1500);
             } catch (e) {
-                alert("TRANSMISSION ERROR: " + e.message);
-                btn.innerHTML = originalContent;
+                alert(e.message);
                 btn.disabled = false;
-            }
-        });
-
-        // Key Commands
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 's') {
-                e.preventDefault();
-                if (dashboard.style.display === 'block') document.getElementById('saveBtn').click();
             }
         });
     </script>
