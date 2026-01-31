@@ -416,14 +416,14 @@
 <body>
 
     <video autoplay loop muted playsinline id="bg-video">
-        <source src="./amongus.mp4" type="video/mp4">
+        <source src="amongus.mp4" type="video/mp4">
         Your browser does not support HTML5 video.
     </video>
 
     <div class="scanline"></div>
 
     <div id="sound-control" onclick="toggleSound()">
-        <i class="fas fa-volume-up" id="sound-icon"></i>
+        <i class="fas fa-volume-mute" id="sound-icon"></i>
     </div>
 
     <div class="main-wrapper">
@@ -510,51 +510,25 @@
         <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.5;">SECURE CONNECTION ESTABLISHED</p>
     </footer>
 
-<script>
-    const video = document.getElementById('bg-video');
-    const icon = document.getElementById('sound-icon');
-    let isMuted = true; // Start with muted (required for autoplay)
+    <script>
+        function toggleSound() {
+            const video = document.getElementById('bg-video');
+            const icon = document.getElementById('sound-icon');
+            const btn = document.getElementById('sound-control');
 
-    // Initialize with muted video (for autoplay)
-    video.muted = true;
-    
-    // First user interaction will unmute and enable sound
-    function enableSoundOnce() {
-        if (isMuted) {
-            video.muted = false;
-            isMuted = false;
-            icon.classList.remove('fa-volume-up');
-            icon.classList.add('fa-volume-mute');
-            updateIcon();
+            if (video.muted) {
+                video.muted = false;
+                icon.classList.remove('fa-volume-mute');
+                icon.classList.add('fa-volume-up');
+                btn.style.borderColor = 'var(--neon-green)'; // Visual feedback
+            } else {
+                video.muted = true;
+                icon.classList.remove('fa-volume-up');
+                icon.classList.add('fa-volume-mute');
+                btn.style.borderColor = 'var(--neon-cyan)';
+            }
         }
-        
-        document.removeEventListener('click', enableSoundOnce);
-        document.removeEventListener('keydown', enableSoundOnce);
-    }
-
-    // Toggle sound on button click
-    function toggleSound() {
-        video.muted = !video.muted;
-        isMuted = video.muted;
-        updateIcon();
-    }
-
-    // Update icon based on mute state
-    function updateIcon() {
-        if (video.muted) {
-            icon.classList.remove('fa-volume-up');
-            icon.classList.add('fa-volume-mute');
-        } else {
-            icon.classList.remove('fa-volume-mute');
-            icon.classList.add('fa-volume-up');
-        }
-    }
-
-    // Add event listeners for first interaction
-    document.addEventListener('click', enableSoundOnce);
-    document.addEventListener('keydown', enableSoundOnce);
-</script>
-
+    </script>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
