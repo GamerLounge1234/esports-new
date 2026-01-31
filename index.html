@@ -16,7 +16,7 @@
             --neon-red: #ff3333;
             --neon-cyan: #00f3ff;
             --neon-gold: #ffd700;
-            --glass-surface: rgba(20, 25, 40, 0.7); /* Made slightly darker for video readability */
+            --glass-surface: rgba(20, 25, 40, 0.7);
             --glass-border: rgba(255, 255, 255, 0.08);
             --text-main: #ffffff;
             --text-dim: #8892b0;
@@ -48,13 +48,13 @@
 
         /* --- VIDEO BACKGROUND SETUP --- */
         #bg-video {
-            position: fixed; /* Keeps video continuous on scroll */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ensures video covers screen without stretching */
-            z-index: -2; /* Behind everything */
+            object-fit: cover;
+            z-index: -2;
         }
 
         .scanline {
@@ -62,7 +62,7 @@
             top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
             background-size: 100% 4px;
-            z-index: -1; /* Above video, behind content */
+            z-index: -1;
             pointer-events: none;
             opacity: 0.4;
         }
@@ -196,7 +196,7 @@
             align-items: center;
             justify-content: center;
             gap: 20px;
-            text-shadow: 0 0 20px rgba(0,0,0,0.8); /* Added shadow for readability over video */
+            text-shadow: 0 0 20px rgba(0,0,0,0.8);
         }
 
         .section-title::before, .section-title::after {
@@ -221,7 +221,9 @@
             position: relative;
             overflow: hidden;
             transition: transform 0.3s ease;
-            backdrop-filter: blur(15px); /* Stronger blur for readability */
+            backdrop-filter: blur(15px);
+            display: flex;
+            flex-direction: column;
         }
 
         .rule-card:hover {
@@ -261,14 +263,33 @@
             color: var(--text-dim);
             font-size: 1.1rem;
             line-height: 1.8;
+            flex-grow: 1;
+        }
+
+        .rule-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .rule-list li {
+            margin-bottom: 12px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .rule-list li i {
+            color: var(--neon-cyan);
+            margin-top: 5px;
         }
 
         .highlight { color: var(--neon-cyan); font-weight: 700; }
         .danger { color: var(--neon-red); font-weight: 700; }
+        .bonus { color: var(--neon-gold); font-weight: 700; }
 
         /* --- Leaderboard Section --- */
         .leaderboard-container {
-            background: var(--glass-surface); /* Uses the darker glass variable */
+            background: var(--glass-surface);
             border: 1px solid var(--neon-cyan);
             border-radius: 4px;
             box-shadow: var(--glow-cyan);
@@ -445,6 +466,7 @@
             <h2 class="section-title">MISSION PROTOCOLS</h2>
             
             <div class="rules-grid">
+                
                 <div class="rule-card">
                     <div class="rule-header">
                         <i class="fas fa-user-secret rule-icon"></i>
@@ -455,25 +477,70 @@
                         <br>
                         <p><strong>Example Scenario:</strong><br>Agar Impostor RODY ka shapeshift leta hai, toh sirf RODY ko hi kill kar sakta hai.</p>
                         <br>
-                        <p style="border-left: 2px solid var(--neon-cyan); padding-left: 10px;">Shapeshift use karte waqt kisi aur player ko kill karna allowed nahi hai. Jab tak Impostor jis player ka shapeshift liya hai usko kill nahi karta, tab tak <span class="danger">koi bhi body report nahi karega.</span></p>
+                        <p style="border-left: 2px solid var(--neon-cyan); padding-left: 10px; font-size: 0.9rem;">Shapeshift use karte waqt kisi aur player ko kill karna allowed nahi hai. Jab tak kill confirm nahi hota, <span class="danger">body report allowed nahi hai.</span></p>
                     </div>
                 </div>
 
                 <div class="rule-card">
                     <div class="rule-header">
-                        <i class="fas fa-ban rule-icon"></i>
-                        <h3 class="rule-name">RULE 02 // ELIMINATION</h3>
+                        <i class="fas fa-gavel rule-icon"></i>
+                        <h3 class="rule-name">RULE 02 // PENALTIES & CONDUCT</h3>
                     </div>
                     <div class="rule-content">
-                        <p>Agar koi Impostor ek player ka shapeshift leta hai aur <span class="danger">kisi doosre player ko kill karta hai</span>, toh yeh rule violation maana jayega.</p>
-                        <br>
-                        <div style="background: rgba(255, 51, 51, 0.1); padding: 15px; border: 1px solid var(--neon-red);">
-                            <i class="fas fa-exclamation-triangle" style="color: var(--neon-red); margin-right: 10px;"></i>
-                            <strong>PENALTY:</strong><br>
-                            Aisa karne wale Impostor ko immediately match se <span class="danger">KICK / ELIMINATE</span> kar diya jayega.
+                        <ul class="rule-list">
+                            <li>
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span><strong>Wrong Kill:</strong> Agar Impostor galat player ko kill karta hai, toh usse immediately match se <span class="danger">KICK / ELIMINATE</span> kar diya jayega.</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-hand-paper"></i>
+                                <span><strong>Respect:</strong> Staff aur Organizers ki respect karna zaroori hai. Agar misbehavior kiya toh <span class="danger">PERMANENT BAN</span> lag sakta hai.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-header">
+                        <i class="fas fa-cogs rule-icon"></i>
+                        <h3 class="rule-name">RULE 03 // GAME CONFIG</h3>
+                    </div>
+                    <div class="rule-content">
+                        <ul class="rule-list">
+                            <li><i class="fas fa-users"></i> Har Team mein sirf <strong>2 Members</strong> honge.</li>
+                            <li><i class="fas fa-tools"></i> Game mein <strong>4 Engineers</strong> honge (No other roles). Vent cooldown: <strong>15s</strong>.</li>
+                            <li><i class="fas fa-user-tag"></i> Har player ko <strong>Impostor</strong> banne ka sirf <strong>1 chance</strong> milega.</li>
+                            <li><i class="fas fa-ban"></i> <strong>Impostor ko Vote out karna allowed nahi hai.</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="rule-card" style="border-color: var(--neon-gold);">
+                    <div class="rule-header">
+                        <i class="fas fa-star rule-icon" style="color: var(--neon-gold);"></i>
+                        <h3 class="rule-name" style="color: var(--neon-gold);">CLASSIFIED // POINT SYSTEM</h3>
+                    </div>
+                    <div class="rule-content">
+                        <ul class="rule-list">
+                            <li>
+                                <i class="fas fa-skull" style="color: var(--neon-red);"></i>
+                                <span><strong>IMPOSTOR:</strong> <span class="highlight">+2 Points</span> har successful kill ke liye.</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-bomb" style="color: var(--neon-red);"></i>
+                                <span><strong>IMPOSTOR BONUS:</strong> <span class="bonus">+4 Points</span> agar saare Crewmates ko maar diya (Full Wipe).</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-shield-alt" style="color: var(--neon-cyan);"></i>
+                                <span><strong>CREWMATE:</strong> <span class="highlight">+3 Points</span> agar poora round survive kiya aur tasks finish kiye.</span>
+                            </li>
+                        </ul>
+                        <div style="margin-top: 15px; background: rgba(255, 51, 51, 0.1); padding: 10px; border-left: 3px solid var(--neon-red); font-size: 0.9rem;">
+                            <strong>NOTE:</strong> Agar Impostor ne wrong kill kiya (Rule 1 break kiya), toh Crewmates ko points nahi milenge.
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
 
@@ -535,15 +602,15 @@
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
         const firebaseConfig = {
-  apiKey: "AIzaSyCdyOBJXip_6_zS6TwNYwF0aIgW_JnQllI",
-  authDomain: "amongus-tournament.firebaseapp.com",
-  databaseURL: "https://amongus-tournament-default-rtdb.firebaseio.com",
-  projectId: "amongus-tournament",
-  storageBucket: "amongus-tournament.firebasestorage.app",
-  messagingSenderId: "203792330122",
-  appId: "1:203792330122:web:ba261eb3d61b83f99d2c73",
-  measurementId: "G-MZ71N7ZX7P"
-};
+            apiKey: "AIzaSyCdyOBJXip_6_zS6TwNYwF0aIgW_JnQllI",
+            authDomain: "amongus-tournament.firebaseapp.com",
+            databaseURL: "https://amongus-tournament-default-rtdb.firebaseio.com",
+            projectId: "amongus-tournament",
+            storageBucket: "amongus-tournament.firebasestorage.app",
+            messagingSenderId: "203792330122",
+            appId: "1:203792330122:web:ba261eb3d61b83f99d2c73",
+            measurementId: "G-MZ71N7ZX7P"
+        };
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
