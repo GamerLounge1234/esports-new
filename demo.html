@@ -13,11 +13,10 @@
     <style>
         :root {
             --void-black: #050505;
-            --deep-space: #0b0c15;
             --neon-red: #ff3333;
             --neon-cyan: #00f3ff;
             --neon-gold: #ffd700;
-            --glass-surface: rgba(20, 25, 40, 0.6);
+            --glass-surface: rgba(20, 25, 40, 0.7); /* Made slightly darker for video readability */
             --glass-border: rgba(255, 255, 255, 0.08);
             --text-main: #ffffff;
             --text-dim: #8892b0;
@@ -47,23 +46,60 @@
             line-height: 1.6;
         }
 
-        /* --- Dynamic Background --- */
-        #starfield {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            pointer-events: none;
+        /* --- VIDEO BACKGROUND SETUP --- */
+        #bg-video {
+            position: fixed; /* Keeps video continuous on scroll */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures video covers screen without stretching */
+            z-index: -2; /* Behind everything */
         }
 
         .scanline {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
             background-size: 100% 4px;
-            z-index: 900;
+            z-index: -1; /* Above video, behind content */
             pointer-events: none;
-            opacity: 0.3;
+            opacity: 0.4;
+        }
+
+        /* --- Sound Toggle Button --- */
+        #sound-control {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 10, 20, 0.8);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--neon-cyan);
+            font-size: 1.5rem;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            animation: pulse-glow 2s infinite;
+        }
+
+        #sound-control:hover {
+            transform: scale(1.1);
+            background: var(--neon-cyan);
+            color: #000;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(0, 243, 255, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 243, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 243, 255, 0); }
         }
 
         /* --- Layout Containers --- */
@@ -160,6 +196,7 @@
             align-items: center;
             justify-content: center;
             gap: 20px;
+            text-shadow: 0 0 20px rgba(0,0,0,0.8); /* Added shadow for readability over video */
         }
 
         .section-title::before, .section-title::after {
@@ -184,6 +221,7 @@
             position: relative;
             overflow: hidden;
             transition: transform 0.3s ease;
+            backdrop-filter: blur(15px); /* Stronger blur for readability */
         }
 
         .rule-card:hover {
@@ -230,13 +268,14 @@
 
         /* --- Leaderboard Section --- */
         .leaderboard-container {
-            background: rgba(11, 12, 21, 0.8);
+            background: var(--glass-surface); /* Uses the darker glass variable */
             border: 1px solid var(--neon-cyan);
             border-radius: 4px;
             box-shadow: var(--glow-cyan);
             margin-bottom: 100px;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(15px);
         }
 
         .leaderboard-container::after {
@@ -340,7 +379,7 @@
             text-align: center;
             font-family: 'Share Tech Mono', monospace;
             color: var(--text-dim);
-            background: #000;
+            background: rgba(0,0,0,0.8);
         }
 
         /* Animations */
@@ -370,13 +409,22 @@
             th, td { padding: 15px 10px; font-size: 0.9rem; }
             .player-cell { padding-left: 15px; }
             .total-score { padding-right: 15px; }
+            .hero-glitch { font-size: 3rem; }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="starfield"></canvas>
+    <video autoplay loop muted playsinline id="bg-video">
+        <source src="./amongus.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+
     <div class="scanline"></div>
+
+    <div id="sound-control" onclick="toggleSound()">
+        <i class="fas fa-volume-up" id="sound-icon"></i>
+    </div>
 
     <div class="main-wrapper">
         
@@ -462,49 +510,51 @@
         <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.5;">SECURE CONNECTION ESTABLISHED</p>
     </footer>
 
-    <script>
-        const canvas = document.getElementById('starfield');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let stars = [];
+<script>
+    const video = document.getElementById('bg-video');
+    const icon = document.getElementById('sound-icon');
+    let isMuted = true; // Start with muted (required for autoplay)
 
-        function init() {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
-            stars = [];
-            for(let i=0; i<150; i++) {
-                stars.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    size: Math.random() * 2,
-                    speed: Math.random() * 0.5 + 0.1
-                });
-            }
+    // Initialize with muted video (for autoplay)
+    video.muted = true;
+    
+    // First user interaction will unmute and enable sound
+    function enableSoundOnce() {
+        if (isMuted) {
+            video.muted = false;
+            isMuted = false;
+            icon.classList.remove('fa-volume-up');
+            icon.classList.add('fa-volume-mute');
+            updateIcon();
         }
+        
+        document.removeEventListener('click', enableSoundOnce);
+        document.removeEventListener('keydown', enableSoundOnce);
+    }
 
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            ctx.fillStyle = '#ffffff';
-            
-            stars.forEach(star => {
-                ctx.globalAlpha = Math.random() * 0.5 + 0.3;
-                ctx.beginPath();
-                ctx.arc(star.x, star.y, star.size, 0, Math.PI*2);
-                ctx.fill();
-                
-                star.y -= star.speed;
-                if(star.y < 0) star.y = height;
-            });
-            
-            requestAnimationFrame(animate);
+    // Toggle sound on button click
+    function toggleSound() {
+        video.muted = !video.muted;
+        isMuted = video.muted;
+        updateIcon();
+    }
+
+    // Update icon based on mute state
+    function updateIcon() {
+        if (video.muted) {
+            icon.classList.remove('fa-volume-up');
+            icon.classList.add('fa-volume-mute');
+        } else {
+            icon.classList.remove('fa-volume-mute');
+            icon.classList.add('fa-volume-up');
         }
+    }
 
-        window.addEventListener('resize', init);
-        init();
-        animate();
-    </script>
+    // Add event listeners for first interaction
+    document.addEventListener('click', enableSoundOnce);
+    document.addEventListener('keydown', enableSoundOnce);
+</script>
+
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
