@@ -3,710 +3,548 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHAPESHIFTER // DUEL LANGUAGE ARENA</title>
+    <title>SHAPESHIFTER TOURNAMENT // LIVE</title>
     
-    <!-- premium fonts & icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Syne:wght@400;700;800&family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        /* ===== NEXT‑LEVEL DESIGN SYSTEM ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* --- ADVANCED CSS VARIABLES --- */
+        :root {
+            /* Core Palette */
+            --bg-deep: #030407;
+            --bg-panel: rgba(12, 16, 28, 0.45);
+            --neon-red: #ff2a2a;
+            --neon-cyan: #00e5ff;
+            --neon-gold: #ffc107;
+            --text-main: #f0f4f8;
+            --text-muted: #8b9bb4;
+            
+            /* Glassmorphism Specs */
+            --glass-blur: blur(16px);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.06);
+            --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            
+            /* Glow Effects */
+            --glow-cyan: 0 0 25px rgba(0, 229, 255, 0.25);
+            --glow-red: 0 0 25px rgba(255, 42, 42, 0.25);
+            
+            /* Transitions */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        :root {
-            /* deep space — premium muted neons */
-            --abyss: #0b0d17;
-            --elevation-1: #14182c;
-            --elevation-2: #1e233b;
-            --primary-glow: #3c7eff;      /* electric cobalt */
-            --secondary-glow: #ff4d6d;     /* soft crimson */
-            --tertiary-glow: #ffd166;      /* warm gold */
-            --glass-deep: rgba(20, 25, 50, 0.75);
-            --glass-border: rgba(255, 255, 255, 0.06);
-            --text-main: #f0f3ff;
-            --text-soft: #b9c6e6;
-            --glow-primary: 0 0 30px rgba(60, 126, 255, 0.35);
-            --glow-secondary: 0 0 30px rgba(255, 77, 109, 0.35);
-            --glow-tertiary: 0 0 30px rgba(255, 209, 102, 0.3);
-            --transition-prem: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+        /* --- RESET & BASE --- */
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            scrollbar-width: thin; scrollbar-color: var(--neon-cyan) var(--bg-deep);
         }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-deep); }
+        ::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 4px; }
 
         body {
-            background-color: var(--abyss);
+            background-color: var(--bg-deep);
             color: var(--text-main);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden;
-            line-height: 1.5;
-            font-weight: 300;
-            letter-spacing: 0.3px;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* background video + advanced overlays */
+        /* --- AMBIENT BACKGROUND --- */
         #bg-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -3;
-            filter: blur(2px) brightness(0.3) saturate(1.2);
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            object-fit: cover; z-index: -3; filter: brightness(0.4) saturate(1.2);
         }
 
-        .overlay-grid {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(rgba(10, 15, 30, 0.85) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(10, 15, 30, 0.85) 1px, transparent 1px);
-            background-size: 60px 60px;
-            z-index: -2;
-            pointer-events: none;
-            opacity: 0.4;
+        .bg-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(0, 229, 255, 0.05), transparent 60%),
+                        linear-gradient(to bottom, transparent, var(--bg-deep) 90%);
+            z-index: -2; pointer-events: none;
         }
 
         .scanline {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0px, rgba(255,255,255,0.01) 1px, transparent 2px);
-            z-index: -1;
-            pointer-events: none;
-            opacity: 0.5;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(to bottom, transparent, transparent 2px, rgba(0,0,0,0.3) 3px, rgba(0,0,0,0.3) 4px);
+            z-index: -1; pointer-events: none; opacity: 0.5;
         }
 
-        /* sound toggle — ultra slick */
-        #sound-control {
-            position: fixed;
-            bottom: 35px;
-            right: 35px;
-            z-index: 100;
-            width: 65px;
-            height: 65px;
-            background: var(--elevation-2);
-            border: 1.5px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: white;
-            font-size: 1.7rem;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            transition: var(--transition-prem);
-            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.7);
-            border-top-color: rgba(255,255,255,0.5);
-            border-left-color: rgba(255,255,255,0.3);
-        }
-
-        #sound-control:hover {
-            transform: scale(1.15) rotate(5deg);
-            border-color: var(--primary-glow);
-            box-shadow: 0 0 45px var(--primary-glow);
-        }
-
-        /* layout */
         .main-wrapper {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 10;
+            max-width: 1400px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 10;
         }
 
-        /* HERO section — hypnotic */
+        /* --- HERO SECTION --- */
         .hero-section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
+            height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
         }
 
         .hero-glitch {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(3rem, 12vw, 7rem);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: white;
-            text-shadow: 8px 8px 0 rgba(60, 126, 255, 0.3), -4px -4px 0 rgba(255, 77, 109, 0.3);
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem); /* Fluid Typography */
+            font-weight: 900; text-transform: uppercase; letter-spacing: 0.15em;
+            color: #fff;
+            text-shadow: 0 0 30px rgba(0, 229, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.2);
+            position: relative; margin-bottom: 2rem;
             line-height: 1.1;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .hero-glitch span {
-            display: block;
-            font-size: 0.5em;
-            font-weight: 400;
-            letter-spacing: 0.4em;
-            color: var(--text-soft);
-            text-shadow: none;
         }
 
         .organizers-badge {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem 3rem;
-            padding: 1.8rem 4rem;
-            background: var(--glass-deep);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid var(--glass-border);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            border-radius: 60px;
-            box-shadow: 0 35px 60px -30px black;
+            display: inline-flex; align-items: center; gap: 1.5rem;
+            padding: 1rem 3rem; background: var(--bg-panel);
+            backdrop-filter: var(--glass-blur); border: var(--glass-border);
+            border-radius: 100px; box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.05);
+            text-transform: uppercase; letter-spacing: 2px;
+            animation: float 6s ease-in-out infinite;
         }
 
-        .org-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-family: 'Space Grotesk', sans-serif;
+        .org-title { font-family: 'Share Tech Mono'; color: var(--neon-cyan); font-size: 0.85rem; }
+        .org-names { font-family: 'Orbitron'; font-weight: 700; color: #fff; font-size: 1rem; }
+
+        /* --- LANGUAGE TOGGLE (HIGH-END UX) --- */
+        .lang-switch-container {
+            display: flex; justify-content: center; margin-bottom: 3rem;
         }
 
-        .org-label {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            color: var(--primary-glow);
-            letter-spacing: 2px;
-            font-weight: 400;
-            border-right: 1px solid rgba(255,255,255,0.2);
-            padding-right: 20px;
+        .lang-switch {
+            background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50px; padding: 5px; display: flex; position: relative;
+            cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .org-names {
-            font-weight: 700;
-            font-size: 1.2rem;
-            background: linear-gradient(135deg, #fff, #b0beff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        .lang-btn {
+            padding: 10px 30px; font-family: 'Orbitron', sans-serif; font-size: 0.9rem;
+            font-weight: 600; color: var(--text-muted); z-index: 2; transition: all 0.4s ease;
+            text-transform: uppercase; letter-spacing: 1px;
         }
 
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 70px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 30px;
-            display: flex;
-            justify-content: center;
+        .lang-btn.active { color: #fff; text-shadow: 0 0 10px rgba(0, 229, 255, 0.8); }
+
+        .lang-slider {
+            position: absolute; top: 5px; left: 5px; height: calc(100% - 10px); width: 50%;
+            background: linear-gradient(135deg, var(--neon-cyan), #0088ff);
+            border-radius: 50px; z-index: 1; transition: transform 0.4s var(--ease-out-expo);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
         }
 
-        .scroll-indicator::after {
-            content: '';
-            width: 6px;
-            height: 15px;
-            background: white;
-            border-radius: 3px;
-            margin-top: 12px;
-            animation: glide 2s infinite;
-        }
-
-        @keyframes glide {
-            0% { opacity: 0; transform: translateY(0); }
-            50% { opacity: 1; transform: translateY(15px); }
-            100% { opacity: 0; transform: translateY(0); }
-        }
-
-        /* SECTION TITLE — double / mirror concept */
+        /* --- PROTOCOLS (RULES) SECTION --- */
         .section-title {
-            text-align: center;
-            font-family: 'Syne', sans-serif;
-            font-size: 3rem;
-            font-weight: 700;
-            margin: 5rem 0 4rem;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 25px;
+            text-align: center; font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem); margin: 5rem 0 3rem;
+            color: #fff; letter-spacing: 0.2em;
+            display: flex; align-items: center; justify-content: center; gap: 2rem;
         }
 
-        .section-title::before,
-        .section-title::after {
-            content: '';
-            height: 3px;
-            width: 120px;
-            background: linear-gradient(90deg, transparent, var(--primary-glow), var(--secondary-glow), transparent);
-            border-radius: 3px;
+        .section-title::before, .section-title::after {
+            content: ''; height: 1px; width: 10vw;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
         }
 
-        /* language toggle pill (conceptual, but both langs appear at once) */
-        .lang-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 100px;
-            padding: 0.2rem 1.2rem;
-            font-size: 0.8rem;
-            font-weight: 400;
-            margin-left: 15px;
-            letter-spacing: 2px;
-            color: var(--text-soft);
-            vertical-align: middle;
-        }
-
-        /* RULES: bilingual symmetrical grid */
+        /* Symmetrical CSS Grid for Rules */
         .rules-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin: 3rem 0;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem; margin-bottom: 5rem;
         }
 
         .rule-card {
-            background: var(--glass-deep);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border);
-            border-radius: 32px;
-            padding: 2rem 1.8rem;
-            transition: var(--transition-prem);
-            box-shadow: 0 40px 50px -35px black;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .rule-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 32px;
-            padding: 2px;
-            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
+            background: var(--bg-panel); backdrop-filter: var(--glass-blur);
+            border: var(--glass-border); border-radius: 12px;
+            padding: 2.5rem; position: relative; overflow: hidden;
+            transition: all 0.4s var(--ease-out-expo);
+            box-shadow: var(--glass-highlight), 0 10px 30px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column;
         }
 
         .rule-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: rgba(60, 126, 255, 0.3);
-            box-shadow: var(--glow-primary), 0 50px 70px -30px black;
+            transform: translateY(-5px) scale(1.02);
+            border-color: rgba(0, 229, 255, 0.3); box-shadow: var(--glow-cyan);
         }
 
+        /* Animated Glowing Edge */
+        .rule-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            transform: translateX(-100%); transition: transform 0.6s ease;
+        }
+        .rule-card:hover::before { transform: translateX(100%); }
+
         .rule-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
+            display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+            padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .rule-icon {
-            font-size: 2.4rem;
-            background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            font-size: 1.8rem; color: var(--neon-cyan);
+            background: rgba(0, 229, 255, 0.1); padding: 12px; border-radius: 8px;
         }
+        
+        /* Threat level color overrides */
+        .threat-high .rule-icon { color: var(--neon-red); background: rgba(255, 42, 42, 0.1); }
+        .threat-high:hover { border-color: rgba(255, 42, 42, 0.3); box-shadow: var(--glow-red); }
+        .threat-high::before { background: linear-gradient(90deg, transparent, var(--neon-red), transparent); }
 
-        .rule-name {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-        }
+        .reward-high .rule-icon { color: var(--neon-gold); background: rgba(255, 193, 7, 0.1); }
+        .reward-high:hover { border-color: rgba(255, 193, 7, 0.3); box-shadow: 0 0 25px rgba(255, 193, 7, 0.2); }
+        .reward-high::before { background: linear-gradient(90deg, transparent, var(--neon-gold), transparent); }
 
-        /* bilingual content split */
-        .rule-lang {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-top: 0.8rem;
-        }
+        .rule-name { font-family: 'Orbitron'; font-size: 1.3rem; font-weight: 700; color: #fff; }
 
-        .eng {
-            border-right: 1px dashed rgba(255,255,255,0.15);
-            padding-right: 1.2rem;
-        }
+        .rule-content { font-size: 1.1rem; color: var(--text-muted); flex-grow: 1; }
+        
+        .rule-list { list-style: none; }
+        .rule-list li { margin-bottom: 1rem; display: flex; gap: 12px; align-items: flex-start; }
+        .rule-list li i { margin-top: 6px; font-size: 0.9rem; opacity: 0.8; }
 
-        .hing {
-            padding-left: 0.5rem;
-        }
+        .highlight { color: #fff; font-weight: 600; text-shadow: 0 0 8px rgba(255,255,255,0.3); }
+        .danger { color: var(--neon-red); font-weight: 700; }
+        .cyan-text { color: var(--neon-cyan); font-weight: 600; }
 
-        .lang-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            opacity: 0.6;
-            letter-spacing: 2px;
-            margin-bottom: 0.8rem;
-            font-weight: 400;
-        }
+        /* Multi-language Logic */
+        .lang-text { display: none; animation: fadeIn 0.4s ease forwards; }
+        [data-lang="eng"] .text-eng { display: block; }
+        [data-lang="hin"] .text-hin { display: block; }
 
-        .rule-desc {
-            font-size: 0.95rem;
-            line-height: 1.7;
-            color: var(--text-soft);
-        }
-
-        .highlight {
-            color: var(--primary-glow);
-            font-weight: 600;
-            text-shadow: 0 0 8px rgba(60, 126, 255, 0.5);
-        }
-
-        .danger {
-            color: var(--secondary-glow);
-            font-weight: 600;
-        }
-
-        .bonus {
-            color: var(--tertiary-glow);
-            font-weight: 600;
-        }
-
-        .rule-list {
-            list-style: none;
-            margin-top: 1rem;
-        }
-
-        .rule-list li {
-            margin-bottom: 1rem;
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-        }
-
-        .rule-list i {
-            margin-top: 4px;
-            color: var(--primary-glow);
-        }
-
-        /* POINT SYSTEM CARD — special treatment */
-        .points-card .rule-lang {
-            grid-template-columns: 1fr;  /* stacked on small but still two blocks */
-        }
-
-        /* leaderboard — pristine */
+        /* --- LEADERBOARD (PREMIUM TABLE) --- */
         .leaderboard-container {
-            background: var(--glass-deep);
-            backdrop-filter: blur(35px);
-            -webkit-backdrop-filter: blur(35px);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 40px;
-            padding: 2rem 0;
-            margin: 5rem 0 7rem;
-            box-shadow: 0 70px 100px -50px black, var(--glow-primary);
-            position: relative;
+            background: var(--bg-panel); backdrop-filter: var(--glass-blur);
+            border: var(--glass-border); border-radius: 12px;
+            box-shadow: var(--glass-highlight), 0 20px 40px rgba(0,0,0,0.6);
+            margin-bottom: 8rem; overflow: hidden; position: relative;
         }
 
-        .leaderboard-container::before {
-            content: '⏣ LIVE FEED ⏣';
-            position: absolute;
-            top: -12px;
-            left: 50px;
-            background: var(--elevation-2);
-            padding: 0.3rem 2rem;
-            border-radius: 60px;
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            color: var(--primary-glow);
-            border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .table-scroll {
-            overflow-x: auto;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary-glow) transparent;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
+        .table-scroll { overflow-x: auto; }
+        
+        table { width: 100%; border-collapse: collapse; text-align: center; }
+        
+        thead { background: rgba(0, 0, 0, 0.4); }
+        
         th {
-            text-align: left;
-            padding: 1.5rem 1rem 1rem 2.5rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-            color: var(--text-soft);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 1.5rem 1rem; font-family: 'Orbitron'; color: var(--neon-cyan);
+            font-size: 0.85rem; letter-spacing: 2px; border-bottom: 1px solid rgba(255,255,255,0.1);
+            white-space: nowrap;
         }
+        th:first-child { text-align: left; padding-left: 2.5rem; }
+        th:last-child { text-align: right; padding-right: 2.5rem; }
 
         td {
-            padding: 1.2rem 1rem 1.2rem 2.5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.02);
-            font-weight: 400;
-            color: #ced6f0;
+            padding: 1.2rem 1rem; font-size: 1.1rem; font-weight: 500;
+            color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.03);
+            transition: all 0.2s ease;
         }
 
-        .player-cell {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+        tbody tr { transition: background 0.3s ease; }
+        tbody tr:hover { background: rgba(0, 229, 255, 0.03); }
+        tbody tr:hover td { color: #fff; transform: scale(1.02); }
 
+        .player-cell { display: flex; align-items: center; gap: 1rem; padding-left: 2.5rem; text-align: left; }
+        .player-name { font-family: 'Orbitron'; font-weight: 600; letter-spacing: 1px; }
+        
         .rank-badge {
-            width: 40px;
-            height: 40px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            border: 1px solid rgba(255,255,255,0.2);
+            width: 32px; height: 32px; display: grid; place-items: center;
+            background: rgba(255,255,255,0.05); border-radius: 6px;
+            font-family: 'Share Tech Mono'; font-size: 0.9rem; color: #fff;
         }
 
-        .total-score {
-            font-weight: 700;
-            font-size: 1.6rem;
-            background: linear-gradient(135deg, #fff, #adb9e4);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: 1px;
-        }
+        .total-score { font-family: 'Orbitron'; font-size: 1.3rem; font-weight: 800; color: #fff; padding-right: 2.5rem; }
 
-        tbody tr:hover td {
-            color: white;
-            text-shadow: 0 0 10px rgba(255,255,255,0.4);
-        }
+        /* Top Ranks */
+        .rank-1 { background: linear-gradient(90deg, rgba(255, 193, 7, 0.05), transparent); }
+        .rank-1 .player-name, .rank-1 .total-score { color: var(--neon-gold); text-shadow: 0 0 15px rgba(255, 193, 7, 0.4); }
+        .rank-1 .rank-badge { background: rgba(255, 193, 7, 0.15); border: 1px solid var(--neon-gold); }
 
+        /* --- FOOTER --- */
         footer {
-            text-align: center;
-            padding: 3rem;
-            font-family: 'Space Grotesk', monospace;
-            color: #4b5679;
-            border-top: 1px solid rgba(255,255,255,0.03);
-            background: rgba(6, 8, 14, 0.8);
-            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255,255,255,0.05); padding: 3rem 0;
+            text-align: center; font-family: 'Share Tech Mono'; color: var(--text-muted);
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(10px);
         }
 
-        @media (max-width: 800px) {
-            .rule-lang { grid-template-columns: 1fr; gap: 0.5rem; }
-            .eng { border-right: none; border-bottom: 1px dashed rgba(255,255,255,0.15); padding-bottom: 1rem; }
-            .section-title { font-size: 2.2rem; }
+        /* --- UTILS & ANIMATIONS --- */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        /* Sound Button */
+        #sound-control {
+            position: fixed; bottom: 2rem; right: 2rem; z-index: 100;
+            width: 55px; height: 55px; border-radius: 50%; display: grid; place-items: center;
+            background: var(--bg-panel); border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan); font-size: 1.2rem; cursor: pointer;
+            backdrop-filter: blur(10px); transition: all 0.3s ease;
+        }
+        #sound-control:hover { background: var(--neon-cyan); color: #000; transform: scale(1.1) rotate(5deg); }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .rules-grid { grid-template-columns: 1fr; }
+            th:first-child, .player-cell { padding-left: 1rem; }
+            th:last-child, .total-score { padding-right: 1rem; }
+            .section-title { font-size: 2rem; }
+            .section-title::before, .section-title::after { display: none; }
         }
     </style>
 </head>
-<body>
+<body data-lang="eng"> <video autoplay loop muted playsinline id="bg-video">
+        <source src="amongusnew.mp4" type="video/mp4">
+    </video>
+    <div class="bg-overlay"></div>
+    <div class="scanline"></div>
 
-<video autoplay loop muted playsinline id="bg-video">
-    <source src="amongusnew.mp4" type="video/mp4">
-</video>
-<div class="overlay-grid"></div>
-<div class="scanline"></div>
+    <div id="sound-control" onclick="toggleSound()">
+        <i class="fas fa-volume-mute" id="sound-icon"></i>
+    </div>
 
-<div id="sound-control" onclick="toggleSound()">
-    <i class="fas fa-volume-mute" id="sound-icon"></i>
-</div>
+    <div class="main-wrapper">
+        
+        <header class="hero-section">
+            <h1 class="hero-glitch">SHAPESHIFTER<br>TOURNAMENT</h1>
+            <div class="organizers-badge">
+                <span class="org-title">ORG //</span>
+                <span class="org-names">RODY • MOON • SHUZ</span>
+            </div>
+        </header>
 
-<div class="main-wrapper">
-    <header class="hero-section">
-        <h1 class="hero-glitch">SHAPESHIFTER<br><span>DUAL LANG TOURNAMENT</span></h1>
-        <div class="organizers-badge">
-            <div class="org-item"><span class="org-label">ORGANISERS</span><span class="org-names">RODY ✦ MOON ✦ SHUZ</span></div>
-            <div class="org-item"><span class="org-label">LANG</span><span class="org-names">EN / HINGLISH</span></div>
-        </div>
-        <div class="scroll-indicator"></div>
-    </header>
+        <section id="protocols">
+            <h2 class="section-title">MISSION PROTOCOLS</h2>
 
-    <!-- RULES section with perfect bilingual cards -->
-    <section>
-        <h2 class="section-title">⛓️ MISSION PROTOCOLS <span class="lang-badge">ENGLISH • हिंग्लिश</span></h2>
-        <div class="rules-grid">
-            <!-- CARD 1: Kill restriction -->
-            <div class="rule-card">
-                <div class="rule-header">
-                    <i class="fas fa-mask rule-icon"></i>
-                    <h3 class="rule-name">KILL RESTRICTION</h3>
-                </div>
-                <div class="rule-lang">
-                    <div class="eng">
-                        <div class="lang-label">🇬🇧 ENGLISH</div>
-                        <div class="rule-desc">If impostor <span class="highlight">shapeshifts into player X</span>, they can <strong>only kill X</strong>. No other kill until X is dead. Body cannot be reported before kill confirm.</div>
-                    </div>
-                    <div class="hing">
-                        <div class="lang-label">🇮🇳 HINGLISH</div>
-                        <div class="rule-desc">Agar impostor kisi specific player ka shape leta hai (jaise RODY), toh <span class="highlight">sirf usi player ko kill karna allowed hai.</span> Kisi aur ko kill kiya toh rule break. Jab tak kill confirm na ho, body report allowed nahi.</div>
-                    </div>
+            <div class="lang-switch-container">
+                <div class="lang-switch" onclick="switchLanguage(event)">
+                    <div class="lang-slider" id="langSlider"></div>
+                    <div class="lang-btn active" data-target="eng">ENG</div>
+                    <div class="lang-btn" data-target="hin">HIN</div>
                 </div>
             </div>
-            <!-- CARD 2: Penalties -->
-            <div class="rule-card">
-                <div class="rule-header">
-                    <i class="fas fa-gavel rule-icon"></i>
-                    <h3 class="rule-name">PENALTIES & CONDUCT</h3>
+            
+            <div class="rules-grid">
+                
+                <div class="rule-card threat-high">
+                    <div class="rule-header">
+                        <i class="fas fa-user-secret rule-icon"></i>
+                        <h3 class="rule-name">01 // KILL RESTRICTION</h3>
+                    </div>
+                    <div class="rule-content">
+                        <div class="lang-text text-eng">
+                            <p>When an Impostor shapeshifts into a player, they are restricted to killing <span class="highlight">ONLY that specific player.</span></p><br>
+                            <p><strong>Example:</strong> If you shapeshift into RODY, you can only eliminate RODY.</p><br>
+                            <p style="border-left: 2px solid var(--neon-red); padding-left: 15px; font-size: 0.95rem;">Killing anyone else while shapeshifted is prohibited. <span class="danger">Body reporting is NOT allowed</span> until the correct kill is confirmed.</p>
+                        </div>
+                        <div class="lang-text text-hin">
+                            <p>Jab Impostor kisi player ka shapeshift leta hai, toh usko <span class="highlight">SIRF usi player ko kill karna allowed hai.</span></p><br>
+                            <p><strong>Example:</strong> Agar tum RODY ka shapeshift lete ho, toh sirf RODY ko hi kill kar sakte ho.</p><br>
+                            <p style="border-left: 2px solid var(--neon-red); padding-left: 15px; font-size: 0.95rem;">Shapeshift ke time kisi aur ko kill karna mana hai. Jab tak kill confirm nahi hota, <span class="danger">body report karna completely MANA hai.</span></p>
+                        </div>
+                    </div>
                 </div>
-                <div class="rule-lang">
-                    <div class="eng">
-                        <div class="lang-label">🇬🇧 ENGLISH</div>
-                        <ul class="rule-list">
-                            <li><i class="fas fa-skull"></i> <span class="danger">Wrong kill</span> → instant elimination from match.</li>
-                            <li><i class="fas fa-ban"></i> Disrespect → <span class="danger">permanent ban</span>.</li>
+
+                <div class="rule-card threat-high">
+                    <div class="rule-header">
+                        <i class="fas fa-gavel rule-icon"></i>
+                        <h3 class="rule-name">02 // CONDUCT & PENALTIES</h3>
+                    </div>
+                    <div class="rule-content">
+                        <ul class="rule-list lang-text text-eng">
+                            <li><i class="fas fa-skull-crossbones cyan-text"></i> <span><strong>Wrong Kill:</strong> Killing the wrong target results in an immediate <span class="danger">KICK / ELIMINATION</span> from the match.</span></li>
+                            <li><i class="fas fa-shield-alt cyan-text"></i> <span><strong>Respect:</strong> Respect the Staff and Organizers. Any toxic behavior will result in a <span class="danger">PERMANENT BAN</span>.</span></li>
+                        </ul>
+                        <ul class="rule-list lang-text text-hin">
+                            <li><i class="fas fa-skull-crossbones cyan-text"></i> <span><strong>Wrong Kill:</strong> Galat player ko kill karne par turant match se <span class="danger">KICK / ELIMINATE</span> kar diya jayega.</span></li>
+                            <li><i class="fas fa-shield-alt cyan-text"></i> <span><strong>Respect:</strong> Staff aur Organizers ki respect karein. Toxic behavior par sidha <span class="danger">PERMANENT BAN</span> lagega.</span></li>
                         </ul>
                     </div>
-                    <div class="hing">
-                        <div class="lang-label">🇮🇳 HINGLISH</div>
-                        <ul class="rule-list">
-                            <li><i class="fas fa-skull"></i> Galat player ko kill kiya toh <span class="danger">match se turant kick</span>.</li>
-                            <li><i class="fas fa-ban"></i> Staff se misbehavior → <span class="danger">perma ban</span>.</li>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-header">
+                        <i class="fas fa-server rule-icon"></i>
+                        <h3 class="rule-name">03 // GAME CONFIG</h3>
+                    </div>
+                    <div class="rule-content">
+                        <ul class="rule-list lang-text text-eng">
+                            <li><i class="fas fa-users"></i> <span>Only <strong>2 Members</strong> per squad.</span></li>
+                            <li><i class="fas fa-wrench"></i> <span><strong>4 Engineers</strong> total. Vent cooldown: <strong>15s</strong>.</span></li>
+                            <li><i class="fas fa-dice-one"></i> <span>Each player gets exactly <strong>1 chance</strong> to be the Impostor.</span></li>
+                            <li><i class="fas fa-ban danger"></i> <span><strong>Voting out the Impostor is strictly BANNED.</strong></span></li>
+                            <li><i class="fas fa-headset"></i> <span>Joining the <strong>Discord VC is mandatory</strong>.</span></li>
+                        </ul>
+                        <ul class="rule-list lang-text text-hin">
+                            <li><i class="fas fa-users"></i> <span>Har team mein sirf <strong>2 Members</strong> honge.</span></li>
+                            <li><i class="fas fa-wrench"></i> <span>Lobby mein <strong>4 Engineers</strong> rahenge. Vent cooldown: <strong>15s</strong>.</span></li>
+                            <li><i class="fas fa-dice-one"></i> <span>Har player ko Impostor banne ka sirf <strong>1 chance</strong> milega.</span></li>
+                            <li><i class="fas fa-ban danger"></i> <span><strong>Impostor ko vote out karna strictly BANNED hai.</strong></span></li>
+                            <li><i class="fas fa-headset"></i> <span>Sabhi ko <strong>Discord VC join karna compulsory hai</strong>.</span></li>
                         </ul>
                     </div>
+                </div>
+
+                <div class="rule-card reward-high">
+                    <div class="rule-header">
+                        <i class="fas fa-gem rule-icon"></i>
+                        <h3 class="rule-name">04 // POINT SYSTEM</h3>
+                    </div>
+                    <div class="rule-content">
+                        <div class="lang-text text-eng">
+                            <ul class="rule-list">
+                                <li><i class="fas fa-crosshairs danger"></i> <span><strong>IMPOSTOR:</strong> <span class="highlight">+2 Points</span> per successful kill.</span></li>
+                                <li><i class="fas fa-bomb danger"></i> <span><strong>FULL WIPE BONUS:</strong> <span class="highlight" style="color:var(--neon-gold)">+4 Points</span> for killing all Crewmates.</span></li>
+                                <li><i class="fas fa-check-circle cyan-text"></i> <span><strong>CREWMATE:</strong> <span class="highlight">+3 Points</span> for surviving the round and finishing tasks.</span></li>
+                            </ul>
+                            <div style="margin-top: 15px; background: rgba(255,42,42,0.1); padding: 12px; border-radius: 4px; font-size: 0.9rem;">
+                                <strong>NOTE:</strong> If the Impostor breaks Rule 1 on their first kill, Crewmates get 0 points.
+                            </div>
+                        </div>
+                        <div class="lang-text text-hin">
+                            <ul class="rule-list">
+                                <li><i class="fas fa-crosshairs danger"></i> <span><strong>IMPOSTOR:</strong> Har sahi kill par <span class="highlight">+2 Points</span>.</span></li>
+                                <li><i class="fas fa-bomb danger"></i> <span><strong>FULL WIPE BONUS:</strong> Saare crewmates ko maarne par <span class="highlight" style="color:var(--neon-gold)">+4 Bonus Points</span>.</span></li>
+                                <li><i class="fas fa-check-circle cyan-text"></i> <span><strong>CREWMATE:</strong> Round survive karne aur tasks pure karne par <span class="highlight">+3 Points</span>.</span></li>
+                            </ul>
+                            <div style="margin-top: 15px; background: rgba(255,42,42,0.1); padding: 12px; border-radius: 4px; font-size: 0.9rem;">
+                                <strong>NOTE:</strong> Agar Impostor pehle hi kill mein Rule 1 break karta hai, toh Crewmates ko points nahi milenge.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="leaderboard">
+            <h2 class="section-title">LIVE STANDINGS</h2>
+            
+            <div class="leaderboard-container">
+                <div class="table-scroll">
+                    <table id="scoreTable">
+                        <thead>
+                            <tr>
+                                <th>OPERATIVE</th>
+                                <th>R1</th><th>R2</th><th>R3</th><th>R4</th>
+                                <th>R5</th><th>R6</th><th>R7</th><th>R8</th>
+                                <th>TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr>
+                                <td colspan="10" style="padding: 4rem; text-align: center; color: var(--neon-cyan);">
+                                    <i class="fas fa-satellite-dish fa-spin" style="font-size: 2rem; margin-bottom: 1rem;"></i><br>
+                                    SYNCING DATABANKS...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <!-- CARD 3: Game Config -->
-            <div class="rule-card">
-                <div class="rule-header">
-                    <i class="fas fa-cogs rule-icon"></i>
-                    <h3 class="rule-name">GAME CONFIG</h3>
-                </div>
-                <div class="rule-lang">
-                    <div class="eng">
-                        <div class="lang-label">🇬🇧 ENGLISH</div>
-                        <ul class="rule-list">
-                            <li><i class="fas fa-users"></i> Teams: 2 members</li>
-                            <li><i class="fas fa-tools"></i> 4 engineers, vent 15s</li>
-                            <li><i class="fas fa-user-tag"></i> 1 impostor chance only</li>
-                            <li><i class="fas fa-microphone"></i> Discord VC mandatory</li>
-                        </ul>
-                    </div>
-                    <div class="hing">
-                        <div class="lang-label">🇮🇳 HINGLISH</div>
-                        <ul class="rule-list">
-                            <li><i class="fas fa-users"></i> Har team mein sirf 2 members</li>
-                            <li><i class="fas fa-tools"></i> 4 engineers, vent cooldown 15s</li>
-                            <li><i class="fas fa-user-tag"></i> Har player sirf 1 baar impostor banega</li>
-                            <li><i class="fas fa-microphone"></i> Discord VC join karna mandatory</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- CARD 4: Point system (classified) special gold hint -->
-            <div class="rule-card points-card">
-                <div class="rule-header">
-                    <i class="fas fa-star rule-icon" style="color: var(--tertiary-glow);"></i>
-                    <h3 class="rule-name">💰 POINT SYSTEM</h3>
-                </div>
-                <div class="rule-lang">
-                    <div class="eng">
-                        <div class="lang-label">🇬🇧 ENGLISH</div>
-                        <ul class="rule-list">
-                            <li><i class="fas fa-skull"></i> Impostor kill: <span class="highlight">+2</span></li>
-                            <li><i class="fas fa-bomb"></i> Full crew wipe: <span class="bonus">+4 bonus</span></li>
-                            <li><i class="fas fa-shield-alt"></i> Crewmate survive+task: <span class="highlight">+3</span></li>
-                        </ul>
-                    </div>
-                    <div class="hing">
-                        <div class="lang-label">🇮🇳 HINGLISH</div>
-                        <ul class="rule-list">
-                            <li><i class="fas fa-skull"></i> Har kill par <span class="highlight">2 points</span></li>
-                            <li><i class="fas fa-bomb"></i> Saare crewmates ka elimination: <span class="bonus">+4 extra</span></li>
-                            <li><i class="fas fa-shield-alt"></i> Crewmate safe + tasks: <span class="highlight">3 points</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <div style="margin-top: 1rem; background: rgba(255,77,109,0.1); border-radius: 18px; padding: 0.8rem; border-left: 4px solid var(--secondary-glow); font-size: 0.9rem;">
-                    ⚠️ NOTE: Wrong kill (rule 1) → crewmates ko koi points nahi.
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- LEADERBOARD -->
-    <section>
-        <h2 class="section-title">📡 LIVE STANDINGS <span class="lang-badge">DYNAMIC</span></h2>
-        <div class="leaderboard-container">
-            <div class="table-scroll">
-                <table id="scoreTable">
-                    <thead>
-                        <tr><th>OPERATIVE</th><th>R1</th><th>R2</th><th>R3</th><th>R4</th><th>R5</th><th>R6</th><th>R7</th><th>R8</th><th>TOTAL</th></tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <tr><td colspan="10" style="padding: 50px; text-align:center;"><i class="fas fa-spinner fa-pulse"></i> establishing uplink...</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-</div>
+    </div>
 
-<footer>
-    <p>RODY ESPORTS // SHAPESHIFTER LEAGUE // 2026</p>
-    <p style="opacity:0.3; font-size:0.7rem; margin-top:0.5rem;">DUAL LANGUAGE INTERFACE • हिंग्लिश SUPPORT</p>
-</footer>
+    <footer>
+        <p>&copy; 2026 RODY ESPORTS // SYSTEMS ONLINE</p>
+        <p style="margin-top: 5px; font-size: 0.7rem; opacity: 0.3;">ENCRYPTED CONNECTION</p>
+    </footer>
 
-<script>
-    function toggleSound() {
-        const v = document.getElementById('bg-video');
-        const ic = document.getElementById('sound-icon');
-        if (v.muted) { v.muted = false; ic.classList.replace('fa-volume-mute','fa-volume-up'); }
-        else { v.muted = true; ic.classList.replace('fa-volume-up','fa-volume-mute'); }
-    }
-</script>
+    <script>
+        // Language Toggle Logic
+        function switchLanguage(e) {
+            if(!e.target.classList.contains('lang-btn')) return;
+            
+            const targetLang = e.target.getAttribute('data-target');
+            document.body.setAttribute('data-lang', targetLang);
+            
+            // Update UI switch
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            e.target.classList.add('active');
+            
+            // Move slider
+            const slider = document.getElementById('langSlider');
+            slider.style.transform = targetLang === 'eng' ? 'translateX(0)' : 'translateX(100%)';
+        }
 
-<!-- firebase module (exact config from above) -->
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        // Sound Logic
+        function toggleSound() {
+            const video = document.getElementById('bg-video');
+            const icon = document.getElementById('sound-icon');
+            const btn = document.getElementById('sound-control');
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyCdyOBJXip_6_zS6TwNYwF0aIgW_JnQllI",
-        authDomain: "amongus-tournament.firebaseapp.com",
-        databaseURL: "https://amongus-tournament-default-rtdb.firebaseio.com",
-        projectId: "amongus-tournament",
-        storageBucket: "amongus-tournament.firebasestorage.app",
-        messagingSenderId: "203792330122",
-        appId: "1:203792330122:web:ba261eb3d61b83f99d2c73",
-        measurementId: "G-MZ71N7ZX7P"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const playersRef = ref(db, 'players');
-
-    onValue(playersRef, (snap) => {
-        const data = snap.val();
-        const tbody = document.getElementById('tableBody');
-        if (!data) { tbody.innerHTML = '<tr><td colspan="10" style="padding:40px;">⚡ no data</td></tr>'; return; }
-
-        const arr = Object.values(data);
-        arr.forEach(p => {
-            p.total = 0;
-            for(let i=1;i<=8;i++) p.total += (parseInt(p[`r${i}`]) || 0);
-        });
-        arr.sort((a,b)=> b.total - a.total);
-
-        tbody.innerHTML = '';
-        arr.forEach((p, idx) => {
-            let badge = idx+1;
-            if(idx===0) badge = '👑';
-            else if(idx===1) badge = '🥈';
-            else if(idx===2) badge = '🥉';
-
-            let row = `<tr><td class="player-cell"><div class="rank-badge">${badge}</div><span>${p.name}</span></td>`;
-            for(let i=1;i<=8;i++) {
-                let sc = p[`r${i}`] || 0;
-                row += `<td>${sc}</td>`;
+            if (video.muted) {
+                video.muted = false;
+                icon.className = 'fas fa-volume-up';
+                btn.style.borderColor = 'var(--neon-gold)';
+                btn.style.color = 'var(--neon-gold)';
+            } else {
+                video.muted = true;
+                icon.className = 'fas fa-volume-mute';
+                btn.style.borderColor = 'var(--neon-cyan)';
+                btn.style.color = 'var(--neon-cyan)';
             }
-            row += `<td class="total-score">${p.total}</td></tr>`;
-            tbody.innerHTML += row;
+        }
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCdyOBJXip_6_zS6TwNYwF0aIgW_JnQllI",
+            authDomain: "amongus-tournament.firebaseapp.com",
+            databaseURL: "https://amongus-tournament-default-rtdb.firebaseio.com",
+            projectId: "amongus-tournament",
+            storageBucket: "amongus-tournament.firebasestorage.app",
+            messagingSenderId: "203792330122",
+            appId: "1:203792330122:web:ba261eb3d61b83f99d2c73",
+            measurementId: "G-MZ71N7ZX7P"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const playersRef = ref(db, 'players');
+        
+        onValue(playersRef, (snapshot) => {
+            const data = snapshot.val();
+            const tbody = document.getElementById('tableBody');
+            
+            if (!data) {
+                tbody.innerHTML = '<tr><td colspan="10" style="padding: 40px;">NO DATA TRANSMISSION FOUND</td></tr>';
+                return;
+            }
+
+            const playersArray = Object.values(data);
+            playersArray.forEach(p => {
+                p.total = 0;
+                for(let i=1; i<=8; i++) p.total += parseInt(p[`r${i}`] || 0);
+            });
+            
+            playersArray.sort((a, b) => b.total - a.total);
+            
+            tbody.innerHTML = '';
+            playersArray.forEach((player, index) => {
+                let rankClass = index === 0 ? 'rank-1' : '';
+                let badge = index + 1;
+                
+                if (index === 0) badge = '<i class="fas fa-crown" style="color:var(--neon-gold); font-size: 1.1rem;"></i>';
+                else if (index === 1) badge = '<i class="fas fa-medal" style="color:#e0e0e0; font-size: 1.1rem;"></i>';
+                else if (index === 2) badge = '<i class="fas fa-medal" style="color:#cd7f32; font-size: 1.1rem;"></i>';
+                
+                let row = `
+                    <tr class="${rankClass}">
+                        <td class="player-cell">
+                            <div class="rank-badge">${badge}</div>
+                            <span class="player-name">${player.name}</span>
+                        </td>
+                `;
+
+                for(let i=1; i<=8; i++) {
+                    let score = player[`r${i}`] || 0;
+                    let opacity = score === 0 ? '0.2' : '1';
+                    row += `<td style="opacity: ${opacity}">${score}</td>`;
+                }
+
+                row += `<td class="total-score">${player.total}</td></tr>`;
+                tbody.innerHTML += row;
+            });
         });
-    });
-</script>
+    </script>
 </body>
 </html>
