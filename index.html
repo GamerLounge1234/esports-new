@@ -3,83 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHAPESHIFTER TOURNAMENT // NEO-LIVE</title>
+    <title>SHAPESHIFTER // ELITE TOURNAMENT</title>
     
+    <!-- premium fonts + icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* ---------- ULTRA VARIABLES ---------- */
+        /* ---------- NEXT-LEVEL VARIABLES ---------- */
+        :root {
+            --depth-black: #010101;
+            --void: #03050b;
+            --panel-bg: rgba(8, 15, 26, 0.55);
+            --glass-edge: rgba(0, 255, 255, 0.15);
+            --neon-cyan: #00f0ff;
+            --neon-red: #ff2a5e;
+            --neon-gold: #ffd966;
+            --electric-blue: #4d9eff;
+            --cyber-purple: #9d4eff;
+            --text-primary: #f0fcff;
+            --text-secondary: #b0c8e0;
+            
+            --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.6), 0 0 40px rgba(0, 240, 255, 0.2);
+            --glow-red: 0 0 20px rgba(255, 42, 94, 0.5), 0 0 40px rgba(255, 42, 94, 0.2);
+            --glow-gold: 0 0 30px rgba(255, 217, 102, 0.5);
+            
+            --glass-blur: blur(20px) saturate(180%);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.07);
+            --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            
+            --ease-gold: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --ease-smooth: cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* ---------- RESET + SCROLL ---------- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            /* DEEP CHROME PALETTE */
-            --bg-void: #03050b;
-            --bg-void-lighter: #0b101f;
-            --panel-alpha: rgba(8, 16, 30, 0.55);
-            --panel-alpha-deep: rgba(4, 8, 18, 0.8);
-            --accent-primary: #2afcff;
-            --accent-secondary: #b73aff;
-            --accent-tertiary: #ff3e6c;
-            --accent-gold: #ffe270;
-            --text-primary: #edf2fb;
-            --text-secondary: #a5b9d4;
-            --border-glow: rgba(42, 252, 255, 0.3);
-            --glow-primary: 0 0 15px rgba(42, 252, 255, 0.25), 0 0 40px rgba(42, 252, 255, 0.1);
-            --glow-secondary: 0 0 20px rgba(183, 58, 255, 0.3);
-            --glow-gold: 0 0 25px rgba(255, 226, 112, 0.4);
-            --glass-edge: 1px solid rgba(255, 255, 255, 0.03);
-            --glass-highlight: inset 0 1px 2px rgba(255, 255, 255, 0.05);
-            --blur-strong: blur(18px) saturate(180%);
-            --ease-gold: cubic-bezier(0.25, 1.5, 0.5, 1);
-            --scan-size: 200%;
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--void);
+            border-left: 1px solid rgba(0,255,255,0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-cyan);
+            border-radius: 0px;
+            box-shadow: inset 0 0 6px cyan;
         }
 
-        /* ---------- BASE ---------- */
         body {
-            background-color: var(--bg-void);
+            background-color: var(--depth-black);
             color: var(--text-primary);
             font-family: 'Rajdhani', sans-serif;
-            line-height: 1.6;
+            line-height: 1.7;
             overflow-x: hidden;
-            min-height: 100vh;
+            font-weight: 400;
+            text-rendering: optimizeLegibility;
             position: relative;
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
         }
 
-        /* ----- NEXT-LEVEL BACKGROUND ----- */
+        /* ---------- HYPER-REALISTIC BG LAYER ---------- */
         #bg-video {
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 0;
+            left: 0;
             width: 100vw;
             height: 100vh;
             object-fit: cover;
-            transform: translate(-50%, -50%);
-            z-index: -4;
-            filter: brightness(0.45) contrast(1.4) saturate(1.8) hue-rotate(5deg);
-            transition: filter 0.8s ease;
+            z-index: -5;
+            filter: brightness(0.65) contrast(1.3) saturate(1.4);
+            opacity: 0.9;
+            transform: scale(1.01); /* kill white edge */
         }
 
-        .bg-meta {
+        .overlay-grid {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(42, 252, 255, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 90% 70%, rgba(183, 58, 255, 0.1) 0%, transparent 45%),
-                linear-gradient(125deg, rgba(0,0,0,0.7) 0%, rgba(0,20,25,0.4) 100%);
-            z-index: -3;
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -4;
             pointer-events: none;
+        }
+
+        .bg-aura {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, rgba(77, 158, 255, 0.1) 0%, transparent 60%),
+                        radial-gradient(circle at 80% 70%, rgba(255, 42, 94, 0.08) 0%, transparent 60%),
+                        linear-gradient(125deg, transparent 40%, rgba(0,240,255,0.02) 100%);
+            z-index: -3;
             mix-blend-mode: overlay;
         }
 
@@ -90,25 +118,13 @@
             width: 100%;
             height: 100%;
             background: repeating-linear-gradient(0deg, 
-                rgba(0,0,0,0.02) 0px, 
-                rgba(255,255,255,0.005) 1px, 
-                transparent 2px,
-                transparent 6px);
+                rgba(0,0,0,0) 0px, 
+                rgba(0,255,255,0.02) 2px, 
+                rgba(0,0,0,0.3) 3px, 
+                rgba(0,0,0,0.3) 5px);
             z-index: -2;
             pointer-events: none;
             opacity: 0.4;
-        }
-
-        .noise-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc0IiBudW1PY3RhdmVzPSIzIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4wNCIgLz48L3N2Zz4=');
-            opacity: 0.15;
-            z-index: -1;
-            pointer-events: none;
         }
 
         .main-wrapper {
@@ -116,10 +132,10 @@
             margin: 0 auto;
             padding: 0 2.5rem;
             position: relative;
-            z-index: 10;
+            z-index: 15;
         }
 
-        /* ---------- HERO : REFINED GLITCH ---------- */
+        /* ---------- HERO SECTION - DAZZLING ---------- */
         .hero-section {
             height: 100vh;
             display: flex;
@@ -135,152 +151,169 @@
             font-size: clamp(3.5rem, 10vw, 7rem);
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 0.18em;
+            letter-spacing: 0.2em;
             color: white;
             text-shadow: 
-                0.04em 0 0 rgba(255, 70, 110, 0.6),
-                -0.04em -0.02em 0 rgba(42, 252, 255, 0.6),
-                0 0 35px var(--accent-primary);
-            animation: glitch-shake 5s infinite alternate;
-            line-height: 1;
-            margin-bottom: 2rem;
-            filter: drop-shadow(0 10px 20px black);
+                0 0 30px var(--neon-cyan),
+                0 0 70px rgba(0,240,255,0.4),
+                4px 4px 0 rgba(255,42,94,0.3),
+                -4px -4px 0 rgba(77,158,255,0.3);
+            animation: glitchFlicker 5s infinite alternate;
+            line-height: 1.2;
+            margin-bottom: 2.5rem;
         }
 
-        @keyframes glitch-shake {
-            0%, 100% { transform: skew(0deg, 0deg); opacity: 1; }
-            96% { transform: skew(0.5deg, -0.2deg); text-shadow: 0.04em 0 0 #ff3e6c, -0.04em -0.02em 0 #2afcff; }
-            98% { transform: skew(-0.8deg, 0.4deg); text-shadow: -0.06em 0.02em 0 #ff3e6c, 0.06em -0.02em 0 #2afcff; }
+        @keyframes glitchFlicker {
+            0% { text-shadow: 0 0 30px cyan, 2px 2px 0 red, -2px -2px 0 blue; }
+            25% { text-shadow: -5px 0 30px cyan, 5px 5px 0 red, -5px 0 0 blue; }
+            50% { text-shadow: 5px -2px 30px cyan, -3px -3px 0 red, 3px 3px 0 blue; }
+            75% { text-shadow: 0 0 40px magenta, 4px -4px 0 cyan, -4px 4px 0 gold; }
+            100% { text-shadow: 0 0 30px cyan, 2px 2px 0 red, -2px -2px 0 blue; }
         }
 
         .organizers-badge {
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 2.2rem;
-            padding: 1rem 3.5rem;
-            background: rgba(0, 5, 15, 0.4);
-            backdrop-filter: var(--blur-strong);
-            -webkit-backdrop-filter: var(--blur-strong);
-            border: 1px solid rgba(42, 252, 255, 0.18);
-            border-radius: 120px;
-            box-shadow: var(--glass-highlight), 0 15px 35px rgba(0,0,0,0.7), 0 0 0 1px rgba(42,252,255,0.1) inset;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            animation: levitate 7s infinite ease-in-out;
+            gap: 2rem;
+            padding: 1.2rem 4rem;
+            background: var(--panel-bg);
+            backdrop-filter: var(--glass-blur);
+            border: var(--glass-border);
+            border-top: 1px solid rgba(0,240,255,0.25);
+            border-bottom: 1px solid rgba(255,42,94,0.25);
+            border-radius: 60px;
+            box-shadow: var(--glass-highlight), 0 20px 40px rgba(0,0,0,0.6);
+            animation: floatGlow 7s infinite alternate;
+            letter-spacing: 2.5px;
         }
 
-        .org-title { font-family: 'Share Tech Mono'; color: var(--accent-primary); font-size: 0.8rem; opacity: 0.9; }
-        .org-names { font-family: 'Orbitron'; font-weight: 700; background: linear-gradient(135deg, #fff, #b5dcff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        @keyframes levitate {
-            0% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 40px rgba(42,252,255,0.2); }
+        .org-title {
+            font-family: 'Share Tech Mono';
+            color: var(--neon-cyan);
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        .org-names {
+            font-family: 'Orbitron';
+            font-weight: 700;
+            color: white;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, #fff, var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* ---------- LANGUAGE SWITCH : 3D TOUCH ---------- */
+        @keyframes floatGlow {
+            0% { transform: translateY(0); box-shadow: 0 0 20px rgba(0,240,255,0.2); }
+            100% { transform: translateY(-12px); box-shadow: 0 0 40px rgba(255,42,94,0.3); }
+        }
+
+        /* ---------- LUXURY LANGUAGE TOGGLE ---------- */
         .lang-switch-container {
             display: flex;
             justify-content: center;
-            margin: 2.5rem 0 4rem;
+            margin-bottom: 4rem;
         }
 
         .lang-switch {
             background: rgba(2, 6, 16, 0.7);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255,255,255,0.03);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(0, 240, 255, 0.3);
             border-radius: 60px;
             padding: 6px;
-            display: flex;
+            display: inline-flex;
             position: relative;
             cursor: pointer;
-            box-shadow: 0 25px 45px -10px black, 0 0 0 1px rgba(42, 252, 255, 0.2) inset;
-            transition: box-shadow 0.3s;
+            box-shadow: 0 0 30px rgba(0,240,255,0.2), inset 0 0 10px rgba(0,240,255,0.1);
         }
-
-        .lang-switch:hover { box-shadow: 0 30px 55px -8px rgba(42,252,255,0.3), 0 0 0 1px var(--accent-primary) inset; }
 
         .lang-btn {
-            padding: 12px 40px;
+            padding: 14px 48px;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 1.1rem;
             color: var(--text-secondary);
-            z-index: 2;
-            transition: all 0.3s var(--ease-gold);
+            z-index: 3;
+            transition: all 0.4s var(--ease-gold);
             text-transform: uppercase;
-            letter-spacing: 2px;
-            border-radius: 60px;
+            letter-spacing: 3px;
         }
 
-        .lang-btn.active { color: #000; font-weight: 800; text-shadow: 0 0 5px white; }
+        .lang-btn.active {
+            color: #fff;
+            text-shadow: 0 0 15px cyan;
+        }
 
         .lang-slider {
             position: absolute;
             top: 6px;
             left: 6px;
             height: calc(100% - 12px);
-            width: calc(50% - 8px);
-            background: linear-gradient(145deg, var(--accent-primary), #5f8cff);
+            width: calc(50% - 6px);
+            background: linear-gradient(145deg, #00d4ff, #0066ff);
             border-radius: 60px;
             z-index: 1;
             transition: transform 0.45s var(--ease-gold);
-            box-shadow: 0 0 20px #2afcff, 0 2px 10px rgba(0,0,0,0.3) inset;
+            box-shadow: 0 0 25px #00e0ff, inset 0 1px 2px white;
         }
 
-        /* ---------- SECTION TITLES (SYMMETRICAL) ---------- */
+        /* ---------- PROTOCOL SECTION : SYMMETRICAL PERFECTION ---------- */
         .section-title {
             text-align: center;
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.2rem, 5vw, 3.2rem);
-            font-weight: 800;
-            margin: 5rem 0 3.5rem;
-            color: transparent;
-            background: linear-gradient(180deg, #fff 0%, var(--accent-primary) 120%);
-            -webkit-background-clip: text;
-            background-clip: text;
+            font-size: clamp(2.5rem, 5vw, 3.8rem);
+            margin: 6rem 0 3rem;
+            color: #fff;
             letter-spacing: 0.15em;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 2rem;
             text-transform: uppercase;
-            filter: drop-shadow(0 0 15px rgba(42,252,255,0.5));
         }
 
-        .section-title::before, .section-title::after {
+        .section-title::before,
+        .section-title::after {
             content: '';
             height: 2px;
             width: 8vw;
-            background: linear-gradient(90deg, transparent, var(--accent-primary), var(--accent-secondary), transparent);
-            background-size: 300%;
-            animation: title-beam 6s linear infinite;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-red), transparent);
+            background-size: 300% 100%;
+            animation: flow 6s linear infinite;
         }
 
-        @keyframes title-beam { 0% { background-position: 0% 0%; } 100% { background-position: 200% 0%; } }
+        @keyframes flow {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
 
-        /* ---------- RULES GRID :: SYMMETRICAL & ADVANCED ---------- */
+        /* premium card grid – perfectly balanced */
         .rules-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 2.2rem;
-            margin: 0 auto 6rem;
+            gap: 2.5rem;
+            margin-bottom: 7rem;
         }
 
         .rule-card {
-            background: var(--panel-alpha);
-            backdrop-filter: var(--blur-strong);
-            -webkit-backdrop-filter: var(--blur-strong);
-            border: var(--glass-edge);
+            background: var(--panel-bg);
+            backdrop-filter: var(--glass-blur);
+            border: var(--glass-border);
             border-radius: 28px;
             padding: 2.5rem 2rem;
             position: relative;
             overflow: hidden;
-            transition: all 0.45s var(--ease-gold);
-            box-shadow: var(--glass-highlight), 0 25px 45px -20px black;
+            transition: all 0.4s var(--ease-smooth);
+            box-shadow: var(--glass-highlight), 0 30px 50px -20px black;
             display: flex;
             flex-direction: column;
-            border-left: 1px solid rgba(42, 252, 255, 0.1);
-            border-bottom: 1px solid rgba(42, 252, 255, 0.1);
+            border-left: 2px solid rgba(0,240,255,0.3);
+        }
+
+        .rule-card:hover {
+            transform: translateY(-10px) scale(1.01);
+            border-left: 2px solid var(--neon-cyan);
+            box-shadow: var(--glow-cyan), 0 30px 50px -10px black;
         }
 
         .rule-card::after {
@@ -289,275 +322,284 @@
             inset: 0;
             border-radius: 28px;
             padding: 2px;
-            background: radial-gradient(circle at 30% 30%, rgba(42,252,255,0.2), transparent 70%);
+            background: radial-gradient(circle at 50% 0%, rgba(0,240,255,0.5), transparent 70%);
             mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
             pointer-events: none;
             opacity: 0;
-            transition: opacity 0.5s;
+            transition: opacity 0.3s;
         }
-
-        .rule-card:hover::after { opacity: 1; }
-
-        .rule-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            border-color: rgba(42, 252, 255, 0.4);
-            box-shadow: var(--glow-primary), 0 30px 50px -15px black;
+        .rule-card:hover::after {
+            opacity: 1;
         }
-
-        /* threat / reward accents */
-        .threat-high .rule-icon { color: var(--accent-tertiary); background: rgba(255, 62, 108, 0.15); }
-        .threat-high:hover { border-left-color: var(--accent-tertiary); }
-        .reward-high .rule-icon { color: var(--accent-gold); background: rgba(255, 226, 112, 0.12); }
-        .reward-high:hover { border-left-color: var(--accent-gold); }
 
         .rule-header {
             display: flex;
             align-items: center;
-            gap: 1.2rem;
-            margin-bottom: 1.8rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255,255,255,0.02);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 1.2rem;
         }
 
         .rule-icon {
-            font-size: 2rem;
-            padding: 14px;
+            font-size: 2.4rem;
+            color: var(--neon-cyan);
+            background: rgba(0,240,255,0.08);
+            padding: 15px;
             border-radius: 18px;
-            background: rgba(42, 252, 255, 0.08);
-            box-shadow: 0 0 25px rgba(42,252,255,0.2);
+            box-shadow: inset 0 0 15px rgba(0,240,255,0.3);
+        }
+
+        .threat-high .rule-icon {
+            color: var(--neon-red);
+            background: rgba(255,42,94,0.08);
+            box-shadow: inset 0 0 15px rgba(255,42,94,0.3);
+        }
+        .reward-high .rule-icon {
+            color: var(--neon-gold);
+            background: rgba(255,217,102,0.08);
+            box-shadow: inset 0 0 15px rgba(255,217,102,0.3);
         }
 
         .rule-name {
             font-family: 'Orbitron';
-            font-size: 1.3rem;
+            font-size: 1.6rem;
             font-weight: 700;
             letter-spacing: 1px;
-            background: linear-gradient(135deg, #fff, #bdc9ff);
+            background: linear-gradient(135deg, #fff 60%, var(--neon-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .threat-high .rule-name { background: linear-gradient(135deg, #fff, var(--neon-red)); -webkit-background-clip: text; }
+        .reward-high .rule-name { background: linear-gradient(135deg, #fff, var(--neon-gold)); -webkit-background-clip: text; }
 
         .rule-content {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--text-secondary);
-            flex: 1;
+            flex-grow: 1;
         }
 
         .rule-list li {
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             display: flex;
-            gap: 14px;
+            gap: 1rem;
             align-items: flex-start;
         }
 
-        .danger { color: var(--accent-tertiary); font-weight: 700; }
-        .cyan-text { color: var(--accent-primary); }
-        .highlight { color: #fff; font-weight: 600; text-shadow: 0 0 8px rgba(42,252,255,0.4); }
+        .rule-list i {
+            margin-top: 0.25rem;
+            min-width: 1.4rem;
+            color: var(--neon-cyan);
+        }
 
-        /* bilingual fine */
-        .lang-text { display: none; animation: smoothFade 0.5s ease; }
+        .danger {
+            color: var(--neon-red);
+            font-weight: 700;
+            text-shadow: 0 0 5px red;
+        }
+
+        .cyan-text {
+            color: var(--neon-cyan);
+        }
+
+        .highlight {
+            color: #fff;
+            font-weight: 700;
+            text-shadow: 0 0 8px cyan;
+        }
+
+        /* bilingual magic */
+        .lang-text { display: none; animation: softAppear 0.3s ease; }
         [data-lang="eng"] .text-eng { display: block; }
         [data-lang="hin"] .text-hin { display: block; }
 
-        @keyframes smoothFade { 0% { opacity: 0; transform: translateY(4px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes softAppear {
+            from { opacity: 0.3; transform: translateX(5px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
 
-        /* ---------- LEADERBOARD :: PREMIUM ---------- */
+        /* ---------- LEADERBOARD : HIGH-TECH ---------- */
         .leaderboard-container {
-            background: var(--panel-alpha-deep);
-            backdrop-filter: var(--blur-strong);
-            -webkit-backdrop-filter: var(--blur-strong);
-            border: var(--glass-edge);
-            border-radius: 32px;
-            box-shadow: var(--glass-highlight), 0 35px 65px rgba(0,0,0,0.7), 0 0 0 1px rgba(42,252,255,0.1) inset;
+            background: rgba(0, 6, 16, 0.45);
+            backdrop-filter: blur(25px) saturate(250%);
+            border: 1px solid rgba(0,240,255,0.2);
+            border-radius: 40px;
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.1), 0 30px 70px -20px black;
             margin-bottom: 8rem;
             overflow: hidden;
-            border-top: 1px solid rgba(255,255,255,0.02);
         }
 
         .table-scroll {
             overflow-x: auto;
-            scrollbar-width: thin;
-            scrollbar-color: var(--accent-primary) var(--bg-void);
+            scrollbar-color: var(--neon-cyan) #001;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 850px;
+            text-align: center;
+            min-width: 1000px;
         }
 
         thead {
-            background: rgba(0, 10, 25, 0.7);
-            backdrop-filter: blur(8px);
+            background: rgba(0, 20, 40, 0.7);
+            border-bottom: 1px solid rgba(0,240,255,0.5);
         }
 
         th {
             padding: 1.8rem 1rem;
             font-family: 'Orbitron';
-            color: var(--accent-primary);
-            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--neon-cyan);
+            font-size: 0.9rem;
             letter-spacing: 2.5px;
-            border-bottom: 1px solid rgba(42,252,255,0.15);
             text-transform: uppercase;
-            font-weight: 500;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+            white-space: nowrap;
         }
 
+        th:first-child { text-align: left; padding-left: 3rem; }
+        th:last-child { text-align: right; padding-right: 3rem; }
+
         td {
-            padding: 1.2rem 1rem;
-            font-size: 1.1rem;
+            padding: 1.3rem 0.8rem;
+            font-size: 1.15rem;
+            font-weight: 500;
             color: var(--text-secondary);
-            border-bottom: 1px solid rgba(255,255,255,0.02);
-            transition: all 0.15s;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.03);
+            transition: 0.2s;
         }
 
         tbody tr {
-            transition: background 0.3s ease, transform 0.2s;
+            transition: background 0.25s;
         }
-
         tbody tr:hover {
-            background: rgba(42, 252, 255, 0.03);
-            transform: scale(1.001);
-            box-shadow: 0 0 15px rgba(42,252,255,0.1);
+            background: rgba(0, 240, 255, 0.07);
         }
-
-        tbody tr:hover td { color: white; }
+        tbody tr:hover td {
+            color: #fff;
+        }
 
         .player-cell {
             display: flex;
             align-items: center;
             gap: 1.2rem;
-            padding-left: 2.5rem;
+            padding-left: 3rem;
+            text-align: left;
         }
 
         .player-name {
             font-family: 'Orbitron';
             font-weight: 600;
-            letter-spacing: 1.2px;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
         }
 
         .rank-badge {
-            width: 38px;
-            height: 38px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(42,252,255,0.08);
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            background: rgba(0, 240, 255, 0.1);
             border-radius: 10px;
             font-family: 'Share Tech Mono';
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: #fff;
-            border: 1px solid rgba(42,252,255,0.2);
+            border: 1px solid rgba(0,240,255,0.3);
         }
 
         .total-score {
             font-family: 'Orbitron';
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: 800;
-            padding-right: 2.5rem;
-            background: linear-gradient(135deg, #fff, var(--accent-primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            padding-right: 3rem;
+            text-align: right;
+            color: #fff;
+            text-shadow: 0 0 15px cyan;
         }
 
         .rank-1 {
-            background: linear-gradient(90deg, rgba(255, 226, 112, 0.08), transparent);
+            background: linear-gradient(90deg, rgba(255,217,102,0.1), transparent);
         }
-        .rank-1 .player-name { color: var(--accent-gold); text-shadow: 0 0 10px rgba(255,226,112,0.4); }
-        .rank-1 .rank-badge { border-color: var(--accent-gold); background: rgba(255,226,112,0.15); }
+        .rank-1 .player-name { color: var(--neon-gold); text-shadow: 0 0 20px gold; }
+        .rank-1 .rank-badge { border-color: gold; background: rgba(255,215,0,0.15); }
+        .rank-1 .total-score { color: var(--neon-gold); text-shadow: 0 0 20px gold; }
 
         /* ---------- FOOTER ---------- */
         footer {
-            border-top: 1px solid rgba(255,255,255,0.02);
+            border-top: 1px solid rgba(0,240,255,0.1);
             padding: 3rem 0;
             text-align: center;
             font-family: 'Share Tech Mono';
             color: var(--text-secondary);
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.5);
             backdrop-filter: blur(12px);
             letter-spacing: 2px;
         }
 
-        /* ---------- SOUND CONTROL NEO ---------- */
+        /* sound button - 3d */
         #sound-control {
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
+            bottom: 2.5rem;
+            right: 2.5rem;
             z-index: 100;
-            width: 64px;
-            height: 64px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             display: grid;
             place-items: center;
-            background: rgba(5, 12, 24, 0.6);
+            background: rgba(0, 20, 30, 0.6);
             backdrop-filter: blur(20px);
-            border: 1px solid var(--accent-primary);
-            color: var(--accent-primary);
-            font-size: 1.5rem;
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            font-size: 1.8rem;
             cursor: pointer;
-            box-shadow: 0 0 20px rgba(42,252,255,0.2), 0 10px 30px black;
+            box-shadow: 0 0 25px cyan, inset 0 0 15px rgba(0,255,255,0.3);
             transition: all 0.3s var(--ease-gold);
-            overflow: hidden;
         }
-
-        #sound-control::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            padding: 2px;
-            background: radial-gradient(circle at 30% 30%, rgba(42,252,255,0.6), transparent 70%);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-        }
-
-        #sound-control:hover::before { opacity: 1; }
         #sound-control:hover {
-            transform: scale(1.15) rotate(360deg);
-            border-color: var(--accent-gold);
-            color: #000;
-            background: var(--accent-gold);
-            box-shadow: 0 0 45px gold;
+            background: var(--neon-cyan);
+            color: black;
+            transform: scale(1.2) rotate(10deg);
+            border-color: white;
+            box-shadow: 0 0 50px cyan;
         }
 
-        /* responsiveness */
+        /* responsive */
         @media (max-width: 1000px) {
             .rules-grid { grid-template-columns: 1fr; }
             .main-wrapper { padding: 0 1.5rem; }
-            .section-title::before, .section-title::after { width: 15vw; }
+            .section-title::before, .section-title::after { width: 5vw; }
+            .hero-glitch { letter-spacing: 0.1em; }
         }
-
         @media (max-width: 600px) {
-            .lang-btn { padding: 10px 25px; }
-            .organizers-badge { gap: 1.2rem; padding: 0.8rem 2rem; }
+            .lang-btn { padding: 12px 28px; }
+            .organizers-badge { flex-direction: column; gap: 0.5rem; }
         }
     </style>
 </head>
 <body data-lang="eng">
-    <!-- HYPER-QUALITY VIDEO BG (clearly visible) -->
+    <!-- VIDEO BG WITH FULL VISIBILITY + OVERLAYS -->
     <video autoplay loop muted playsinline id="bg-video">
         <source src="amongusnew.mp4" type="video/mp4">
     </video>
-    <div class="bg-meta"></div>
+    <div class="overlay-grid"></div>
+    <div class="bg-aura"></div>
     <div class="scanline-advanced"></div>
-    <div class="noise-overlay"></div>
 
     <div id="sound-control" onclick="toggleSound()">
         <i class="fas fa-volume-mute" id="sound-icon"></i>
     </div>
 
     <div class="main-wrapper">
-        
         <header class="hero-section">
-            <h1 class="hero-glitch">SHAPESHIFTER<br>TOURNAMENT</h1>
+            <h1 class="hero-glitch">SHAPESHIFTER<br>ELITE</h1>
             <div class="organizers-badge">
-                <span class="org-title">ORG //</span>
-                <span class="org-names">RODY • MOON • SHUZ</span>
+                <span class="org-title">⚡ COMMAND ⚡</span>
+                <span class="org-names">RODY // MOON // SHUZ</span>
             </div>
         </header>
 
@@ -573,124 +615,93 @@
             </div>
             
             <div class="rules-grid">
-                
+                <!-- rule 01 -->
                 <div class="rule-card threat-high">
-                    <div class="rule-header">
-                        <i class="fas fa-user-secret rule-icon"></i>
-                        <h3 class="rule-name">01 // KILL RESTRICTION</h3>
-                    </div>
+                    <div class="rule-header"><i class="fas fa-user-secret rule-icon"></i><h3 class="rule-name">01 // KILL LOCK</h3></div>
                     <div class="rule-content">
                         <div class="lang-text text-eng">
-                            <p>When an Impostor shapeshifts into a player, they are restricted to killing <span class="highlight">ONLY that specific player.</span></p><br>
-                            <p><strong>Example:</strong> If you shapeshift into RODY, you can only eliminate RODY.</p><br>
-                            <p style="border-left: 2px solid var(--accent-tertiary); padding-left: 15px;">Killing anyone else while shapeshifted is prohibited. <span class="danger">Body reporting is NOT allowed</span> until the correct kill is confirmed.</p>
+                            <p>Shapeshift into a player → you may kill <span class="highlight">ONLY that player</span> while shifted.</p>
+                            <p class="danger" style="border-left: 3px solid var(--neon-red); padding-left: 18px; margin-top: 16px;">Reporting before correct kill is forbidden.</p>
                         </div>
                         <div class="lang-text text-hin">
-                            <p>Jab Impostor kisi player ka shapeshift leta hai, toh usko <span class="highlight">SIRF usi player ko kill karna allowed hai.</span></p><br>
-                            <p><strong>Example:</strong> Agar tum RODY ka shapeshift lete ho, toh sirf RODY ko hi kill kar sakte ho.</p><br>
-                            <p style="border-left: 2px solid var(--accent-tertiary); padding-left: 15px;">Shapeshift ke time kisi aur ko kill karna mana hai. Jab tak kill confirm nahi hota, <span class="danger">body report karna completely MANA hai.</span></p>
+                            <p>Jab Impostor kisi ka shapeshift leta hai, to <span class="highlight">sirf usi player ko</span> kill kar sakta hai.</p>
+                            <p class="danger" style="border-left: 3px solid var(--neon-red); padding-left: 18px;">Sahi kill se pehle report karna mana hai.</p>
                         </div>
                     </div>
                 </div>
-
+                <!-- rule 02 -->
                 <div class="rule-card threat-high">
-                    <div class="rule-header">
-                        <i class="fas fa-gavel rule-icon"></i>
-                        <h3 class="rule-name">02 // CONDUCT & PENALTIES</h3>
-                    </div>
+                    <div class="rule-header"><i class="fas fa-gavel rule-icon"></i><h3 class="rule-name">02 // CONDUCT</h3></div>
                     <div class="rule-content">
                         <ul class="rule-list lang-text text-eng">
-                            <li><i class="fas fa-skull-crossbones cyan-text"></i> <span><strong>Wrong Kill:</strong> Killing the wrong target results in an immediate <span class="danger">KICK / ELIMINATION</span> from the match.</span></li>
-                            <li><i class="fas fa-shield-alt cyan-text"></i> <span><strong>Respect:</strong> Respect the Staff and Organizers. Any toxic behavior will result in a <span class="danger">PERMANENT BAN</span>.</span></li>
+                            <li><i class="fas fa-skull-crossbones"></i> <span><strong>Wrong kill:</strong> instant <span class="danger">KICK</span> from match.</span></li>
+                            <li><i class="fas fa-shield-alt"></i> <span><strong>Zero toxicity:</strong> <span class="danger">PERMANENT BAN</span>.</span></li>
                         </ul>
                         <ul class="rule-list lang-text text-hin">
-                            <li><i class="fas fa-skull-crossbones cyan-text"></i> <span><strong>Wrong Kill:</strong> Galat player ko kill karne par turant match se <span class="danger">KICK / ELIMINATE</span> kar diya jayega.</span></li>
-                            <li><i class="fas fa-shield-alt cyan-text"></i> <span><strong>Respect:</strong> Staff aur Organizers ki respect karein. Toxic behavior par sidha <span class="danger">PERMANENT BAN</span> lagega.</span></li>
+                            <li><i class="fas fa-skull-crossbones"></i> <span>Galat kill → turant <span class="danger">KICK</span>.</span></li>
+                            <li><i class="fas fa-shield-alt"></i> <span>Zehreela behaviour → <span class="danger">PERMANENT BAN</span>.</span></li>
                         </ul>
                     </div>
                 </div>
-
+                <!-- rule 03 -->
                 <div class="rule-card">
-                    <div class="rule-header">
-                        <i class="fas fa-server rule-icon"></i>
-                        <h3 class="rule-name">03 // GAME CONFIG</h3>
-                    </div>
+                    <div class="rule-header"><i class="fas fa-server rule-icon"></i><h3 class="rule-name">03 // CONFIG</h3></div>
                     <div class="rule-content">
                         <ul class="rule-list lang-text text-eng">
-                            <li><i class="fas fa-users"></i> <span>Only <strong>2 Members</strong> per squad.</span></li>
-                            <li><i class="fas fa-wrench"></i> <span><strong>4 Engineers</strong> total. Vent cooldown: <strong>15s</strong>.</span></li>
-                            <li><i class="fas fa-dice-one"></i> <span>Each player gets exactly <strong>1 chance</strong> to be the Impostor.</span></li>
-                            <li><i class="fas fa-ban danger"></i> <span><strong>Voting out the Impostor is strictly BANNED.</strong></span></li>
-                            <li><i class="fas fa-headset"></i> <span>Joining the <strong>Discord VC is mandatory</strong>.</span></li>
+                            <li><i class="fas fa-users"></i> <span>2 per squad · 4 Engineers total</span></li>
+                            <li><i class="fas fa-dice-one"></i> <span>1 impostor chance each · <span class="danger">NO voting imp out</span></span></li>
+                            <li><i class="fas fa-headset"></i> <span>Discord VC mandatory</span></li>
                         </ul>
                         <ul class="rule-list lang-text text-hin">
-                            <li><i class="fas fa-users"></i> <span>Har team mein sirf <strong>2 Members</strong> honge.</span></li>
-                            <li><i class="fas fa-wrench"></i> <span>Lobby mein <strong>4 Engineers</strong> rahenge. Vent cooldown: <strong>15s</strong>.</span></li>
-                            <li><i class="fas fa-dice-one"></i> <span>Har player ko Impostor banne ka sirf <strong>1 chance</strong> milega.</span></li>
-                            <li><i class="fas fa-ban danger"></i> <span><strong>Impostor ko vote out karna strictly BANNED hai.</strong></span></li>
-                            <li><i class="fas fa-headset"></i> <span>Sabhi ko <strong>Discord VC join karna compulsory hai</strong>.</span></li>
+                            <li><i class="fas fa-users"></i> <span>2 members per squad, 4 engineers</span></li>
+                            <li><i class="fas fa-dice-one"></i> <span>Ek impostor chance · <span class="danger">Impostor ko vote out karna banned</span></span></li>
+                            <li><i class="fas fa-headset"></i> <span>Discord VC jaroori</span></li>
                         </ul>
                     </div>
                 </div>
-
+                <!-- rule 04 -->
                 <div class="rule-card reward-high">
-                    <div class="rule-header">
-                        <i class="fas fa-gem rule-icon"></i>
-                        <h3 class="rule-name">04 // POINT SYSTEM</h3>
-                    </div>
+                    <div class="rule-header"><i class="fas fa-gem rule-icon"></i><h3 class="rule-name">04 // POINTS</h3></div>
                     <div class="rule-content">
                         <div class="lang-text text-eng">
-                            <ul class="rule-list">
-                                <li><i class="fas fa-crosshairs danger"></i> <span><strong>IMPOSTOR:</strong> <span class="highlight">+2 Points</span> per successful kill.</span></li>
-                                <li><i class="fas fa-bomb danger"></i> <span><strong>FULL WIPE BONUS:</strong> <span class="highlight" style="color:var(--accent-gold)">+4 Points</span> for killing all Crewmates.</span></li>
-                                <li><i class="fas fa-check-circle cyan-text"></i> <span><strong>CREWMATE:</strong> <span class="highlight">+3 Points</span> for surviving the round and finishing tasks.</span></li>
+                            <ul><li><i class="fas fa-crosshairs danger"></i> <span>Impostor kill: <span class="highlight">+2</span></span></li>
+                                <li><i class="fas fa-bomb danger"></i> <span>Full wipe: <span class="highlight">+4</span></span></li>
+                                <li><i class="fas fa-check-circle cyan-text"></i> <span>Crew survive: <span class="highlight">+3</span></span></li>
                             </ul>
-                            <div style="margin-top: 15px; background: rgba(255,62,108,0.1); padding: 12px; border-radius: 8px; border-left: 3px solid var(--accent-tertiary);">
-                                <strong>NOTE:</strong> If the Impostor breaks Rule 1 on their first kill, Crewmates get 0 points.
-                            </div>
+                            <div class="danger" style="background: rgba(255,42,94,0.1); padding: 10px;">If imp breaks rule 1 first kill → crew 0 points</div>
                         </div>
                         <div class="lang-text text-hin">
-                            <ul class="rule-list">
-                                <li><i class="fas fa-crosshairs danger"></i> <span><strong>IMPOSTOR:</strong> Har sahi kill par <span class="highlight">+2 Points</span>.</span></li>
-                                <li><i class="fas fa-bomb danger"></i> <span><strong>FULL WIPE BONUS:</strong> Saare crewmates ko maarne par <span class="highlight" style="color:var(--accent-gold)">+4 Bonus Points</span>.</span></li>
-                                <li><i class="fas fa-check-circle cyan-text"></i> <span><strong>CREWMATE:</strong> Round survive karne aur tasks pure karne par <span class="highlight">+3 Points</span>.</span></li>
+                            <ul><li><i class="fas fa-crosshairs danger"></i> <span>Impostor kill: <span class="highlight">+2</span></span></li>
+                                <li><i class="fas fa-bomb danger"></i> <span>Full wipe: <span class="highlight">+4</span></span></li>
+                                <li><i class="fas fa-check-circle cyan-text"></i> <span>Crew survive: <span class="highlight">+3</span></span></li>
                             </ul>
-                            <div style="margin-top: 15px; background: rgba(255,62,108,0.1); padding: 12px; border-radius: 8px; border-left: 3px solid var(--accent-tertiary);">
-                                <strong>NOTE:</strong> Agar Impostor pehle hi kill mein Rule 1 break karta hai, toh Crewmates ko points nahi milenge.
-                            </div>
+                            <div class="danger" style="background: rgba(255,42,94,0.1);">Agar imp ne pehle kill mein rule toda → crew 0</div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
 
         <section id="leaderboard">
             <h2 class="section-title">LIVE STANDINGS</h2>
-            
             <div class="leaderboard-container">
                 <div class="table-scroll">
                     <table id="scoreTable">
-                        <thead>
-                            <tr><th>OPERATIVE</th><th>R1</th><th>R2</th><th>R3</th><th>R4</th><th>R5</th><th>R6</th><th>R7</th><th>R8</th><th>TOTAL</th></tr>
-                        </thead>
-                        <tbody id="tableBody">
-                            <tr><td colspan="10" style="padding: 4rem; text-align: center; color: var(--accent-primary);"><i class="fas fa-satellite-dish fa-spin fa-2x mb-4"></i><br>SYNCING DATABANKS...</td></tr>
-                        </tbody>
+                        <thead><tr><th>OPERATIVE</th><th>R1</th><th>R2</th><th>R3</th><th>R4</th><th>R5</th><th>R6</th><th>R7</th><th>R8</th><th>TOTAL</th></tr></thead>
+                        <tbody id="tableBody"><tr><td colspan="10" style="padding: 5rem; color: var(--neon-cyan);"><i class="fas fa-satellite-dish fa-spin fa-2x"></i><br>SECURE LINK ESTABLISHING...</td></tr></tbody>
                     </table>
                 </div>
             </div>
         </section>
-
     </div>
 
     <footer>
-        <p>© 2026 RODY ESPORTS // QUANTUM SYSTEMS</p>
-        <p style="margin-top: 8px; opacity:0.2; letter-spacing:4px;">>> SECURE LINK <<</p>
+        <p>© 2026 RODY ESPORTS // FULLY ENCRYPTED</p>
+        <p style="margin-top: 8px; opacity:0.3;">SHAPESHIFTER PROTOCOL ACTIVE</p>
     </footer>
 
     <script>
-        // Language Toggle (advanced)
+        // Language toggle (perfect slider)
         function switchLanguage(e) {
             if(!e.target.classList.contains('lang-btn')) return;
             const targetLang = e.target.getAttribute('data-target');
@@ -701,20 +712,25 @@
             slider.style.transform = targetLang === 'eng' ? 'translateX(0)' : 'translateX(100%)';
         }
 
-        // Sound Toggle with perfect icon
+        // Sound toggle
         function toggleSound() {
             const video = document.getElementById('bg-video');
             const icon = document.getElementById('sound-icon');
+            const btn = document.getElementById('sound-control');
             if (video.muted) {
                 video.muted = false;
                 icon.className = 'fas fa-volume-up';
+                btn.style.borderColor = 'var(--neon-gold)';
             } else {
                 video.muted = true;
                 icon.className = 'fas fa-volume-mute';
+                btn.style.borderColor = 'var(--neon-cyan)';
             }
         }
+    </script>
 
-        // Firebase module (exactly as original, but works with new layout)
+    <!-- Firebase module (same config, premium) -->
+    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
@@ -725,8 +741,7 @@
             projectId: "amongus-tournament",
             storageBucket: "amongus-tournament.firebasestorage.app",
             messagingSenderId: "203792330122",
-            appId: "1:203792330122:web:ba261eb3d61b83f99d2c73",
-            measurementId: "G-MZ71N7ZX7P"
+            appId: "1:203792330122:web:ba261eb3d61b83f99d2c73"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -737,7 +752,7 @@
             const data = snapshot.val();
             const tbody = document.getElementById('tableBody');
             if (!data) {
-                tbody.innerHTML = '<tr><td colspan="10" style="padding: 40px;">NO DATA TRANSMISSION</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="10" style="padding: 3rem;">⚡ NO DATA STREAM ⚡</td></tr>';
                 return;
             }
             const playersArray = Object.values(data);
@@ -746,18 +761,19 @@
                 for(let i=1; i<=8; i++) p.total += parseInt(p[`r${i}`] || 0);
             });
             playersArray.sort((a, b) => b.total - a.total);
+            
             tbody.innerHTML = '';
             playersArray.forEach((player, index) => {
                 let rankClass = index === 0 ? 'rank-1' : '';
                 let badge = index + 1;
-                if (index === 0) badge = '<i class="fas fa-crown" style="color:var(--accent-gold);"></i>';
+                if (index === 0) badge = '<i class="fas fa-crown" style="color:var(--neon-gold);"></i>';
                 else if (index === 1) badge = '<i class="fas fa-medal" style="color:#b0c4de;"></i>';
                 else if (index === 2) badge = '<i class="fas fa-medal" style="color:#cd7f32;"></i>';
+                
                 let row = `<tr class="${rankClass}"><td class="player-cell"><div class="rank-badge">${badge}</div><span class="player-name">${player.name}</span></td>`;
                 for(let i=1; i<=8; i++) {
                     let score = player[`r${i}`] || 0;
-                    let opacity = score === 0 ? '0.25' : '1';
-                    row += `<td style="opacity: ${opacity}">${score}</td>`;
+                    row += `<td style="opacity: ${score === 0 ? '0.25' : '1'};">${score}</td>`;
                 }
                 row += `<td class="total-score">${player.total}</td></tr>`;
                 tbody.innerHTML += row;
