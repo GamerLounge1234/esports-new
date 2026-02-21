@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHAPESHIFTER TOURNAMENT // LIVE</title>
+    <title>SHAPESHIFTER TOURNAMENT // DESI CYBER LEAGUE</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +33,6 @@
             scrollbar-color: var(--neon-cyan) var(--void-black);
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--void-black); }
         ::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 3px; }
@@ -46,7 +45,6 @@
             line-height: 1.6;
         }
 
-        /* --- VIDEO BACKGROUND SETUP --- */
         #bg-video {
             position: fixed;
             top: 0;
@@ -67,7 +65,6 @@
             opacity: 0.4;
         }
 
-        /* --- Sound Toggle Button --- */
         #sound-control {
             position: fixed;
             bottom: 30px;
@@ -102,7 +99,6 @@
             100% { box-shadow: 0 0 0 0 rgba(0, 243, 255, 0); }
         }
 
-        /* --- Layout Containers --- */
         .main-wrapper {
             max-width: 1600px;
             margin: 0 auto;
@@ -111,7 +107,6 @@
             z-index: 10;
         }
 
-        /* --- Header Section --- */
         .hero-section {
             height: 100vh;
             display: flex;
@@ -183,7 +178,6 @@
             animation: bounce 2s infinite;
         }
 
-        /* --- Protocols (Rules) Section --- */
         .section-title {
             text-align: center;
             font-family: 'Orbitron', sans-serif;
@@ -266,6 +260,28 @@
             flex-grow: 1;
         }
 
+        .bilingual-block {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .english {
+            color: #b0c4de;
+            font-weight: 500;
+        }
+        .hinglish {
+            color: var(--neon-cyan);
+            font-weight: 600;
+            border-left: 2px solid var(--neon-cyan);
+            padding-left: 15px;
+            margin: 5px 0 10px 0;
+        }
+        .hinglish i {
+            color: var(--neon-gold);
+            margin-right: 8px;
+        }
+
         .rule-list {
             list-style: none;
             padding: 0;
@@ -287,7 +303,6 @@
         .danger { color: var(--neon-red); font-weight: 700; }
         .bonus { color: var(--neon-gold); font-weight: 700; }
 
-        /* --- Leaderboard Section --- */
         .leaderboard-container {
             background: var(--glass-surface);
             border: 1px solid var(--neon-cyan);
@@ -347,10 +362,6 @@
             transition: all 0.3s ease;
         }
 
-        tbody tr {
-            transition: background 0.2s;
-        }
-
         tbody tr:hover {
             background: rgba(255,255,255,0.03);
         }
@@ -360,7 +371,6 @@
             text-shadow: 0 0 10px rgba(255,255,255,0.5);
         }
 
-        /* Top 3 Styling */
         .rank-1 td { border-bottom: 1px solid var(--neon-gold); }
         .rank-1 .player-name { color: var(--neon-gold); text-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
         
@@ -393,7 +403,6 @@
             font-size: 0.9rem;
         }
 
-        /* --- Footer --- */
         footer {
             border-top: 1px solid rgba(255,255,255,0.1);
             padding: 40px;
@@ -403,7 +412,6 @@
             background: rgba(0,0,0,0.8);
         }
 
-        /* Animations */
         @keyframes glitch {
             0% { clip-path: inset(80% 0 0 0); transform: translate(-2px, 1px); }
             5% { clip-path: inset(10% 0 85% 0); transform: translate(2px, -1px); }
@@ -423,14 +431,12 @@
             100% { opacity: 0.5; }
         }
 
-        /* Responsive */
         @media (max-width: 900px) {
             .rules-grid { grid-template-columns: 1fr; }
             .hero-glitch { font-size: 3rem; }
             th, td { padding: 15px 10px; font-size: 0.9rem; }
             .player-cell { padding-left: 15px; }
             .total-score { padding-right: 15px; }
-            .hero-glitch { font-size: 3rem; }
         }
     </style>
 </head>
@@ -438,7 +444,6 @@
 
     <video autoplay loop muted playsinline id="bg-video">
         <source src="amongusnew.mp4" type="video/mp4">
-        Your browser does not support HTML5 video.
     </video>
 
     <div class="scanline"></div>
@@ -463,90 +468,104 @@
         </header>
 
         <section id="protocols">
-            <h2 class="section-title">MISSION PROTOCOLS</h2>
+            <h2 class="section-title">MISSION PROTOCOLS / नियम</h2>
             
             <div class="rules-grid">
                 
+                <!-- RULE 01: KILL RESTRICTION (bilingual) -->
                 <div class="rule-card">
                     <div class="rule-header">
                         <i class="fas fa-user-secret rule-icon"></i>
                         <h3 class="rule-name">RULE 01 // KILL RESTRICTION</h3>
                     </div>
                     <div class="rule-content">
-                        <p>Jab koi Impostor kisi specific player ka shapeshift leta hai, toh usko <span class="highlight">sirf usi player ko kill karna allowed hai.</span></p>
+                        <div class="bilingual-block">
+                            <div class="english">
+                                <strong>ENGLISH:</strong> When an Impostor shapeshifts into a specific player, they are <span class="highlight">only allowed to kill that specific player</span>. No other kills until the target is eliminated.
+                            </div>
+                            <div class="hinglish">
+                                <i class="fas fa-comment-dots"></i> <strong>HINGLISH:</strong> Jab Impostor kisi player ka shape leta hai, toh <span class="highlight">sirf usi player ko kill kar sakta hai</span>. Tab tak kisi aur ko kill karna allowed nahi.
+                            </div>
+                        </div>
                         <br>
-                        <p><strong>Example Scenario:</strong><br>Agar Impostor RODY ka shapeshift leta hai, toh sirf RODY ko hi kill kar sakta hai.</p>
-                        <br>
-                        <p style="border-left: 2px solid var(--neon-cyan); padding-left: 10px; font-size: 0.9rem;">Shapeshift use karte waqt kisi aur player ko kill karna allowed nahi hai. Jab tak kill confirm nahi hota, <span class="danger">body report allowed nahi hai.</span></p>
+                        <p><strong>Example / Udahran:</strong> Impostor RODY ka shapeshift leta hai → sirf RODY ko hi kill karega.</p>
+                        <p style="border-left: 2px solid var(--neon-cyan); padding-left: 10px; margin-top: 10px;">
+                            ⚡ <span class="danger">Important:</span> Jab tak kill confirm nahi ho jata, body report allowed nahi.
+                        </p>
                     </div>
                 </div>
 
+                <!-- RULE 02: PENALTIES (bilingual) -->
                 <div class="rule-card">
                     <div class="rule-header">
                         <i class="fas fa-gavel rule-icon"></i>
                         <h3 class="rule-name">RULE 02 // PENALTIES & CONDUCT</h3>
                     </div>
                     <div class="rule-content">
-                        <ul class="rule-list">
-                            <li>
-                                <i class="fas fa-exclamation-triangle"></i>
-                                <span><strong>Wrong Kill:</strong> Agar Impostor galat player ko kill karta hai, toh usse immediately match se <span class="danger">KICK / ELIMINATE</span> kar diya jayega.</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-hand-paper"></i>
-                                <span><strong>Respect:</strong> Staff aur Organizers ki respect karna zaroori hai. Agar misbehavior kiya toh <span class="danger">PERMANENT BAN</span> lag sakta hai.</span>
-                            </li>
+                        <div class="bilingual-block">
+                            <div class="english">
+                                <strong>ENGLISH:</strong> Wrong kill → immediate elimination from match. Disrespect → permanent ban.
+                            </div>
+                            <div class="hinglish">
+                                <i class="fas fa-exclamation-triangle"></i> <strong>HINGLISH:</strong> Galat kill kiya toh match se <span class="danger">turant kick</span>. Staff se badtameezi → <span class="danger">permanent ban</span>.
+                            </div>
+                        </div>
+                        <ul class="rule-list" style="margin-top: 15px;">
+                            <li><i class="fas fa-skull"></i> <span>Wrong kill = direct elimination (koi chance nahi)</span></li>
+                            <li><i class="fas fa-hand-middle-finger"></i> <span>Misbehavior / gaali = server se hamesha ke liye nikala jayega</span></li>
                         </ul>
                     </div>
                 </div>
 
+                <!-- RULE 03: GAME CONFIG (bilingual) -->
                 <div class="rule-card">
                     <div class="rule-header">
                         <i class="fas fa-cogs rule-icon"></i>
                         <h3 class="rule-name">RULE 03 // GAME CONFIG</h3>
                     </div>
                     <div class="rule-content">
-                        <ul class="rule-list">
-                            <li><i class="fas fa-users"></i> Har Team mein sirf <strong>2 Members</strong> honge.</li>
-                            <li><i class="fas fa-tools"></i> Game mein <strong>4 Engineers</strong> honge (No other roles). Vent cooldown: <strong>15s</strong>.</li>
-                            <li><i class="fas fa-user-tag"></i> Har player ko <strong>Impostor</strong> banne ka sirf <strong>1 chance</strong> milega.</li>
-                            <li><i class="fas fa-ban"></i> <strong>Impostor ko Vote out karna allowed nahi hai.</strong></li>
-                            <li><i class="fas fa-microphone"></i> <strong> Har player to Discord VC join karna madatory hai</strong></li>
-                        </ul>
+                        <div class="bilingual-block">
+                            <div class="english">
+                                <strong>ENGLISH:</strong> 2 members per team. 4 Engineers (vent 15s). Each player gets Impostor only once. <span class="highlight">Impostor cannot be voted out.</span> Discord VC mandatory.
+                            </div>
+                            <div class="hinglish">
+                                <i class="fas fa-tools"></i> <strong>HINGLISH:</strong> Har team mein sirf 2 members. 4 Engineers honge (vent cooldown 15s). Har player sirf ek baar Impostor banega. <span class="danger">Impostor ko vote out karna allowed nahi.</span> Discord VC join karna <span class="highlight">zaroori</span> hai.
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- RULE 04: POINT SYSTEM (bilingual + classified) -->
                 <div class="rule-card" style="border-color: var(--neon-gold);">
                     <div class="rule-header">
                         <i class="fas fa-star rule-icon" style="color: var(--neon-gold);"></i>
                         <h3 class="rule-name" style="color: var(--neon-gold);">CLASSIFIED // POINT SYSTEM</h3>
                     </div>
                     <div class="rule-content">
-                        <ul class="rule-list">
-                            <li>
-                                <i class="fas fa-skull" style="color: var(--neon-red);"></i>
-                                <span><strong>IMPOSTOR:</strong> <span class="highlight">+2 Points</span> har successful kill ke liye.</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-bomb" style="color: var(--neon-red);"></i>
-                                <span><strong>IMPOSTOR BONUS:</strong> <span class="bonus">+4 Points</span> agar saare Crewmates ko maar diya (Full Wipe).</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-shield-alt" style="color: var(--neon-cyan);"></i>
-                                <span><strong>CREWMATE:</strong> <span class="highlight">+3 Points</span> agar poora round survive kiya aur tasks finish kiye.</span>
-                            </li>
-                        </ul>
-                        <div style="margin-top: 15px; background: rgba(255, 51, 51, 0.1); padding: 10px; border-left: 3px solid var(--neon-red); font-size: 0.9rem;">
-                            <strong>NOTE:</strong> Agar Impostor ne first kill he wrong kill kiya (Rule 1 break kiya), toh Crewmates ko points nahi milenge.
+                        <div class="bilingual-block">
+                            <div class="english">
+                                <strong>ENGLISH POINTS:</strong><br>
+                                • Impostor kill: <span class="highlight">+2</span><br>
+                                • Full crew wipe: <span class="bonus">+4 bonus</span><br>
+                                • Crewmate survive + tasks: <span class="highlight">+3</span>
+                            </div>
+                            <div class="hinglish">
+                                <i class="fas fa-calculator"></i> <strong>HINGLISH SCORING:</strong><br>
+                                • Har kill ke liye Impostor ko <span class="highlight">2 point</span>.<br>
+                                • Saare crewmates khatam kar diye (full wipe) → <span class="bonus">4 extra point</span>.<br>
+                                • Crewmate safe bacha aur tasks kiye → <span class="highlight">3 point</span>.
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; background: rgba(255, 51, 51, 0.1); padding: 10px; border-left: 3px solid var(--neon-red);">
+                            ⚠️ <strong>NOTE:</strong> Agar Impostor ne Rule 1 tod di (wrong kill), toh us round me crewmates ko koi point nahi milega.
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
 
         <section id="leaderboard">
-            <h2 class="section-title" style="color: var(--neon-cyan); --glow-red: var(--glow-cyan);">LIVE STANDINGS</h2>
+            <h2 class="section-title" style="color: var(--neon-cyan); --glow-red: var(--glow-cyan);">LIVE STANDINGS / स्कोर</h2>
             
             <div class="leaderboard-container">
                 <div class="table-scroll">
@@ -574,8 +593,8 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 RODY ESPORTS // SYSTEMS ONLINE</p>
-        <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.5;">SECURE CONNECTION ESTABLISHED</p>
+        <p>© 2026 RODY ESPORTS // सिस्टम ऑनलाइन</p>
+        <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.5;">सुरक्षित कनेक्शन स्थापित // SECURE CONNECTION</p>
     </footer>
 
     <script>
@@ -588,7 +607,7 @@
                 video.muted = false;
                 icon.classList.remove('fa-volume-mute');
                 icon.classList.add('fa-volume-up');
-                btn.style.borderColor = 'var(--neon-green)'; // Visual feedback
+                btn.style.borderColor = '#00ffaa'; 
             } else {
                 video.muted = true;
                 icon.classList.remove('fa-volume-up');
@@ -598,6 +617,7 @@
         }
     </script>
 
+    <!-- Firebase modular import -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
@@ -623,11 +643,10 @@
             const tbody = document.getElementById('tableBody');
             
             if (!data) {
-                tbody.innerHTML = '<tr><td colspan="10" style="padding: 40px;">No Data Found</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="10" style="padding: 40px;">⛔ NO DATA / डेटा नहीं मिला</td></tr>';
                 return;
             }
 
-            // Convert to array and sort
             const playersArray = Object.values(data);
             playersArray.forEach(p => {
                 p.total = 0;
@@ -636,13 +655,15 @@
             
             playersArray.sort((a, b) => b.total - a.total);
             
-            // Render
             tbody.innerHTML = '';
             playersArray.forEach((player, index) => {
                 let rankClass = '';
                 let badge = index + 1;
                 
-                if (index === 0) { rankClass = 'rank-1'; badge = '<i class="fas fa-crown" style="color:var(--neon-gold)"></i>'; }
+                if (index === 0) { 
+                    rankClass = 'rank-1'; 
+                    badge = '<i class="fas fa-crown" style="color:var(--neon-gold)"></i>'; 
+                }
                 else if (index === 1) { badge = '<i class="fas fa-medal" style="color:#c0c0c0"></i>'; }
                 else if (index === 2) { badge = '<i class="fas fa-medal" style="color:#cd7f32"></i>'; }
                 
@@ -650,13 +671,12 @@
                     <tr class="${rankClass}">
                         <td class="player-cell">
                             <div class="rank-badge">${badge}</div>
-                            <span class="player-name">${player.name}</span>
+                            <span class="player-name">${player.name || 'Unknown'}</span>
                         </td>
                 `;
 
                 for(let i=1; i<=8; i++) {
                     let score = player[`r${i}`] || 0;
-                    // Dim zero scores for readability
                     let opacity = score === 0 ? '0.3' : '1';
                     row += `<td style="opacity: ${opacity}">${score}</td>`;
                 }
@@ -664,6 +684,8 @@
                 row += `<td class="total-score">${player.total}</td></tr>`;
                 tbody.innerHTML += row;
             });
+        }, (error) => {
+            document.getElementById('tableBody').innerHTML = `<tr><td colspan="10" style="color:var(--neon-red);">⚠️ FIREBASE ERROR: ${error.message}</td></tr>`;
         });
     </script>
 </body>
