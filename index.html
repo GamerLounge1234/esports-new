@@ -3,486 +3,709 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHAPESHIFTER TOURNAMENT // LIVE</title>
+    <title>SHAPESHIFTER TOURNAMENT • NEO // ELITE</title>
     
+    <!-- Premium typefaces -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;600;700&family=Syne:wght@400;600;800&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    
     <style>
-        /* --- ADVANCED CSS VARIABLES --- */
-        :root {
-            /* Core Palette */
-            --bg-deep: #030407;
-            --bg-panel: rgba(12, 16, 28, 0.45);
-            --neon-red: #ff2a2a;
-            --neon-cyan: #00e5ff;
-            --neon-gold: #ffc107;
-            --text-main: #f0f4f8;
-            --text-muted: #8b9bb4;
-            
-            /* Glassmorphism Specs */
-            --glass-blur: blur(16px);
-            --glass-border: 1px solid rgba(255, 255, 255, 0.06);
-            --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            
-            /* Glow Effects */
-            --glow-cyan: 0 0 25px rgba(0, 229, 255, 0.25);
-            --glow-red: 0 0 25px rgba(255, 42, 42, 0.25);
-            
-            /* Transitions */
-            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        /* --- RESET & BASE --- */
+        /* ===== NEXT-GEN DESIGN SYSTEM ===== */
         * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            scrollbar-width: thin; scrollbar-color: var(--neon-cyan) var(--bg-deep);
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-deep); }
-        ::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 4px; }
+        :root {
+            /* core hyperchromatic palette */
+            --black-hole: #03050b;
+            --quantum-deep: #0b0f1a;
+            --panel-void: rgba(8, 14, 23, 0.65);
+            --neon-azure: #0ff;
+            --cyber-lime: #a2ff00;
+            --plasma-crimson: #ff3b6f;
+            --hologram-silver: rgba(230, 245, 255, 0.85);
+            --data-gold: #ffb86b;
+            
+            /* glassmorphic advanced */
+            --glass-elevation: blur(18px) saturate(220%);
+            --glass-edge: 1px solid rgba(0, 255, 255, 0.12);
+            --glass-deep: inset 0 2px 0 rgba(255, 255, 255, 0.03), inset 0 -2px 0 rgba(0, 0, 0, 0.6);
+            
+            /* dynamic glow */
+            --glow-soft: 0 10px 30px -8px rgba(0, 255, 255, 0.3);
+            --glow-hard: 0 0 20px #0ff, 0 0 45px rgba(0, 255, 255, 0.2);
+            --glow-lime: 0 0 30px #a2ff00, 0 0 10px rgba(162, 255, 0, 0.6);
+            
+            /* symmetrical rhythm */
+            --space-unit: 0.5rem;
+            --grid-gap: 2rem;
+            --border-radius-card: 28px;
+            --border-radius-panel: 42px;
+            --transition-hyper: all 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+        }
 
         body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--black-hole);
+            color: var(--hologram-silver);
+            font-family: 'Plus Jakarta Sans', 'Rajdhani', sans-serif;
+            line-height: 1.6;
             overflow-x: hidden;
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            position: relative;
+            letter-spacing: 0.02em;
         }
 
-        /* --- AMBIENT BACKGROUND --- */
-        #bg-video {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            object-fit: cover; z-index: -3; filter: brightness(0.4) saturate(1.2);
+        /* immersive particle field (pure css) */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background-image: 
+                radial-gradient(circle at 30% 40%, rgba(0, 255, 255, 0.03) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(255, 59, 111, 0.02) 0%, transparent 30%),
+                radial-gradient(circle at 20% 80%, rgba(162, 255, 0, 0.02) 0%, transparent 35%),
+                repeating-linear-gradient(45deg, rgba(0,255,255,0.01) 0px, rgba(0,255,255,0.01) 2px, transparent 2px, transparent 8px);
+            pointer-events: none;
+            z-index: -2;
         }
 
-        .bg-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 0%, rgba(0, 229, 255, 0.05), transparent 60%),
-                        linear-gradient(to bottom, transparent, var(--bg-deep) 90%);
-            z-index: -2; pointer-events: none;
+        /* advanced scanline + interference */
+        .interference {
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, 
+                rgba(0,0,0,0) 0px, 
+                rgba(255,255,255,0.002) 1px, 
+                rgba(0,0,0,0.1) 2px, 
+                rgba(0,0,0,0.2) 3px);
+            pointer-events: none;
+            z-index: 5;
+            mix-blend-mode: overlay;
+            opacity: 0.35;
         }
 
-        .scanline {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: repeating-linear-gradient(to bottom, transparent, transparent 2px, rgba(0,0,0,0.3) 3px, rgba(0,0,0,0.3) 4px);
-            z-index: -1; pointer-events: none; opacity: 0.5;
+        .bg-video {
+            position: fixed;
+            top: 50%; left: 50%;
+            min-width: 100%; min-height: 100%;
+            width: auto; height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: blur(2px) brightness(0.25) saturate(1.7);
+            z-index: -5;
         }
 
-        .main-wrapper {
-            max-width: 1400px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 10;
+        /* holographic overlay */
+        .haze-layer {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 30%, rgba(0, 100, 255, 0.05) 0%, transparent 70%);
+            z-index: -4;
         }
 
-        /* --- HERO SECTION --- */
-        .hero-section {
-            height: 100vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
+        /* main symmetrical container */
+        .universe {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 2.5rem;
+            position: relative;
+            z-index: 20;
         }
 
-        .hero-glitch {
+        /* ===== HERO SECTION – GRAVITY ANCHOR ===== */
+        .hero-nebula {
+            min-height: 95vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            gap: 2rem;
+        }
+
+        .title-glyph {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(3rem, 8vw, 6rem); /* Fluid Typography */
-            font-weight: 900; text-transform: uppercase; letter-spacing: 0.15em;
-            color: #fff;
-            text-shadow: 0 0 30px rgba(0, 229, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.2);
-            position: relative; margin-bottom: 2rem;
-            line-height: 1.1;
+            font-weight: 900;
+            font-size: clamp(3.2rem, 13vw, 7rem);
+            line-height: 1;
+            text-transform: uppercase;
+            background: linear-gradient(110deg, #fff 0%, #0ff 45%, #ffb86b 70%, #fff 90%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 30px rgba(0, 255, 255, 0.7));
+            letter-spacing: 0.15em;
+            animation: glitch 6s infinite alternate;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: skew(0deg, 0deg); opacity: 1; text-shadow: 0 0 20px #0ff; }
+            95% { transform: skew(2deg, 1deg); text-shadow: -3px 1px #ff3b6f, 3px -1px #a2ff00; }
+            96% { transform: skew(-2deg, -1deg); }
         }
 
         .organizers-badge {
-            display: inline-flex; align-items: center; gap: 1.5rem;
-            padding: 1rem 3rem; background: var(--bg-panel);
-            backdrop-filter: var(--glass-blur); border: var(--glass-border);
-            border-radius: 100px; box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.05);
-            text-transform: uppercase; letter-spacing: 2px;
-            animation: float 6s ease-in-out infinite;
+            display: inline-flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            background: var(--panel-void);
+            backdrop-filter: var(--glass-elevation);
+            border: var(--glass-edge);
+            border-radius: 120px;
+            padding: 1rem 3rem;
+            box-shadow: var(--glow-soft), var(--glass-deep);
+            transition: var(--transition-hyper);
+        }
+        .organizers-badge:hover {
+            border-color: var(--cyber-lime);
+            box-shadow: 0 0 35px rgba(162, 255, 0, 0.3);
         }
 
-        .org-title { font-family: 'Share Tech Mono'; color: var(--neon-cyan); font-size: 0.85rem; }
-        .org-names { font-family: 'Orbitron'; font-weight: 700; color: #fff; font-size: 1rem; }
-
-        /* --- LANGUAGE TOGGLE (HIGH-END UX) --- */
-        .lang-switch-container {
-            display: flex; justify-content: center; margin-bottom: 3rem;
+        .org-tag {
+            font-family: 'Syne', monospace;
+            text-transform: uppercase;
+            color: var(--neon-azure);
+            letter-spacing: 4px;
+            font-weight: 500;
         }
 
-        .lang-switch {
-            background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 50px; padding: 5px; display: flex; position: relative;
-            cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .org-names {
+            font-family: 'Orbitron';
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.25rem;
+            word-spacing: 0.6rem;
         }
 
-        .lang-btn {
-            padding: 10px 30px; font-family: 'Orbitron', sans-serif; font-size: 0.9rem;
-            font-weight: 600; color: var(--text-muted); z-index: 2; transition: all 0.4s ease;
-            text-transform: uppercase; letter-spacing: 1px;
+        /* ===== LANG SELECTOR – MACHINE FINESSE ===== */
+        .toggle-hyper {
+            display: flex;
+            justify-content: center;
+            margin: 3rem 0 4rem;
         }
-
-        .lang-btn.active { color: #fff; text-shadow: 0 0 10px rgba(0, 229, 255, 0.8); }
-
-        .lang-slider {
-            position: absolute; top: 5px; left: 5px; height: calc(100% - 10px); width: 50%;
-            background: linear-gradient(135deg, var(--neon-cyan), #0088ff);
-            border-radius: 50px; z-index: 1; transition: transform 0.4s var(--ease-out-expo);
-            box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+        .lang-panel {
+            background: rgba(0, 5, 10, 0.7);
+            backdrop-filter: blur(28px);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 70px;
+            padding: 8px;
+            display: inline-flex;
+            position: relative;
+            box-shadow: 0 20px 40px -10px black, inset 0 1px 1px rgba(255,255,255,0.1);
         }
+        .lang-choice {
+            padding: 14px 48px;
+            font-family: 'Orbitron';
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            color: #8ba0b0;
+            z-index: 3;
+            transition: color 0.2s ease;
+            cursor: pointer;
+            border-radius: 60px;
+        }
+        .lang-choice.active {
+            color: white;
+            text-shadow: 0 0 15px #0ff;
+        }
+        .lang-slider-hi {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            height: calc(100% - 16px);
+            width: calc(50% - 8px);
+            background: linear-gradient(145deg, #0ff, #2a7fff);
+            border-radius: 60px;
+            z-index: 1;
+            transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
+            box-shadow: 0 0 30px #0ff, inset 1px 1px 2px white;
+        }
+        [data-lang="hin"] .lang-slider-hi { transform: translateX(100%); }
 
-        /* --- PROTOCOLS (RULES) SECTION --- */
+        /* ===== MISSION CARDS – SYMMETRICAL PERFECTION ===== */
         .section-title {
-            text-align: center; font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2rem, 4vw, 3rem); margin: 5rem 0 3rem;
-            color: #fff; letter-spacing: 0.2em;
-            display: flex; align-items: center; justify-content: center; gap: 2rem;
+            text-align: center;
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin: 6rem 0 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            color: white;
+        }
+        .section-title span {
+            background: rgba(0,255,200,0.1);
+            padding: 0.5rem 1.5rem;
+            border-radius: 100px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0,255,255,0.2);
+            font-size: 1.2rem;
+            color: #0ff;
+        }
+        .title-beam {
+            height: 1px;
+            flex: 1;
+            background: linear-gradient(90deg, transparent, #0ff, #a2ff00, #0ff, transparent);
         }
 
-        .section-title::before, .section-title::after {
-            content: ''; height: 1px; width: 10vw;
-            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+        .grid-perfect {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+            margin-bottom: 6rem;
         }
 
-        /* Symmetrical CSS Grid for Rules */
-        .rules-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem; margin-bottom: 5rem;
+        /* premium card */
+        .nexus-card {
+            background: var(--panel-void);
+            backdrop-filter: var(--glass-elevation);
+            border: var(--glass-edge);
+            border-radius: var(--border-radius-card);
+            padding: 2.5rem 2rem;
+            transition: var(--transition-hyper);
+            box-shadow: var(--glass-deep), 0 30px 40px -30px black;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .nexus-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(145deg, rgba(0,255,255,0.2), rgba(255,59,111,0.1), transparent 60%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .nexus-card:hover {
+            transform: translateY(-10px) scale(1.01);
+            border-color: #0ff;
+            box-shadow: var(--glow-hard), 0 40px 50px -20px black;
         }
 
-        .rule-card {
-            background: var(--bg-panel); backdrop-filter: var(--glass-blur);
-            border: var(--glass-border); border-radius: 12px;
-            padding: 2.5rem; position: relative; overflow: hidden;
-            transition: all 0.4s var(--ease-out-expo);
-            box-shadow: var(--glass-highlight), 0 10px 30px rgba(0,0,0,0.5);
-            display: flex; flex-direction: column;
+        .card-accent {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0,255,255,0.1);
+            padding-bottom: 1.2rem;
+        }
+        .card-icon {
+            font-size: 2.5rem;
+            background: rgba(0, 255, 255, 0.05);
+            width: 70px;
+            height: 70px;
+            display: grid;
+            place-items: center;
+            border-radius: 20px;
+            border: 1px solid rgba(0,255,255,0.2);
+            color: #0ff;
+            transition: 0.2s;
+        }
+        .nexus-card:hover .card-icon {
+            background: #0ff;
+            color: black;
+            box-shadow: 0 0 40px #0ff;
+        }
+        .card-name {
+            font-family: 'Orbitron';
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: white;
+        }
+        .rule-desc {
+            color: #b0c8e0;
+            font-weight: 300;
+            font-size: 1.1rem;
         }
 
-        .rule-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            border-color: rgba(0, 229, 255, 0.3); box-shadow: var(--glow-cyan);
+        .rule-list-hi {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        .rule-list-hi li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            border-left: 1px solid rgba(255,255,255,0.05);
+            padding-left: 1rem;
+        }
+        .danger-badge {
+            color: var(--plasma-crimson);
+            font-weight: 700;
+            background: rgba(255, 59, 111, 0.1);
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
         }
 
-        /* Animated Glowing Edge */
-        .rule-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
-            transform: translateX(-100%); transition: transform 0.6s ease;
-        }
-        .rule-card:hover::before { transform: translateX(100%); }
+        /* threat overrides */
+        .threat-red .card-icon { color: var(--plasma-crimson); border-color: var(--plasma-crimson); }
+        .threat-red:hover { border-color: var(--plasma-crimson); box-shadow: 0 0 30px var(--plasma-crimson); }
+        .threat-red:hover .card-icon { background: var(--plasma-crimson); color: black; }
 
-        .rule-header {
-            display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
-            padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
+        .reward-gold .card-icon { color: var(--data-gold); border-color: var(--data-gold); }
+        .reward-gold:hover { border-color: var(--data-gold); box-shadow: 0 0 30px var(--data-gold); }
 
-        .rule-icon {
-            font-size: 1.8rem; color: var(--neon-cyan);
-            background: rgba(0, 229, 255, 0.1); padding: 12px; border-radius: 8px;
-        }
-        
-        /* Threat level color overrides */
-        .threat-high .rule-icon { color: var(--neon-red); background: rgba(255, 42, 42, 0.1); }
-        .threat-high:hover { border-color: rgba(255, 42, 42, 0.3); box-shadow: var(--glow-red); }
-        .threat-high::before { background: linear-gradient(90deg, transparent, var(--neon-red), transparent); }
+        /* language content switch */
+        .lang-content { display: none; }
+        [data-lang="eng"] .lang-eng { display: block; }
+        [data-lang="hin"] .lang-hin { display: block; }
 
-        .reward-high .rule-icon { color: var(--neon-gold); background: rgba(255, 193, 7, 0.1); }
-        .reward-high:hover { border-color: rgba(255, 193, 7, 0.3); box-shadow: 0 0 25px rgba(255, 193, 7, 0.2); }
-        .reward-high::before { background: linear-gradient(90deg, transparent, var(--neon-gold), transparent); }
-
-        .rule-name { font-family: 'Orbitron'; font-size: 1.3rem; font-weight: 700; color: #fff; }
-
-        .rule-content { font-size: 1.1rem; color: var(--text-muted); flex-grow: 1; }
-        
-        .rule-list { list-style: none; }
-        .rule-list li { margin-bottom: 1rem; display: flex; gap: 12px; align-items: flex-start; }
-        .rule-list li i { margin-top: 6px; font-size: 0.9rem; opacity: 0.8; }
-
-        .highlight { color: #fff; font-weight: 600; text-shadow: 0 0 8px rgba(255,255,255,0.3); }
-        .danger { color: var(--neon-red); font-weight: 700; }
-        .cyan-text { color: var(--neon-cyan); font-weight: 600; }
-
-        /* Multi-language Logic */
-        .lang-text { display: none; animation: fadeIn 0.4s ease forwards; }
-        [data-lang="eng"] .text-eng { display: block; }
-        [data-lang="hin"] .text-hin { display: block; }
-
-        /* --- LEADERBOARD (PREMIUM TABLE) --- */
-        .leaderboard-container {
-            background: var(--bg-panel); backdrop-filter: var(--glass-blur);
-            border: var(--glass-border); border-radius: 12px;
-            box-shadow: var(--glass-highlight), 0 20px 40px rgba(0,0,0,0.6);
-            margin-bottom: 8rem; overflow: hidden; position: relative;
+        /* ===== HYPER-LEADERBOARD ===== */
+        .leaderboard-vault {
+            background: rgba(4, 8, 18, 0.65);
+            backdrop-filter: blur(22px);
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            border-radius: var(--border-radius-panel);
+            padding: 1.8rem 0;
+            margin: 3rem 0 8rem;
+            box-shadow: 0 50px 70px -30px black, inset 0 0 0 1px rgba(255,255,255,0.02);
         }
 
-        .table-scroll { overflow-x: auto; }
-        
-        table { width: 100%; border-collapse: collapse; text-align: center; }
-        
-        thead { background: rgba(0, 0, 0, 0.4); }
-        
+        .table-wrapper {
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #0ff #03050b;
+        }
+        .table-wrapper::-webkit-scrollbar { height: 8px; }
+        .table-wrapper::-webkit-scrollbar-track { background: #0a0f1a; border-radius: 10px; }
+        .table-wrapper::-webkit-scrollbar-thumb { background: #0ff; border-radius: 10px; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
         th {
-            padding: 1.5rem 1rem; font-family: 'Orbitron'; color: var(--neon-cyan);
-            font-size: 0.85rem; letter-spacing: 2px; border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-family: 'Orbitron';
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #0ff;
+            letter-spacing: 2px;
+            padding: 1.5rem 0.5rem;
             white-space: nowrap;
+            border-bottom: 2px solid rgba(0, 255, 255, 0.2);
+            text-align: center;
         }
         th:first-child { text-align: left; padding-left: 2.5rem; }
         th:last-child { text-align: right; padding-right: 2.5rem; }
 
         td {
-            padding: 1.2rem 1rem; font-size: 1.1rem; font-weight: 500;
-            color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.03);
-            transition: all 0.2s ease;
+            padding: 1.2rem 0.4rem;
+            text-align: center;
+            font-weight: 500;
+            font-size: 1.15rem;
+            color: #cad2e0;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
         }
 
-        tbody tr { transition: background 0.3s ease; }
-        tbody tr:hover { background: rgba(0, 229, 255, 0.03); }
-        tbody tr:hover td { color: #fff; transform: scale(1.02); }
-
-        .player-cell { display: flex; align-items: center; gap: 1rem; padding-left: 2.5rem; text-align: left; }
-        .player-name { font-family: 'Orbitron'; font-weight: 600; letter-spacing: 1px; }
-        
-        .rank-badge {
-            width: 32px; height: 32px; display: grid; place-items: center;
-            background: rgba(255,255,255,0.05); border-radius: 6px;
-            font-family: 'Share Tech Mono'; font-size: 0.9rem; color: #fff;
+        .player-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding-left: 2rem;
         }
 
-        .total-score { font-family: 'Orbitron'; font-size: 1.3rem; font-weight: 800; color: #fff; padding-right: 2.5rem; }
+        .rank-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(0, 255, 255, 0.08);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne';
+            font-weight: 800;
+            font-size: 1.2rem;
+            border: 1px solid rgba(0,255,255,0.3);
+            transition: 0.2s;
+        }
+        tr:hover .rank-icon { border-color: #0ff; background: #0ff; color: black; }
 
-        /* Top Ranks */
-        .rank-1 { background: linear-gradient(90deg, rgba(255, 193, 7, 0.05), transparent); }
-        .rank-1 .player-name, .rank-1 .total-score { color: var(--neon-gold); text-shadow: 0 0 15px rgba(255, 193, 7, 0.4); }
-        .rank-1 .rank-badge { background: rgba(255, 193, 7, 0.15); border: 1px solid var(--neon-gold); }
-
-        /* --- FOOTER --- */
-        footer {
-            border-top: 1px solid rgba(255,255,255,0.05); padding: 3rem 0;
-            text-align: center; font-family: 'Share Tech Mono'; color: var(--text-muted);
-            background: rgba(0,0,0,0.6); backdrop-filter: blur(10px);
+        .player-name {
+            font-family: 'Orbitron';
+            font-weight: 600;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            color: white;
         }
 
-        /* --- UTILS & ANIMATIONS --- */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .totem-score {
+            font-family: 'Orbitron';
+            font-size: 1.7rem;
+            font-weight: 800;
+            padding-right: 2.5rem;
+            text-align: right;
+            color: #fff;
+            text-shadow: 0 0 20px #0ff;
+        }
 
-        /* Sound Button */
+        .rank-1 {
+            background: linear-gradient(90deg, rgba(255, 184, 107, 0.1), transparent);
+        }
+        .rank-1 .player-name { color: var(--data-gold); }
+        .rank-1 .rank-icon { border-color: var(--data-gold); color: var(--data-gold); }
+        .rank-1 .totem-score { color: var(--data-gold); text-shadow: 0 0 25px var(--data-gold); }
+
+        /* ===== SOUND PANEL ===== */
         #sound-control {
-            position: fixed; bottom: 2rem; right: 2rem; z-index: 100;
-            width: 55px; height: 55px; border-radius: 50%; display: grid; place-items: center;
-            background: var(--bg-panel); border: 1px solid var(--neon-cyan);
-            color: var(--neon-cyan); font-size: 1.2rem; cursor: pointer;
-            backdrop-filter: blur(10px); transition: all 0.3s ease;
+            position: fixed;
+            bottom: 2.5rem; right: 2.5rem;
+            width: 70px; height: 70px;
+            background: rgba(0, 255, 255, 0.07);
+            backdrop-filter: blur(20px);
+            border: 1px solid #0ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #0ff;
+            cursor: pointer;
+            z-index: 200;
+            transition: 0.4s;
+            box-shadow: 0 0 30px rgba(0,255,255,0.3);
         }
-        #sound-control:hover { background: var(--neon-cyan); color: #000; transform: scale(1.1) rotate(5deg); }
+        #sound-control:hover {
+            background: #0ff;
+            color: black;
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 0 70px #0ff;
+        }
 
-        /* Responsive */
-        @media (max-width: 900px) {
-            .rules-grid { grid-template-columns: 1fr; }
-            th:first-child, .player-cell { padding-left: 1rem; }
-            th:last-child, .total-score { padding-right: 1rem; }
-            .section-title { font-size: 2rem; }
-            .section-title::before, .section-title::after { display: none; }
+        /* footer */
+        .cyber-footer {
+            border-top: 1px solid rgba(0,255,255,0.1);
+            padding: 3rem;
+            text-align: center;
+            background: rgba(2, 6, 16, 0.7);
+            backdrop-filter: blur(8px);
+            font-family: 'Share Tech Mono', monospace;
+            color: #5b7b9c;
         }
+
+        @media (max-width: 1000px) {
+            .grid-perfect { grid-template-columns: 1fr; }
+            .universe { padding: 0 1.5rem; }
+        }
+        @media (max-width: 600px) {
+            .lang-choice { padding: 12px 24px; }
+            .title-glyph { font-size: 3rem; }
+        }
+
+        /* dummy animation */
+        .pulse-dot {
+            display: inline-block;
+            width: 10px; height: 10px;
+            background: #0ff;
+            border-radius: 50%;
+            margin-left: 8px;
+            box-shadow: 0 0 20px #0ff;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0% { opacity: 0.2; } 50% { opacity: 1; } }
     </style>
 </head>
-<body data-lang="eng"> <video autoplay loop muted playsinline id="bg-video">
+<body data-lang="eng">
+    <video autoplay loop muted playsinline class="bg-video">
         <source src="amongusnew.mp4" type="video/mp4">
     </video>
-    <div class="bg-overlay"></div>
-    <div class="scanline"></div>
+    <div class="haze-layer"></div>
+    <div class="interference"></div>
 
+    <!-- sound toggle -->
     <div id="sound-control" onclick="toggleSound()">
         <i class="fas fa-volume-mute" id="sound-icon"></i>
     </div>
 
-    <div class="main-wrapper">
-        
-        <header class="hero-section">
-            <h1 class="hero-glitch">SHAPESHIFTER<br>TOURNAMENT</h1>
+    <div class="universe">
+        <section class="hero-nebula">
+            <h1 class="title-glyph">SHAPESHIFTER<br>TOURNAMENT</h1>
             <div class="organizers-badge">
-                <span class="org-title">ORG //</span>
-                <span class="org-names">RODY • MOON • SHUZ</span>
+                <span class="org-tag"><i class="fas fa-bolt"></i> ORG //</span>
+                <span class="org-names">RODY ✦ MOON ✦ SHUZ</span>
+                <span class="pulse-dot"></span>
             </div>
-        </header>
+            <!-- micro glitch line -->
+            <div style="font-family: 'Share Tech Mono'; color: #6c8cbf; letter-spacing: 4px;">ELITE PROTOCOLS ACTIVE</div>
+        </section>
 
-        <section id="protocols">
-            <h2 class="section-title">MISSION PROTOCOLS</h2>
-
-            <div class="lang-switch-container">
-                <div class="lang-switch" onclick="switchLanguage(event)">
-                    <div class="lang-slider" id="langSlider"></div>
-                    <div class="lang-btn active" data-target="eng">ENG</div>
-                    <div class="lang-btn" data-target="hin">HIN</div>
-                </div>
+        <!-- language hypercube -->
+        <div class="toggle-hyper">
+            <div class="lang-panel" onclick="switchLanguage(event)">
+                <div class="lang-slider-hi" id="langSlider"></div>
+                <div class="lang-choice active" data-target="eng">ENG</div>
+                <div class="lang-choice" data-target="hin">HIN</div>
             </div>
-            
-            <div class="rules-grid">
-                
-                <div class="rule-card threat-high">
-                    <div class="rule-header">
-                        <i class="fas fa-user-secret rule-icon"></i>
-                        <h3 class="rule-name">01 // KILL RESTRICTION</h3>
+        </div>
+
+        <!-- MISSION GRID -->
+        <section>
+            <div class="section-title">
+                <div class="title-beam"></div>
+                <span>✦ MISSION PROTOCOLS ✦</span>
+                <div class="title-beam"></div>
+            </div>
+
+            <div class="grid-perfect">
+                <!-- card 1 -->
+                <div class="nexus-card threat-red">
+                    <div class="card-accent">
+                        <i class="fas fa-user-ninja card-icon"></i>
+                        <h3 class="card-name">// KILL LOCK</h3>
                     </div>
-                    <div class="rule-content">
-                        <div class="lang-text text-eng">
-                            <p>When an Impostor shapeshifts into a player, they are restricted to killing <span class="highlight">ONLY that specific player.</span></p><br>
-                            <p><strong>Example:</strong> If you shapeshift into RODY, you can only eliminate RODY.</p><br>
-                            <p style="border-left: 2px solid var(--neon-red); padding-left: 15px; font-size: 0.95rem;">Killing anyone else while shapeshifted is prohibited. <span class="danger">Body reporting is NOT allowed</span> until the correct kill is confirmed.</p>
-                        </div>
-                        <div class="lang-text text-hin">
-                            <p>Jab Impostor kisi player ka shapeshift leta hai, toh usko <span class="highlight">SIRF usi player ko kill karna allowed hai.</span></p><br>
-                            <p><strong>Example:</strong> Agar tum RODY ka shapeshift lete ho, toh sirf RODY ko hi kill kar sakte ho.</p><br>
-                            <p style="border-left: 2px solid var(--neon-red); padding-left: 15px; font-size: 0.95rem;">Shapeshift ke time kisi aur ko kill karna mana hai. Jab tak kill confirm nahi hota, <span class="danger">body report karna completely MANA hai.</span></p>
-                        </div>
+                    <div class="lang-eng lang-content rule-desc">
+                        <p>While shapeshifted, you can eliminate <strong class="danger-badge">ONLY THE TARGET</strong> whose form you took.</p>
+                        <p class="danger-badge" style="margin-top:1rem; background:transparent; border:1px solid #ff3b6f;">Example: shift into RODY → only RODY can be killed.</p>
+                        <p style="margin-top:1rem;">🚫 Body reporting forbidden until correct kill confirmed.</p>
+                    </div>
+                    <div class="lang-hin lang-content rule-desc">
+                        <p> Jab aap kisi ka shape lete ho, tab <strong class="danger-badge">SIRF USI PLAYER</strong> ko kill kar sakte ho.</p>
+                        <p> RODY ka shape liya → sirf RODY ko maaro.</p>
+                        <p> ⚠️ Galat kill par body report allowed nahi.</p>
                     </div>
                 </div>
-
-                <div class="rule-card threat-high">
-                    <div class="rule-header">
-                        <i class="fas fa-gavel rule-icon"></i>
-                        <h3 class="rule-name">02 // CONDUCT & PENALTIES</h3>
+                <!-- card 2 conduct -->
+                <div class="nexus-card threat-red">
+                    <div class="card-accent">
+                        <i class="fas fa-gavel card-icon"></i>
+                        <h3 class="card-name">// PENAL CODE</h3>
                     </div>
-                    <div class="rule-content">
-                        <ul class="rule-list lang-text text-eng">
-                            <li><i class="fas fa-skull-crossbones cyan-text"></i> <span><strong>Wrong Kill:</strong> Killing the wrong target results in an immediate <span class="danger">KICK / ELIMINATION</span> from the match.</span></li>
-                            <li><i class="fas fa-shield-alt cyan-text"></i> <span><strong>Respect:</strong> Respect the Staff and Organizers. Any toxic behavior will result in a <span class="danger">PERMANENT BAN</span>.</span></li>
-                        </ul>
-                        <ul class="rule-list lang-text text-hin">
-                            <li><i class="fas fa-skull-crossbones cyan-text"></i> <span><strong>Wrong Kill:</strong> Galat player ko kill karne par turant match se <span class="danger">KICK / ELIMINATE</span> kar diya jayega.</span></li>
-                            <li><i class="fas fa-shield-alt cyan-text"></i> <span><strong>Respect:</strong> Staff aur Organizers ki respect karein. Toxic behavior par sidha <span class="danger">PERMANENT BAN</span> lagega.</span></li>
+                    <div class="lang-eng lang-content">
+                        <ul class="rule-list-hi">
+                            <li><i class="fas fa-skull" style="color:#ff3b6f"></i> Wrong kill → instant <span class="danger-badge">KICK / ELIMINATION</span></li>
+                            <li><i class="fas fa-ban" style="color:#ff3b6f"></i> Toxicity → <span class="danger-badge">PERMANENT BAN</span></li>
                         </ul>
                     </div>
-                </div>
-
-                <div class="rule-card">
-                    <div class="rule-header">
-                        <i class="fas fa-server rule-icon"></i>
-                        <h3 class="rule-name">03 // GAME CONFIG</h3>
-                    </div>
-                    <div class="rule-content">
-                        <ul class="rule-list lang-text text-eng">
-                            <li><i class="fas fa-users"></i> <span>Only <strong>2 Members</strong> per squad.</span></li>
-                            <li><i class="fas fa-wrench"></i> <span><strong>4 Engineers</strong> total. Vent cooldown: <strong>15s</strong>.</span></li>
-                            <li><i class="fas fa-dice-one"></i> <span>Each player gets exactly <strong>1 chance</strong> to be the Impostor.</span></li>
-                            <li><i class="fas fa-ban danger"></i> <span><strong>Voting out the Impostor is strictly BANNED.</strong></span></li>
-                            <li><i class="fas fa-headset"></i> <span>Joining the <strong>Discord VC is mandatory</strong>.</span></li>
-                        </ul>
-                        <ul class="rule-list lang-text text-hin">
-                            <li><i class="fas fa-users"></i> <span>Har team mein sirf <strong>2 Members</strong> honge.</span></li>
-                            <li><i class="fas fa-wrench"></i> <span>Lobby mein <strong>4 Engineers</strong> rahenge. Vent cooldown: <strong>15s</strong>.</span></li>
-                            <li><i class="fas fa-dice-one"></i> <span>Har player ko Impostor banne ka sirf <strong>1 chance</strong> milega.</span></li>
-                            <li><i class="fas fa-ban danger"></i> <span><strong>Impostor ko vote out karna strictly BANNED hai.</strong></span></li>
-                            <li><i class="fas fa-headset"></i> <span>Sabhi ko <strong>Discord VC join karna compulsory hai</strong>.</span></li>
+                    <div class="lang-hin lang-content">
+                        <ul class="rule-list-hi">
+                            <li><i class="fas fa-skull" style="color:#ff3b6f"></i> Galat kill → turant <span class="danger-badge">KICK</span></li>
+                            <li><i class="fas fa-ban" style="color:#ff3b6f"></i> Toxic behav. → <span class="danger-badge">PERMANENT BAN</span></li>
                         </ul>
                     </div>
                 </div>
-
-                <div class="rule-card reward-high">
-                    <div class="rule-header">
-                        <i class="fas fa-gem rule-icon"></i>
-                        <h3 class="rule-name">04 // POINT SYSTEM</h3>
+                <!-- card 3 config -->
+                <div class="nexus-card">
+                    <div class="card-accent">
+                        <i class="fas fa-microchip card-icon"></i>
+                        <h3 class="card-name">// CONFIG</h3>
                     </div>
-                    <div class="rule-content">
-                        <div class="lang-text text-eng">
-                            <ul class="rule-list">
-                                <li><i class="fas fa-crosshairs danger"></i> <span><strong>IMPOSTOR:</strong> <span class="highlight">+2 Points</span> per successful kill.</span></li>
-                                <li><i class="fas fa-bomb danger"></i> <span><strong>FULL WIPE BONUS:</strong> <span class="highlight" style="color:var(--neon-gold)">+4 Points</span> for killing all Crewmates.</span></li>
-                                <li><i class="fas fa-check-circle cyan-text"></i> <span><strong>CREWMATE:</strong> <span class="highlight">+3 Points</span> for surviving the round and finishing tasks.</span></li>
-                            </ul>
-                            <div style="margin-top: 15px; background: rgba(255,42,42,0.1); padding: 12px; border-radius: 4px; font-size: 0.9rem;">
-                                <strong>NOTE:</strong> If the Impostor breaks Rule 1 on their first kill, Crewmates get 0 points.
-                            </div>
-                        </div>
-                        <div class="lang-text text-hin">
-                            <ul class="rule-list">
-                                <li><i class="fas fa-crosshairs danger"></i> <span><strong>IMPOSTOR:</strong> Har sahi kill par <span class="highlight">+2 Points</span>.</span></li>
-                                <li><i class="fas fa-bomb danger"></i> <span><strong>FULL WIPE BONUS:</strong> Saare crewmates ko maarne par <span class="highlight" style="color:var(--neon-gold)">+4 Bonus Points</span>.</span></li>
-                                <li><i class="fas fa-check-circle cyan-text"></i> <span><strong>CREWMATE:</strong> Round survive karne aur tasks pure karne par <span class="highlight">+3 Points</span>.</span></li>
-                            </ul>
-                            <div style="margin-top: 15px; background: rgba(255,42,42,0.1); padding: 12px; border-radius: 4px; font-size: 0.9rem;">
-                                <strong>NOTE:</strong> Agar Impostor pehle hi kill mein Rule 1 break karta hai, toh Crewmates ko points nahi milenge.
-                            </div>
-                        </div>
+                    <div class="lang-eng lang-content">
+                        <ul class="rule-list-hi">
+                            <li><i class="fas fa-users"></i> 2 members per squad</li>
+                            <li><i class="fas fa-wrench"></i> 4 Engineers, vent cd 15s</li>
+                            <li><i class="fas fa-dice-d6"></i> 1 impostor chance each</li>
+                            <li><i class="fas fa-ban" style="color:#ff3b6f"></i> <strong>Voting impostor = BANNED</strong></li>
+                            <li><i class="fas fa-headset"></i> Discord VC mandatory</li>
+                        </ul>
+                    </div>
+                    <div class="lang-hin lang-content">
+                        <ul class="rule-list-hi">
+                            <li> Har squad mein 2 members</li>
+                            <li>4 Engineers, vent 15s</li>
+                            <li>Ek player sirf ek baar impostor ban sakta</li>
+                            <li class="danger-badge">Impostor ko vote karna ban hai</li>
+                            <li>Discord VC zaroori</li>
+                        </ul>
                     </div>
                 </div>
-
+                <!-- card 4 points -->
+                <div class="nexus-card reward-gold">
+                    <div class="card-accent">
+                        <i class="fas fa-crown card-icon"></i>
+                        <h3 class="card-name">// POINT MATRIX</h3>
+                    </div>
+                    <div class="lang-eng lang-content">
+                        <ul class="rule-list-hi">
+                            <li><i class="fas fa-crosshairs"></i> Impostor kill <strong>+2</strong></li>
+                            <li><i class="fas fa-bomb"></i> Full wipe <strong style="color:gold">+4</strong></li>
+                            <li><i class="fas fa-check-circle"></i> Crewmate survive <strong>+3</strong></li>
+                        </ul>
+                        <p style="margin-top:1rem; background:#0ff1; padding:1rem; border-radius:12px;">⛔ If impostor breaks rule 1 on first kill, crew gets 0.</p>
+                    </div>
+                    <div class="lang-hin lang-content">
+                        <ul class="rule-list-hi">
+                            <li>Impostor kill: +2</li>
+                            <li>Full wipe bonus: <span style="color:gold">+4</span></li>
+                            <li>Crewmate survive: +3</li>
+                        </ul>
+                        <p>⚠️ Rule 1 violation par crew 0 points.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="leaderboard">
-            <h2 class="section-title">LIVE STANDINGS</h2>
-            
-            <div class="leaderboard-container">
-                <div class="table-scroll">
+        <!-- LEADERBOARD -->
+        <section>
+            <div class="section-title">
+                <div class="title-beam"></div>
+                <span>⚡ LIVE STANDINGS ⚡</span>
+                <div class="title-beam"></div>
+            </div>
+            <div class="leaderboard-vault">
+                <div class="table-wrapper">
                     <table id="scoreTable">
                         <thead>
-                            <tr>
-                                <th>OPERATIVE</th>
-                                <th>R1</th><th>R2</th><th>R3</th><th>R4</th>
-                                <th>R5</th><th>R6</th><th>R7</th><th>R8</th>
-                                <th>TOTAL</th>
-                            </tr>
+                            <tr><th>OPERATIVE</th><th>R1</th><th>R2</th><th>R3</th><th>R4</th><th>R5</th><th>R6</th><th>R7</th><th>R8</th><th>TOTAL</th></tr>
                         </thead>
                         <tbody id="tableBody">
-                            <tr>
-                                <td colspan="10" style="padding: 4rem; text-align: center; color: var(--neon-cyan);">
-                                    <i class="fas fa-satellite-dish fa-spin" style="font-size: 2rem; margin-bottom: 1rem;"></i><br>
-                                    SYNCING DATABANKS...
-                                </td>
-                            </tr>
+                            <tr><td colspan="10" style="text-align:center; padding:4rem;"><i class="fas fa-satellite-dish fa-spin"></i> SYNCING DATABANKS...</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </section>
-
     </div>
 
-    <footer>
-        <p>&copy; 2026 RODY ESPORTS // SYSTEMS ONLINE</p>
-        <p style="margin-top: 5px; font-size: 0.7rem; opacity: 0.3;">ENCRYPTED CONNECTION</p>
+    <footer class="cyber-footer">
+        <p>© 2026 RODY ESPORTS // ENCRYPTED NEXUS</p>
+        <p style="opacity:0.3; margin-top:0.5rem;">● LIVE ● SHAPESHIFTER PROTOCOL</p>
     </footer>
 
     <script>
-        // Language Toggle Logic
+        // language
         function switchLanguage(e) {
-            if(!e.target.classList.contains('lang-btn')) return;
-            
-            const targetLang = e.target.getAttribute('data-target');
-            document.body.setAttribute('data-lang', targetLang);
-            
-            // Update UI switch
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            e.target.classList.add('active');
-            
-            // Move slider
-            const slider = document.getElementById('langSlider');
-            slider.style.transform = targetLang === 'eng' ? 'translateX(0)' : 'translateX(100%)';
+            const btn = e.target.closest('.lang-choice');
+            if (!btn) return;
+            const lang = btn.dataset.target;
+            document.body.dataset.lang = lang;
+            document.querySelectorAll('.lang-choice').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
         }
 
-        // Sound Logic
         function toggleSound() {
-            const video = document.getElementById('bg-video');
+            const video = document.querySelector('.bg-video');
             const icon = document.getElementById('sound-icon');
-            const btn = document.getElementById('sound-control');
-
             if (video.muted) {
                 video.muted = false;
                 icon.className = 'fas fa-volume-up';
-                btn.style.borderColor = 'var(--neon-gold)';
-                btn.style.color = 'var(--neon-gold)';
             } else {
                 video.muted = true;
                 icon.className = 'fas fa-volume-mute';
-                btn.style.borderColor = 'var(--neon-cyan)';
-                btn.style.color = 'var(--neon-cyan)';
             }
         }
-    </script>
 
-    <script type="module">
+        // firebase import & live
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
@@ -493,57 +716,42 @@
             projectId: "amongus-tournament",
             storageBucket: "amongus-tournament.firebasestorage.app",
             messagingSenderId: "203792330122",
-            appId: "1:203792330122:web:ba261eb3d61b83f99d2c73",
-            measurementId: "G-MZ71N7ZX7P"
+            appId: "1:203792330122:web:ba261eb3d61b83f99d2c73"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
         const playersRef = ref(db, 'players');
-        
-        onValue(playersRef, (snapshot) => {
-            const data = snapshot.val();
+
+        onValue(playersRef, (snap) => {
+            const data = snap.val();
             const tbody = document.getElementById('tableBody');
-            
             if (!data) {
-                tbody.innerHTML = '<tr><td colspan="10" style="padding: 40px;">NO DATA TRANSMISSION FOUND</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="10" style="padding:40px;">NO DATA</td></tr>';
                 return;
             }
-
-            const playersArray = Object.values(data);
-            playersArray.forEach(p => {
+            const players = Object.values(data);
+            players.forEach(p => {
                 p.total = 0;
-                for(let i=1; i<=8; i++) p.total += parseInt(p[`r${i}`] || 0);
+                for (let i=1; i<=8; i++) p.total += parseInt(p[`r${i}`] || 0);
             });
-            
-            playersArray.sort((a, b) => b.total - a.total);
-            
-            tbody.innerHTML = '';
-            playersArray.forEach((player, index) => {
-                let rankClass = index === 0 ? 'rank-1' : '';
-                let badge = index + 1;
-                
-                if (index === 0) badge = '<i class="fas fa-crown" style="color:var(--neon-gold); font-size: 1.1rem;"></i>';
-                else if (index === 1) badge = '<i class="fas fa-medal" style="color:#e0e0e0; font-size: 1.1rem;"></i>';
-                else if (index === 2) badge = '<i class="fas fa-medal" style="color:#cd7f32; font-size: 1.1rem;"></i>';
-                
-                let row = `
-                    <tr class="${rankClass}">
-                        <td class="player-cell">
-                            <div class="rank-badge">${badge}</div>
-                            <span class="player-name">${player.name}</span>
-                        </td>
-                `;
+            players.sort((a,b) => b.total - a.total);
 
-                for(let i=1; i<=8; i++) {
-                    let score = player[`r${i}`] || 0;
-                    let opacity = score === 0 ? '0.2' : '1';
-                    row += `<td style="opacity: ${opacity}">${score}</td>`;
+            tbody.innerHTML = players.map((p, idx) => {
+                const rankClass = idx===0 ? 'rank-1' : '';
+                let badge = idx+1;
+                if (idx===0) badge = '<i class="fas fa-crown" style="color:var(--data-gold)"></i>';
+                else if (idx===1) badge = '<i class="fas fa-medal" style="color:#c0c0c0"></i>';
+                else if (idx===2) badge = '<i class="fas fa-medal" style="color:#cd7f32"></i>';
+                
+                let row = `<tr class="${rankClass}"><td class="player-meta"><div class="rank-icon">${badge}</div><span class="player-name">${p.name}</span></td>`;
+                for (let r=1; r<=8; r++) {
+                    let val = p[`r${r}`] || 0;
+                    row += `<td style="opacity:${val===0?0.3:1}">${val}</td>`;
                 }
-
-                row += `<td class="total-score">${player.total}</td></tr>`;
-                tbody.innerHTML += row;
-            });
+                row += `<td class="totem-score">${p.total}</td></tr>`;
+                return row;
+            }).join('');
         });
     </script>
 </body>
