@@ -3,474 +3,468 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHAPESHIFTER // BILINGUAL COMMS</title>
+    <title>SHAPESHIFTER TOURNAMENT // LIVE</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@300;500;600;700&family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@300;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        :root {
+            --void-black: #050505;
+            --neon-red: #ff3333;
+            --neon-cyan: #00f3ff;
+            --neon-gold: #ffd700;
+            --glass-surface: rgba(20, 25, 40, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-dim: #8892b0;
+            
+            --glow-cyan: 0 0 20px rgba(0, 243, 255, 0.4);
+            --glow-red: 0 0 20px rgba(255, 51, 51, 0.4);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: var(--neon-cyan) var(--void-black);
         }
 
-        :root {
-            --void: #03050b;
-            --cyber-black: #0b0d14;
-            --neon-crimson: #ff0040;
-            --holo-cyan: #0afff0;
-            --amber-glow: #ffbe0b;
-            --platinum: #f4f6fc;
-            --glass-edge: rgba(255, 255, 255, 0.03);
-            --neon-red-rgb: 255, 0, 64;
-            --neon-cyan-rgb: 10, 255, 240;
-            
-            --glow-heavy: 0 0 30px rgba(10, 255, 240, 0.5);
-            --glow-soft: 0 0 15px rgba(255, 0, 64, 0.3);
-            --border-glow: 0 0 2px #0afff0, 0 0 10px rgba(10, 255, 240, 0.3);
-        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--void-black); }
+        ::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 3px; }
 
         body {
-            background-color: var(--void);
-            color: #e0e5f0;
+            background-color: var(--void-black);
+            color: var(--text-main);
             font-family: 'Rajdhani', sans-serif;
-            line-height: 1.5;
-            min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
+            line-height: 1.6;
         }
 
-        /* cyber grid overlay */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(rgba(10, 255, 240, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 0, 64, 0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-            z-index: 1;
-        }
-
+        /* --- VIDEO BACKGROUND SETUP --- */
         #bg-video {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            opacity: 0.3;
-            filter: hue-rotate(140deg) saturate(2);
-            z-index: -1;
+            z-index: -2;
         }
 
         .scanline {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: repeating-linear-gradient(0deg, 
-                rgba(0,0,0,0) 0px, 
-                rgba(0,255,255,0.03) 1px, 
-                rgba(0,0,0,0.2) 2px,
-                rgba(0,0,0,0.4) 3px);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+            background-size: 100% 4px;
+            z-index: -1;
             pointer-events: none;
-            z-index: 2;
-            opacity: 0.3;
-            mix-blend-mode: overlay;
+            opacity: 0.4;
         }
 
-        /* sound toggle */
+        /* --- Sound Toggle Button --- */
         #sound-control {
             position: fixed;
-            bottom: 30px; right: 30px;
-            width: 65px; height: 65px;
-            background: rgba(0, 10, 20, 0.7);
-            border: 1.5px solid var(--holo-cyan);
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 10, 20, 0.8);
+            border: 1px solid var(--neon-cyan);
             border-radius: 50%;
             display: flex;
-            align-items: center; justify-content: center;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            color: var(--holo-cyan);
-            font-size: 1.8rem;
-            backdrop-filter: blur(12px);
-            z-index: 999;
-            box-shadow: 0 0 25px var(--holo-cyan);
-            transition: 0.25s ease;
+            color: var(--neon-cyan);
+            font-size: 1.5rem;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            animation: pulse-glow 2s infinite;
         }
 
         #sound-control:hover {
-            background: var(--holo-cyan);
+            transform: scale(1.1);
+            background: var(--neon-cyan);
             color: #000;
-            transform: scale(1.15) rotate(5deg);
-            box-shadow: 0 0 45px var(--holo-cyan);
         }
 
-        /* main container */
-        .cyber-wrapper {
-            max-width: 1500px;
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(0, 243, 255, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 243, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 243, 255, 0); }
+        }
+
+        /* --- Layout Containers --- */
+        .main-wrapper {
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 0 2rem 4rem;
+            padding: 0 2rem;
             position: relative;
-            z-index: 20;
+            z-index: 10;
         }
 
-        /* ===== HERO ===== */
-        .hero-panel {
-            min-height: 95vh;
+        /* --- Header Section --- */
+        .hero-section {
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            text-align: center;
             position: relative;
         }
 
-        .glitch-block {
-            text-align: center;
-        }
-
-        .glitch-main {
+        .hero-glitch {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(3rem, 12vw, 6rem);
+            font-size: 5rem;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 0.25em;
-            color: white;
-            text-shadow: 
-                0.05em 0 0 var(--neon-crimson),
-                -0.05em -0.025em 0 var(--holo-cyan),
-                0.025em 0.05em 0 var(--amber-glow);
-            animation: glitch-shake 6s infinite step-end;
-            line-height: 1.1;
-        }
-
-        .glitch-sub {
-            font-size: 1.5rem;
-            font-family: 'Share Tech Mono', monospace;
-            background: linear-gradient(135deg, var(--holo-cyan), var(--neon-crimson));
+            letter-spacing: 0.2em;
+            background: linear-gradient(180deg, #fff 0%, #aeb4c1 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-top: 0.5rem;
-            letter-spacing: 0.5em;
-            text-shadow: 0 0 15px rgba(10,255,240,0.5);
+            text-shadow: 0 0 50px rgba(0, 243, 255, 0.3);
+            margin-bottom: 20px;
+            position: relative;
         }
 
-        .bilingual-badge {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            background: rgba(0, 10, 20, 0.5);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(10, 255, 240, 0.2);
-            padding: 1.2rem 3rem;
-            margin-top: 3rem;
-            border-radius: 60px;
-            box-shadow: 0 0 30px rgba(255,0,64,0.2);
+        .hero-glitch::after {
+            content: 'SHAPESHIFTER';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            color: var(--neon-cyan);
+            opacity: 0.4;
+            transform: translate(-2px, 0);
+            z-index: -1;
+            animation: glitch 3s infinite;
         }
 
-        .lang-tag {
+        .organizers-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 40px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--neon-cyan);
+            backdrop-filter: blur(10px);
+            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+            margin-top: 2rem;
+        }
+
+        .org-title {
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--neon-cyan);
+            font-size: 0.9rem;
+            border-right: 1px solid rgba(255,255,255,0.2);
+            padding-right: 20px;
+        }
+
+        .org-names {
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            letter-spacing: 0.1em;
+            color: #fff;
         }
 
-        .lang-tag i {
-            color: var(--holo-cyan);
-            font-size: 1.4rem;
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
         }
 
-        .lang-tag span {
-            color: white;
-            letter-spacing: 2px;
-        }
-
-        .lang-hinglish {
-            border-right: 1px solid rgba(255,255,255,0.2);
-            padding-right: 2rem;
-        }
-
-        .organizers {
-            font-size: 1.2rem;
-            color: var(--amber-glow);
-            font-weight: 600;
-        }
-
-        /* ===== SECTION TITLE (bilingual) ===== */
-        .section-title-duo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 6rem 0 3rem;
-        }
-
-        .title-english {
+        /* --- Protocols (Rules) Section --- */
+        .section-title {
+            text-align: center;
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.8rem;
+            font-size: 2.5rem;
+            margin: 6rem 0 3rem;
+            color: var(--neon-red);
             text-transform: uppercase;
-            color: var(--holo-cyan);
-            text-shadow: 0 0 15px var(--holo-cyan);
-            letter-spacing: 6px;
+            letter-spacing: 0.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            text-shadow: 0 0 20px rgba(0,0,0,0.8);
         }
 
-        .title-hinglish {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.6rem;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 0.3rem 2rem;
-            border-radius: 40px;
-            color: #ccc;
-            border: 1px dashed var(--neon-crimson);
-            margin-top: 8px;
-            font-weight: 400;
-            letter-spacing: 2px;
-            backdrop-filter: blur(5px);
+        .section-title::before, .section-title::after {
+            content: '';
+            height: 2px;
+            width: 100px;
+            background: var(--neon-red);
+            box-shadow: var(--glow-red);
         }
 
-        /* ===== RULES GRID (bilingual cards) ===== */
-        .rules-bilingual-grid {
+        .rules-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 30px;
-            margin-bottom: 5rem;
+            margin-bottom: 4rem;
         }
 
-        .rule-supercard {
-            background: rgba(6, 12, 24, 0.6);
-            backdrop-filter: blur(18px);
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            border-left: 6px solid var(--neon-crimson);
-            padding: 2rem 1.8rem;
-            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.7);
-            transition: 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
+        .rule-card {
+            background: var(--glass-surface);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
             position: relative;
             overflow: hidden;
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(15px);
+            display: flex;
+            flex-direction: column;
         }
 
-        .rule-supercard::after {
-            content: "";
+        .rule-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-red);
+            box-shadow: var(--glow-red);
+        }
+
+        .rule-card::before {
+            content: '';
             position: absolute;
-            top: 0; right: 0;
-            width: 150px; height: 150px;
-            background: radial-gradient(circle, rgba(10,255,240,0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.4s;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--neon-red);
         }
 
-        .rule-supercard:hover {
-            transform: translateY(-8px);
-            border-left-color: var(--holo-cyan);
-            box-shadow: 0 0 35px rgba(10, 255, 240, 0.25);
-        }
-
-        .rule-supercard:hover::after {
-            opacity: 1;
-        }
-
-        .rule-header-duo {
+        .rule-header {
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 25px;
-            border-bottom: 1px solid rgba(255,255,255,0.07);
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             padding-bottom: 15px;
         }
 
         .rule-icon {
-            font-size: 2.4rem;
-            color: var(--neon-crimson);
+            font-size: 2rem;
+            color: var(--neon-red);
         }
 
-        .rule-titles {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .rule-name-en {
+        .rule-name {
             font-family: 'Orbitron', sans-serif;
             font-size: 1.5rem;
-            color: white;
-            letter-spacing: 1px;
+            color: #fff;
         }
 
-        .rule-name-hi {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.2rem;
-            color: var(--amber-glow);
-            opacity: 0.9;
-        }
-
-        .rule-body-bilingual {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.8rem;
-            font-size: 1rem;
-        }
-
-        .english-rule, .hinglish-rule {
-            padding: 0.8rem;
-            border-radius: 6px;
-        }
-
-        .english-rule {
-            border-right: 1px solid rgba(10, 255, 240, 0.3);
-        }
-
-        .hinglish-rule {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .hinglish-rule i {
-            color: var(--amber-glow);
-            margin-right: 5px;
+        .rule-content {
+            color: var(--text-dim);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            flex-grow: 1;
         }
 
         .rule-list {
             list-style: none;
-            margin-top: 0.8rem;
+            padding: 0;
         }
 
         .rule-list li {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             display: flex;
-            gap: 8px;
+            gap: 15px;
             align-items: flex-start;
         }
 
-        .highlight-en { color: var(--holo-cyan); font-weight: 700; }
-        .highlight-hi { color: #ffb347; font-weight: 600; }
-        .danger-badge { color: var(--neon-crimson); font-weight: 800; }
-
-        /* point card gold */
-        .point-card {
-            border-left-color: var(--amber-glow);
+        .rule-list li i {
+            color: var(--neon-cyan);
+            margin-top: 5px;
+            min-width: 20px;
         }
 
-        .point-card .rule-name-en {
-            color: var(--amber-glow);
-        }
-
-        /* ===== LEADERBOARD (cyber) ===== */
-        .leaderboard-vault {
-            border: 2px solid var(--holo-cyan);
-            background: rgba(0, 5, 10, 0.7);
-            backdrop-filter: blur(30px);
-            margin: 4rem 0 7rem;
-            position: relative;
-            box-shadow: 0 0 70px rgba(10, 255, 240, 0.2);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .vault-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 2.5rem;
-            background: rgba(10, 255, 240, 0.05);
-            border-bottom: 1px solid var(--holo-cyan);
-        }
-
-        .vault-header h3 {
+        /* Bilingual Styling */
+        .lang-tag {
             font-family: 'Share Tech Mono', monospace;
-            font-size: 1.5rem;
-            color: white;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .rule-lang-block {
+            margin-bottom: 10px;
         }
 
-        .live-badge {
-            background: var(--neon-crimson);
-            padding: 5px 15px;
-            border-radius: 30px;
-            font-weight: 600;
+        .rule-text-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .highlight { color: var(--neon-cyan); font-weight: 700; }
+        .danger { color: var(--neon-red); font-weight: 700; }
+        .bonus { color: var(--neon-gold); font-weight: 700; }
+
+        .warning-box {
+            margin-top: 15px;
+            background: rgba(255, 51, 51, 0.1);
+            padding: 15px;
+            border-left: 3px solid var(--neon-red);
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* --- Leaderboard Section --- */
+        .leaderboard-container {
+            background: var(--glass-surface);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 4px;
+            box-shadow: var(--glow-cyan);
+            margin-bottom: 100px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(15px);
+        }
+
+        .leaderboard-container::after {
+            content: "LIVE DATA STREAM";
+            position: absolute;
+            top: 10px; right: 20px;
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--neon-cyan);
             font-size: 0.8rem;
-            letter-spacing: 2px;
-            animation: pulse 1.5s infinite;
+            animation: pulse 2s infinite;
         }
 
-        .table-responsive {
+        .table-scroll {
             overflow-x: auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        thead {
+            background: rgba(0, 243, 255, 0.1);
         }
 
         th {
-            padding: 1.5rem 0.5rem;
+            padding: 20px;
+            text-align: center;
             font-family: 'Orbitron', sans-serif;
-            color: var(--holo-cyan);
-            font-weight: 500;
+            color: var(--neon-cyan);
             text-transform: uppercase;
-            border-bottom: 2px solid var(--holo-cyan);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--neon-cyan);
         }
+
+        th:first-child { text-align: left; padding-left: 40px; }
+        th:last-child { text-align: right; padding-right: 40px; }
 
         td {
-            padding: 1rem 0.2rem;
+            padding: 20px;
             text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.02);
-            color: #cbd5e0;
-            font-weight: 500;
-        }
-
-        .player-name {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding-left: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 1.1rem;
             font-weight: 600;
+            color: var(--text-dim);
+            transition: all 0.3s ease;
         }
 
-        .rank-icon {
-            width: 30px; height: 30px;
-            display: flex; align-items: center; justify-content: center;
-            background: rgba(10,255,240,0.1);
-            border-radius: 4px;
-            color: var(--holo-cyan);
+        tbody tr {
+            transition: background 0.2s;
         }
 
+        tbody tr:hover {
+            background: rgba(255,255,255,0.03);
+        }
+
+        tbody tr:hover td {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        /* Top 3 Styling */
+        .rank-1 td { border-bottom: 1px solid var(--neon-gold); }
+        .rank-1 .player-name { color: var(--neon-gold); text-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
+        
         .total-score {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--amber-glow);
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #fff;
             text-align: right;
             padding-right: 40px;
         }
 
-        .rank-1 .player-name span { color: var(--amber-glow); text-shadow: 0 0 10px #ffbe0b; }
-
-        footer {
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding: 2.5rem;
-            text-align: center;
-            font-family: 'Share Tech Mono', monospace;
-            background: rgba(0,0,0,0.8);
-            color: #6c7a96;
+        .player-cell {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-align: left;
+            padding-left: 40px;
         }
 
-        @keyframes glitch-shake {
-            0% { transform: skew(0deg, 0deg); }
-            2% { transform: skew(0.5deg, 0.2deg); text-shadow: 0.08em 0 0 #ff0040, -0.08em -0.05em 0 #0afff0; }
-            4% { transform: skew(0deg, 0deg); }
-            100% { transform: skew(0deg, 0deg); }
+        .rank-badge {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        /* --- Footer --- */
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 40px;
+            text-align: center;
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--text-dim);
+            background: rgba(0,0,0,0.8);
+        }
+
+        /* Animations */
+        @keyframes glitch {
+            0% { clip-path: inset(80% 0 0 0); transform: translate(-2px, 1px); }
+            5% { clip-path: inset(10% 0 85% 0); transform: translate(2px, -1px); }
+            10% { clip-path: inset(80% 0 0 0); transform: translate(-2px, 1px); }
+            100% { clip-path: inset(80% 0 0 0); transform: translate(0, 0); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-10px) translateX(-50%); }
+            60% { transform: translateY(-5px) translateX(-50%); }
         }
 
         @keyframes pulse {
-            0% { opacity: 0.7; box-shadow: 0 0 0 0 rgba(255,0,64,0.4); }
-            70% { opacity: 1; box-shadow: 0 0 15px 5px rgba(255,0,64,0); }
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
         }
 
-        @media (max-width: 1000px) {
-            .rules-bilingual-grid { grid-template-columns: 1fr; }
-            .rule-body-bilingual { grid-template-columns: 1fr; gap: 0.5rem; }
-            .english-rule { border-right: none; border-bottom: 1px dashed var(--neon-crimson); padding-bottom: 1rem; }
-            .hero-panel { min-height: auto; padding: 5rem 0; }
-            .bilingual-badge { flex-direction: column; gap: 0.5rem; }
+        /* Responsive */
+        @media (max-width: 900px) {
+            .rules-grid { grid-template-columns: 1fr; }
+            .hero-glitch { font-size: 3rem; }
+            th, td { padding: 15px 10px; font-size: 0.9rem; }
+            .player-cell { padding-left: 15px; }
+            .total-score { padding-right: 15px; }
         }
     </style>
 </head>
@@ -478,6 +472,7 @@
 
     <video autoplay loop muted playsinline id="bg-video">
         <source src="amongusnew.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
     </video>
 
     <div class="scanline"></div>
@@ -486,190 +481,211 @@
         <i class="fas fa-volume-mute" id="sound-icon"></i>
     </div>
 
-    <div class="cyber-wrapper">
-
-        <!-- HERO SECTION (bilingual) -->
-        <div class="hero-panel">
-            <div class="glitch-block">
-                <div class="glitch-main">SHAPESHIFTER</div>
-                <div class="glitch-main" style="font-size: 3rem; margin-top: -1rem;">TOURNAMENT</div>
-                <div class="glitch-sub">LIVE // सजीव</div>
+    <div class="main-wrapper">
+        
+        <header class="hero-section">
+            <h1 class="hero-glitch">SHAPESHIFTER<br>TOURNAMENT</h1>
+            
+            <div class="organizers-badge">
+                <span class="org-title">ORGANIZERS //</span>
+                <span class="org-names">RODY • MOON • SHUZ</span>
             </div>
 
-            <div class="bilingual-badge">
-                <div class="lang-tag lang-hinglish">
-                    <i class="fas fa-language"></i>
-                    <span>हिंग्लिश / HINGLISH</span>
-                </div>
-                <div class="lang-tag">
-                    <i class="fas fa-globe"></i>
-                    <span>ENGLISH / GLOBAL</span>
-                </div>
-                <div class="organizers">
-                    <i class="fas fa-user-astronaut"></i> RODY · MOON · SHUZ
-                </div>
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down" style="color: var(--neon-cyan); font-size: 2rem;"></i>
             </div>
+        </header>
 
-            <div style="margin-top: 5rem;">
-                <i class="fas fa-chevron-down" style="color: var(--holo-cyan); font-size: 2.4rem; opacity: 0.6; animation: pulse 2s infinite;"></i>
-            </div>
-        </div>
-
-        <!-- MISSION PROTOCOLS (bilingual) -->
-        <div class="section-title-duo">
-            <span class="title-english">MISSION PROTOCOLS</span>
-            <span class="title-hinglish">मिशन के नियम</span>
-        </div>
-
-        <div class="rules-bilingual-grid">
-            <!-- RULE 01 KILL RESTRICTION -->
-            <div class="rule-supercard">
-                <div class="rule-header-duo">
-                    <i class="fas fa-user-secret rule-icon"></i>
-                    <div class="rule-titles">
-                        <span class="rule-name-en">KILL RESTRICTION</span>
-                        <span class="rule-name-hi">किल पाबंदी</span>
+        <section id="protocols">
+            <h2 class="section-title">MISSION PROTOCOLS</h2>
+            
+            <div class="rules-grid">
+                
+                <div class="rule-card">
+                    <div class="rule-header">
+                        <i class="fas fa-user-secret rule-icon"></i>
+                        <h3 class="rule-name">RULE 01 // KILL RESTRICTION</h3>
+                    </div>
+                    <div class="rule-content">
+                        <div class="rule-lang-block">
+                            <span class="lang-tag">ENG</span> When an Impostor shapeshifts into a specific player, they are <span class="highlight">only allowed to kill that specific player.</span><br>
+                            <strong>Example:</strong> If the Impostor shapeshifts into RODY, they can only kill RODY.
+                        </div>
+                        <div class="rule-lang-block">
+                            <span class="lang-tag">HIN</span> Jab koi Impostor kisi specific player ka shapeshift leta hai, toh usko <span class="highlight">sirf usi player ko kill karna allowed hai.</span><br>
+                            <strong>Example:</strong> Agar Impostor RODY ka shapeshift leta hai, toh sirf RODY ko hi kill kar sakta hai.
+                        </div>
+                        
+                        <div class="warning-box" style="border-color: var(--neon-cyan); background: rgba(0, 243, 255, 0.1);">
+                            <div><span class="lang-tag">ENG</span> Killing any other player while shapeshifted is strictly prohibited. <span class="danger">Body reporting is not allowed</span> until the correct kill is confirmed.</div>
+                            <div><span class="lang-tag">HIN</span> Shapeshift use karte waqt kisi aur player ko kill karna allowed nahi hai. Jab tak kill confirm nahi hota, <span class="danger">body report allowed nahi hai.</span></div>
+                        </div>
                     </div>
                 </div>
-                <div class="rule-body-bilingual">
-                    <div class="english-rule">
-                        <i class="fas fa-skull" style="color: var(--neon-crimson);"></i> 
-                        <strong>Rule:</strong> If Impostor shapeshifts into a specific player, they can <span class="highlight-en">only kill that player</span>.
+
+                <div class="rule-card">
+                    <div class="rule-header">
+                        <i class="fas fa-gavel rule-icon"></i>
+                        <h3 class="rule-name">RULE 02 // PENALTIES & CONDUCT</h3>
+                    </div>
+                    <div class="rule-content">
                         <ul class="rule-list">
-                            <li><i class="fas fa-crosshairs"></i> Example: Shapeshift as RODY → kill only RODY.</li>
-                            <li><i class="fas fa-ban" style="color: var(--neon-crimson);"></i> No other kill until confirmed.</li>
-                        </ul>
-                    </div>
-                    <div class="hinglish-rule">
-                        <i class="fas fa-comment-dots"></i> <strong>हिंग्लिश:</strong> जब इम्पोस्टर किसी का शेप लेता है, तो <span class="highlight-hi">उसी प्लेयर को मार सकता है</span>। 
-                        <ul class="rule-list">
-                            <li><i class="fas fa-user-tag"></i> जैसे: RODY का रूप लिया → सिर्फ RODY को kill करे।</li>
-                            <li><i class="fas fa-exclamation-triangle danger-badge"></i> गलत kill किया तो सजा।</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- RULE 02 PENALTIES -->
-            <div class="rule-supercard">
-                <div class="rule-header-duo">
-                    <i class="fas fa-gavel rule-icon"></i>
-                    <div class="rule-titles">
-                        <span class="rule-name-en">PENALTIES & CONDUCT</span>
-                        <span class="rule-name-hi">सजा और बर्ताव</span>
-                    </div>
-                </div>
-                <div class="rule-body-bilingual">
-                    <div class="english-rule">
-                        <span class="danger-badge">Wrong kill:</span> Impostor kills wrong player → <span class="highlight-en">immediate elimination</span> from match.
-                        <ul><li><i class="fas fa-handshake"></i> Respect staff, organizers → permanent ban if misconduct.</li></ul>
-                    </div>
-                    <div class="hinglish-rule">
-                        <i class="fas fa-skull-crossbones"></i> गलत kill की तो <span class="highlight-hi">तुरंत बाहर</span>। 
-                        <span class="danger-badge">बदतमीजी</span> पर permanent ban.
-                    </div>
-                </div>
-            </div>
-
-            <!-- RULE 03 GAME CONFIG -->
-            <div class="rule-supercard">
-                <div class="rule-header-duo">
-                    <i class="fas fa-cogs rule-icon"></i>
-                    <div class="rule-titles">
-                        <span class="rule-name-en">GAME CONFIG</span>
-                        <span class="rule-name-hi">खेल सेटिंग</span>
-                    </div>
-                </div>
-                <div class="rule-body-bilingual">
-                    <div class="english-rule">
-                        <ul class="rule-list">
-                            <li><i class="fas fa-user-friends"></i> 2 members per team</li>
-                            <li><i class="fas fa-tools"></i> 4 Engineers only, vent cd 15s</li>
-                            <li><i class="fas fa-microphone-alt"></i> Discord VC mandatory</li>
-                        </ul>
-                    </div>
-                    <div class="hinglish-rule">
-                        <ul class="rule-list">
-                            <li><i class="fas fa-users"></i> हर टीम में सिर्फ 2 लोग</li>
-                            <li><i class="fas fa-robot"></i> 4 इंजीनियर, vent cooldown 15s</li>
-                            <li><i class="fas fa-headset"></i> Discord VC जरूरी</li>
+                            <li>
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> <strong>Wrong Kill:</strong> If an Impostor kills the wrong player, they will be immediately <span class="danger">KICKED / ELIMINATED</span> from the match.</div>
+                                    <div><span class="lang-tag">HIN</span> <strong>Wrong Kill:</strong> Agar Impostor galat player ko kill karta hai, toh usse immediately match se <span class="danger">KICK / ELIMINATE</span> kar diya jayega.</div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-hand-paper"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> <strong>Respect:</strong> Respecting Staff and Organizers is mandatory. Misbehavior will result in a <span class="danger">PERMANENT BAN</span>.</div>
+                                    <div><span class="lang-tag">HIN</span> <strong>Respect:</strong> Staff aur Organizers ki respect karna zaroori hai. Agar misbehavior kiya toh <span class="danger">PERMANENT BAN</span> lag sakta hai.</div>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
-            </div>
 
-            <!-- POINT SYSTEM (classified) -->
-            <div class="rule-supercard point-card">
-                <div class="rule-header-duo">
-                    <i class="fas fa-star rule-icon" style="color: var(--amber-glow);"></i>
-                    <div class="rule-titles">
-                        <span class="rule-name-en">POINT SYSTEM</span>
-                        <span class="rule-name-hi">अंक प्रणाली</span>
+                <div class="rule-card">
+                    <div class="rule-header">
+                        <i class="fas fa-cogs rule-icon"></i>
+                        <h3 class="rule-name">RULE 03 // GAME CONFIG</h3>
+                    </div>
+                    <div class="rule-content">
+                        <ul class="rule-list">
+                            <li>
+                                <i class="fas fa-users"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> Only <strong>2 Members</strong> per team.</div>
+                                    <div><span class="lang-tag">HIN</span> Har Team mein sirf <strong>2 Members</strong> honge.</div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-tools"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> There will be <strong>4 Engineers</strong> (No other roles). Vent cooldown: <strong>15s</strong>.</div>
+                                    <div><span class="lang-tag">HIN</span> Game mein <strong>4 Engineers</strong> honge (Baki roles off). Vent cooldown: <strong>15s</strong>.</div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-user-tag"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> Each player gets only <strong>1 chance</strong> to be the Impostor.</div>
+                                    <div><span class="lang-tag">HIN</span> Har player ko <strong>Impostor</strong> banne ka sirf <strong>1 chance</strong> milega.</div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-ban"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> <strong>Voting out the Impostor is not allowed.</strong></div>
+                                    <div><span class="lang-tag">HIN</span> <strong>Impostor ko Vote out karna allowed nahi hai.</strong></div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-microphone"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> <strong>Joining the Discord VC is mandatory</strong> for all players.</div>
+                                    <div><span class="lang-tag">HIN</span> <strong>Har player ko Discord VC join karna mandatory hai.</strong></div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div class="rule-body-bilingual">
-                    <div class="english-rule">
-                        <ul><li> <span class="highlight-en">Impostor:</span> +2 per kill, +4 full wipe</li>
-                        <li><span class="highlight-en">Crewmate:</span> +3 survive + tasks</li>
-                        <li style="color:#aaa;">If impostor breaks rule 1, crew get 0</li></ul>
+
+                <div class="rule-card" style="border-color: var(--neon-gold);">
+                    <div class="rule-header">
+                        <i class="fas fa-star rule-icon" style="color: var(--neon-gold);"></i>
+                        <h3 class="rule-name" style="color: var(--neon-gold);">CLASSIFIED // POINT SYSTEM</h3>
                     </div>
-                    <div class="hinglish-rule">
-                        <ul><li><i class="fas fa-skull" style="color:var(--neon-crimson);"></i> इम्पोस्टर: +2 हर kill, +4 सबको मारे</li>
-                        <li><i class="fas fa-shield-alt" style="color:var(--holo-cyan);"></i> क्रूमेट: +3 बचे + tasks</li>
-                    </ul></div>
+                    <div class="rule-content">
+                        <ul class="rule-list">
+                            <li>
+                                <i class="fas fa-skull" style="color: var(--neon-red);"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> <strong>IMPOSTOR:</strong> <span class="highlight">+2 Points</span> for each successful kill.</div>
+                                    <div><span class="lang-tag">HIN</span> <strong>IMPOSTOR:</strong> <span class="highlight">+2 Points</span> har successful kill ke liye.</div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-bomb" style="color: var(--neon-red);"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> <strong>IMPOSTOR BONUS:</strong> <span class="bonus">+4 Points</span> for a Full Wipe (killing all Crewmates).</div>
+                                    <div><span class="lang-tag">HIN</span> <strong>IMPOSTOR BONUS:</strong> <span class="bonus">+4 Points</span> agar saare Crewmates ko maar diya (Full Wipe).</div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-shield-alt" style="color: var(--neon-cyan);"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> <strong>CREWMATE:</strong> <span class="highlight">+3 Points</span> for surviving the round and finishing tasks.</div>
+                                    <div><span class="lang-tag">HIN</span> <strong>CREWMATE:</strong> <span class="highlight">+3 Points</span> agar poora round survive kiya aur tasks finish kiye.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="warning-box">
+                            <div><span class="lang-tag">ENG</span> <strong>NOTE:</strong> If the Impostor breaks Rule 1 on their first kill, Crewmates will not receive any points.</div>
+                            <div><span class="lang-tag">HIN</span> <strong>NOTE:</strong> Agar Impostor ne first kill hi wrong kill kiya (Rule 1 break kiya), toh Crewmates ko points nahi milenge.</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="leaderboard">
+            <h2 class="section-title" style="color: var(--neon-cyan); --glow-red: var(--glow-cyan);">LIVE STANDINGS</h2>
+            
+            <div class="leaderboard-container">
+                <div class="table-scroll">
+                    <table id="scoreTable">
+                        <thead>
+                            <tr>
+                                <th>OPERATIVE</th>
+                                <th>R1</th><th>R2</th><th>R3</th><th>R4</th>
+                                <th>R5</th><th>R6</th><th>R7</th><th>R8</th>
+                                <th>TOTAL SCORE</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr>
+                                <td colspan="10" style="padding: 50px; font-style: italic;">
+                                    <i class="fas fa-circle-notch fa-spin"></i> ESTABLISHING UPLINK TO MAINFRAME...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- LEADERBOARD SECTION (bilingual vibe) -->
-        <div class="section-title-duo">
-            <span class="title-english">LIVE STANDINGS</span>
-            <span class="title-hinglish">लाइव स्कोर</span>
-        </div>
-
-        <div class="leaderboard-vault">
-            <div class="vault-header">
-                <h3><i class="fas fa-satellite-dish" style="color: var(--holo-cyan); margin-right: 10px;"></i> OPERATIVE RANKINGS</h3>
-                <span class="live-badge"><i class="fas fa-circle" style="font-size: 0.6rem;"></i> LIVE</span>
-            </div>
-            <div class="table-responsive">
-                <table id="scoreTable">
-                    <thead>
-                        <tr>
-                            <th>OPERATIVE</th><th>R1</th><th>R2</th><th>R3</th><th>R4</th><th>R5</th><th>R6</th><th>R7</th><th>R8</th><th>TOTAL</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <tr><td colspan="10" style="padding: 50px; font-style: italic; color: #6c87a0;">
-                            <i class="fas fa-spinner fa-pulse"></i> acquiring data stream...
-                        </td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
 
     <footer>
-        <p>© 2026 RODY ESPORTS · SYSTEMS NOMINAL · बाइलिंगुअल मोड</p>
-        <p style="font-size: 0.7rem; opacity: 0.5;">🔴双语 // ENGLISH / हिंग्लिश </p>
+        <p>&copy; 2026 RODY ESPORTS // SYSTEMS ONLINE</p>
+        <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.5;">SECURE CONNECTION ESTABLISHED</p>
     </footer>
 
     <script>
         function toggleSound() {
             const video = document.getElementById('bg-video');
             const icon = document.getElementById('sound-icon');
-            video.muted = !video.muted;
+            const btn = document.getElementById('sound-control');
+
             if (video.muted) {
-                icon.classList.remove('fa-volume-up');
-                icon.classList.add('fa-volume-mute');
-            } else {
+                video.muted = false;
                 icon.classList.remove('fa-volume-mute');
                 icon.classList.add('fa-volume-up');
+                btn.style.borderColor = 'var(--neon-green)';
+            } else {
+                video.muted = true;
+                icon.classList.remove('fa-volume-up');
+                icon.classList.add('fa-volume-mute');
+                btn.style.borderColor = 'var(--neon-cyan)';
             }
         }
     </script>
 
-    <!-- firebase import & render -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
@@ -687,13 +703,15 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
-        const playersRef = ref(db, 'players');
 
+        const playersRef = ref(db, 'players');
+        
         onValue(playersRef, (snapshot) => {
             const data = snapshot.val();
             const tbody = document.getElementById('tableBody');
+            
             if (!data) {
-                tbody.innerHTML = '<tr><td colspan="10" style="padding:40px;">⚠️ NO DATA FEED</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="10" style="padding: 40px;">No Data Found</td></tr>';
                 return;
             }
 
@@ -702,21 +720,32 @@
                 p.total = 0;
                 for(let i=1; i<=8; i++) p.total += parseInt(p[`r${i}`] || 0);
             });
-            playersArray.sort((a,b) => b.total - a.total);
-
+            
+            playersArray.sort((a, b) => b.total - a.total);
+            
             tbody.innerHTML = '';
-            playersArray.forEach((player, idx) => {
-                let rankClass = idx === 0 ? 'rank-1' : '';
-                let badge = idx + 1;
-                if (idx === 0) badge = '<i class="fas fa-crown" style="color:var(--amber-glow)"></i>';
-                else if (idx === 1) badge = '<i class="fas fa-medal" style="color:#b0c4de"></i>';
-                else if (idx === 2) badge = '<i class="fas fa-medal" style="color:#cd7f32"></i>';
+            playersArray.forEach((player, index) => {
+                let rankClass = '';
+                let badge = index + 1;
+                
+                if (index === 0) { rankClass = 'rank-1'; badge = '<i class="fas fa-crown" style="color:var(--neon-gold)"></i>'; }
+                else if (index === 1) { badge = '<i class="fas fa-medal" style="color:#c0c0c0"></i>'; }
+                else if (index === 2) { badge = '<i class="fas fa-medal" style="color:#cd7f32"></i>'; }
+                
+                let row = `
+                    <tr class="${rankClass}">
+                        <td class="player-cell">
+                            <div class="rank-badge">${badge}</div>
+                            <span class="player-name">${player.name}</span>
+                        </td>
+                `;
 
-                let row = `<tr class="${rankClass}"><td class="player-name"><div class="rank-icon">${badge}</div> <span>${player.name}</span></td>`;
-                for (let r=1; r<=8; r++) {
-                    let val = player[`r${r}`] || 0;
-                    row += `<td>${val}</td>`;
+                for(let i=1; i<=8; i++) {
+                    let score = player[`r${i}`] || 0;
+                    let opacity = score === 0 ? '0.3' : '1';
+                    row += `<td style="opacity: ${opacity}">${score}</td>`;
                 }
+
                 row += `<td class="total-score">${player.total}</td></tr>`;
                 tbody.innerHTML += row;
             });
