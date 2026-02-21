@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHAPESHIFTER // हिंग्लिश टूर्नामेंट</title>
+    <title>SHAPESHIFTER TOURNAMENT // LIVE</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,6 +33,7 @@
             scrollbar-color: var(--neon-cyan) var(--void-black);
         }
 
+        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--void-black); }
         ::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 3px; }
@@ -45,6 +46,7 @@
             line-height: 1.6;
         }
 
+        /* --- VIDEO BACKGROUND SETUP --- */
         #bg-video {
             position: fixed;
             top: 0;
@@ -65,6 +67,7 @@
             opacity: 0.4;
         }
 
+        /* --- Sound Toggle Button --- */
         #sound-control {
             position: fixed;
             bottom: 30px;
@@ -99,6 +102,7 @@
             100% { box-shadow: 0 0 0 0 rgba(0, 243, 255, 0); }
         }
 
+        /* --- Layout Containers --- */
         .main-wrapper {
             max-width: 1600px;
             margin: 0 auto;
@@ -107,6 +111,7 @@
             z-index: 10;
         }
 
+        /* --- Header Section --- */
         .hero-section {
             height: 100vh;
             display: flex;
@@ -133,7 +138,7 @@
         }
 
         .hero-glitch::after {
-            content: 'SHAPESHIFTER HINGLISH';
+            content: 'SHAPESHIFTER';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             color: var(--neon-cyan);
@@ -178,29 +183,12 @@
             animation: bounce 2s infinite;
         }
 
-        /* dual language toggle / hint */
-        .lang-badge {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 1rem 0 2rem;
-            font-family: 'Share Tech Mono', monospace;
-        }
-        .lang-badge span {
-            border: 1px solid var(--neon-cyan);
-            padding: 5px 20px;
-            background: rgba(0,0,0,0.6);
-            color: var(--neon-cyan);
-            border-radius: 30px;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-        }
-
+        /* --- Protocols (Rules) Section --- */
         .section-title {
             text-align: center;
             font-family: 'Orbitron', sans-serif;
             font-size: 2.5rem;
-            margin: 6rem 0 1rem;
+            margin: 6rem 0 3rem;
             color: var(--neon-red);
             text-transform: uppercase;
             letter-spacing: 0.2em;
@@ -226,7 +214,6 @@
             margin-bottom: 4rem;
         }
 
-        /* DUAL LANGUAGE RULE CARDS: English + Hinglish */
         .rule-card {
             background: var(--glass-surface);
             border: 1px solid var(--glass-border);
@@ -237,13 +224,19 @@
             backdrop-filter: blur(15px);
             display: flex;
             flex-direction: column;
-            border-left: 4px solid var(--neon-red);
         }
 
         .rule-card:hover {
             transform: translateY(-5px);
             border-color: var(--neon-red);
             box-shadow: var(--glow-red);
+        }
+
+        .rule-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--neon-red);
         }
 
         .rule-header {
@@ -264,34 +257,13 @@
             font-family: 'Orbitron', sans-serif;
             font-size: 1.5rem;
             color: #fff;
-            line-height: 1.2;
         }
 
-        .dual-content {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .english {
-            color: var(--neon-cyan);
-            font-weight: 600;
-            border-left: 3px solid var(--neon-cyan);
-            padding-left: 15px;
-        }
-
-        .hinglish {
+        .rule-content {
             color: var(--text-dim);
-            background: rgba(255,255,255,0.02);
-            padding: 15px;
-            border-radius: 4px;
             font-size: 1.05rem;
-            border: 1px dashed rgba(255,215,0,0.3);
-        }
-
-        .hinglish i, .english i {
-            color: var(--neon-gold);
-            margin-right: 8px;
+            line-height: 1.6;
+            flex-grow: 1;
         }
 
         .rule-list {
@@ -300,22 +272,57 @@
         }
 
         .rule-list li {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             display: flex;
-            gap: 10px;
+            gap: 15px;
             align-items: flex-start;
         }
 
         .rule-list li i {
             color: var(--neon-cyan);
             margin-top: 5px;
+            min-width: 20px;
+        }
+
+        /* Bilingual Styling */
+        .lang-tag {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .rule-lang-block {
+            margin-bottom: 10px;
+        }
+
+        .rule-text-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .highlight { color: var(--neon-cyan); font-weight: 700; }
         .danger { color: var(--neon-red); font-weight: 700; }
         .bonus { color: var(--neon-gold); font-weight: 700; }
 
-        /* Leaderboard unchanged (pure numbers) */
+        .warning-box {
+            margin-top: 15px;
+            background: rgba(255, 51, 51, 0.1);
+            padding: 15px;
+            border-left: 3px solid var(--neon-red);
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* --- Leaderboard Section --- */
         .leaderboard-container {
             background: var(--glass-surface);
             border: 1px solid var(--neon-cyan);
@@ -375,6 +382,10 @@
             transition: all 0.3s ease;
         }
 
+        tbody tr {
+            transition: background 0.2s;
+        }
+
         tbody tr:hover {
             background: rgba(255,255,255,0.03);
         }
@@ -384,6 +395,7 @@
             text-shadow: 0 0 10px rgba(255,255,255,0.5);
         }
 
+        /* Top 3 Styling */
         .rank-1 td { border-bottom: 1px solid var(--neon-gold); }
         .rank-1 .player-name { color: var(--neon-gold); text-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
         
@@ -416,6 +428,7 @@
             font-size: 0.9rem;
         }
 
+        /* --- Footer --- */
         footer {
             border-top: 1px solid rgba(255,255,255,0.1);
             padding: 40px;
@@ -425,6 +438,7 @@
             background: rgba(0,0,0,0.8);
         }
 
+        /* Animations */
         @keyframes glitch {
             0% { clip-path: inset(80% 0 0 0); transform: translate(-2px, 1px); }
             5% { clip-path: inset(10% 0 85% 0); transform: translate(2px, -1px); }
@@ -444,13 +458,13 @@
             100% { opacity: 0.5; }
         }
 
+        /* Responsive */
         @media (max-width: 900px) {
             .rules-grid { grid-template-columns: 1fr; }
             .hero-glitch { font-size: 3rem; }
             th, td { padding: 15px 10px; font-size: 0.9rem; }
             .player-cell { padding-left: 15px; }
             .total-score { padding-right: 15px; }
-            .hero-glitch { font-size: 3rem; }
         }
     </style>
 </head>
@@ -458,6 +472,7 @@
 
     <video autoplay loop muted playsinline id="bg-video">
         <source src="amongusnew.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
     </video>
 
     <div class="scanline"></div>
@@ -469,15 +484,13 @@
     <div class="main-wrapper">
         
         <header class="hero-section">
-            <h1 class="hero-glitch">SHAPESHIFTER<br>हिंग्लिश टूर्नामेंट</h1>
+            <h1 class="hero-glitch">SHAPESHIFTER<br>TOURNAMENT</h1>
             
             <div class="organizers-badge">
                 <span class="org-title">ORGANIZERS //</span>
                 <span class="org-names">RODY • MOON • SHUZ</span>
             </div>
-            <div class="lang-badge">
-                <span><i class="fas fa-language"></i> ENGLISH + HINGLISH (हिंग्लिश)</span>
-            </div>
+
             <div class="scroll-indicator">
                 <i class="fas fa-chevron-down" style="color: var(--neon-cyan); font-size: 2rem;"></i>
             </div>
@@ -488,107 +501,135 @@
             
             <div class="rules-grid">
                 
-                <!-- RULE 01 dual -->
                 <div class="rule-card">
                     <div class="rule-header">
                         <i class="fas fa-user-secret rule-icon"></i>
                         <h3 class="rule-name">RULE 01 // KILL RESTRICTION</h3>
                     </div>
-                    <div class="dual-content">
-                        <div class="english">
-                            <i class="fas fa-flag"></i> <strong>ENGLISH:</strong><br>
-                            When an Impostor takes the shape of a specific player, they are <span class="highlight">only allowed to kill that specific player.</span><br>
-                            <span style="font-size:0.9rem;">Example: If Impostor shapeshifts as RODY, they can only kill RODY. No other kill allowed until the correct kill is confirmed. Body report not allowed until kill confirmed.</span>
+                    <div class="rule-content">
+                        <div class="rule-lang-block">
+                            <span class="lang-tag">ENG</span> When an Impostor shapeshifts into a specific player, they are <span class="highlight">only allowed to kill that specific player.</span><br>
+                            <strong>Example:</strong> If the Impostor shapeshifts into RODY, they can only kill RODY.
                         </div>
-                        <div class="hinglish">
-                            <i class="fas fa-language"></i> <strong>HINGLISH:</strong><br>
-                            Jab Impostor kisi specific player ka shapeshift leta hai, toh usko <span class="highlight">sirf usi player ko kill karna allowed hai.</span><br>
-                            Jaise: agar Impostor RODY ka shapeshift kare, toh sirf RODY ko maarega. Shapeshift use karte waqt kisi aur ko kill karna allowed nahi. Jab tak kill confirm nahi hota, body report allowed nahi.
+                        <div class="rule-lang-block">
+                            <span class="lang-tag">HIN</span> Jab koi Impostor kisi specific player ka shapeshift leta hai, toh usko <span class="highlight">sirf usi player ko kill karna allowed hai.</span><br>
+                            <strong>Example:</strong> Agar Impostor RODY ka shapeshift leta hai, toh sirf RODY ko hi kill kar sakta hai.
+                        </div>
+                        
+                        <div class="warning-box" style="border-color: var(--neon-cyan); background: rgba(0, 243, 255, 0.1);">
+                            <div><span class="lang-tag">ENG</span> Killing any other player while shapeshifted is strictly prohibited. <span class="danger">Body reporting is not allowed</span> until the correct kill is confirmed.</div>
+                            <div><span class="lang-tag">HIN</span> Shapeshift use karte waqt kisi aur player ko kill karna allowed nahi hai. Jab tak kill confirm nahi hota, <span class="danger">body report allowed nahi hai.</span></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- RULE 02 dual -->
                 <div class="rule-card">
                     <div class="rule-header">
                         <i class="fas fa-gavel rule-icon"></i>
                         <h3 class="rule-name">RULE 02 // PENALTIES & CONDUCT</h3>
                     </div>
-                    <div class="dual-content">
-                        <div class="english">
-                            <i class="fas fa-flag"></i> <strong>ENGLISH:</strong><br>
-                            <ul class="rule-list">
-                                <li><i class="fas fa-exclamation-triangle"></i> <strong>Wrong Kill:</strong> If Impostor kills wrong player → immediate <span class="danger">KICK / ELIMINATE</span> from match.</li>
-                                <li><i class="fas fa-hand-paper"></i> <strong>Respect:</strong> Staff & organizers must be respected. Misbehavior → <span class="danger">PERMANENT BAN</span>.</li>
-                            </ul>
-                        </div>
-                        <div class="hinglish">
-                            <i class="fas fa-language"></i> <strong>HINGLISH:</strong><br>
-                            <ul class="rule-list">
-                                <li><i class="fas fa-exclamation-triangle"></i> <strong>Galat Kill:</strong> Agar Impostor ne wrong player kill kiya → turant match se <span class="danger">KICK / ELIMINATE</span>.</li>
-                                <li><i class="fas fa-hand-paper"></i> <strong>Respect:</strong> Staff aur organizers ki respect karna zaroori. Misbehavior → <span class="danger">PERMANENT BAN</span>.</li>
-                            </ul>
-                        </div>
+                    <div class="rule-content">
+                        <ul class="rule-list">
+                            <li>
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> <strong>Wrong Kill:</strong> If an Impostor kills the wrong player, they will be immediately <span class="danger">KICKED / ELIMINATED</span> from the match.</div>
+                                    <div><span class="lang-tag">HIN</span> <strong>Wrong Kill:</strong> Agar Impostor galat player ko kill karta hai, toh usse immediately match se <span class="danger">KICK / ELIMINATE</span> kar diya jayega.</div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-hand-paper"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> <strong>Respect:</strong> Respecting Staff and Organizers is mandatory. Misbehavior will result in a <span class="danger">PERMANENT BAN</span>.</div>
+                                    <div><span class="lang-tag">HIN</span> <strong>Respect:</strong> Staff aur Organizers ki respect karna zaroori hai. Agar misbehavior kiya toh <span class="danger">PERMANENT BAN</span> lag sakta hai.</div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
-                <!-- RULE 03 dual -->
                 <div class="rule-card">
                     <div class="rule-header">
                         <i class="fas fa-cogs rule-icon"></i>
                         <h3 class="rule-name">RULE 03 // GAME CONFIG</h3>
                     </div>
-                    <div class="dual-content">
-                        <div class="english">
-                            <i class="fas fa-flag"></i> <strong>ENGLISH:</strong><br>
-                            <ul class="rule-list">
-                                <li><i class="fas fa-users"></i> Each team: <strong>2 Members</strong> only.</li>
-                                <li><i class="fas fa-tools"></i> <strong>4 Engineers</strong> (No other roles). Vent cooldown: <strong>15s</strong>.</li>
-                                <li><i class="fas fa-user-tag"></i> Each player gets only <strong>1 chance</strong> to be Impostor.</li>
-                                <li><i class="fas fa-ban"></i> <strong>Impostor cannot be voted out.</strong></li>
-                                <li><i class="fas fa-microphone"></i> <strong>Discord VC mandatory.</strong></li>
-                            </ul>
-                        </div>
-                        <div class="hinglish">
-                            <i class="fas fa-language"></i> <strong>HINGLISH:</strong><br>
-                            <ul class="rule-list">
-                                <li><i class="fas fa-users"></i> Har team mein sirf <strong>2 Members</strong> honge.</li>
-                                <li><i class="fas fa-tools"></i> Game mein <strong>4 Engineers</strong> (No other roles). Vent cooldown: <strong>15s</strong>.</li>
-                                <li><i class="fas fa-user-tag"></i> Har player ko <strong>Impostor</strong> banne ka sirf <strong>1 chance</strong> milega.</li>
-                                <li><i class="fas fa-ban"></i> <strong>Impostor ko vote out karna allowed nahi hai.</strong></li>
-                                <li><i class="fas fa-microphone"></i> <strong>Discord VC join karna mandatory hai</strong></li>
-                            </ul>
-                        </div>
+                    <div class="rule-content">
+                        <ul class="rule-list">
+                            <li>
+                                <i class="fas fa-users"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> Only <strong>2 Members</strong> per team.</div>
+                                    <div><span class="lang-tag">HIN</span> Har Team mein sirf <strong>2 Members</strong> honge.</div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-tools"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> There will be <strong>4 Engineers</strong> (No other roles). Vent cooldown: <strong>15s</strong>.</div>
+                                    <div><span class="lang-tag">HIN</span> Game mein <strong>4 Engineers</strong> honge (Baki roles off). Vent cooldown: <strong>15s</strong>.</div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-user-tag"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> Each player gets only <strong>1 chance</strong> to be the Impostor.</div>
+                                    <div><span class="lang-tag">HIN</span> Har player ko <strong>Impostor</strong> banne ka sirf <strong>1 chance</strong> milega.</div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-ban"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> <strong>Voting out the Impostor is not allowed.</strong></div>
+                                    <div><span class="lang-tag">HIN</span> <strong>Impostor ko Vote out karna allowed nahi hai.</strong></div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-microphone"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> <strong>Joining the Discord VC is mandatory</strong> for all players.</div>
+                                    <div><span class="lang-tag">HIN</span> <strong>Har player ko Discord VC join karna mandatory hai.</strong></div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
-                <!-- CLASSIFIED POINT SYSTEM dual -->
-                <div class="rule-card" style="border-left-color: var(--neon-gold);">
+                <div class="rule-card" style="border-color: var(--neon-gold);">
                     <div class="rule-header">
                         <i class="fas fa-star rule-icon" style="color: var(--neon-gold);"></i>
                         <h3 class="rule-name" style="color: var(--neon-gold);">CLASSIFIED // POINT SYSTEM</h3>
                     </div>
-                    <div class="dual-content">
-                        <div class="english">
-                            <i class="fas fa-flag"></i> <strong>ENGLISH:</strong><br>
-                            <ul class="rule-list">
-                                <li><i class="fas fa-skull"></i> <strong>IMPOSTOR:</strong> <span class="highlight">+2 Points</span> per kill.</li>
-                                <li><i class="fas fa-bomb"></i> <strong>BONUS:</strong> <span class="bonus">+4 Points</span> for full crew wipe.</li>
-                                <li><i class="fas fa-shield-alt"></i> <strong>CREWMATE:</strong> <span class="highlight">+3 Points</span> survive + tasks done.</li>
-                            </ul>
-                            <div style="margin-top:10px; background:rgba(255,51,51,0.1); padding:8px;">Note: If Impostor breaks rule 1 (wrong kill), crewmates get 0 points.</div>
-                        </div>
-                        <div class="hinglish">
-                            <i class="fas fa-language"></i> <strong>HINGLISH:</strong><br>
-                            <ul class="rule-list">
-                                <li><i class="fas fa-skull"></i> <strong>IMPOSTOR:</strong> <span class="highlight">+2 Points</span> har kill ke liye.</li>
-                                <li><i class="fas fa-bomb"></i> <strong>BONUS:</strong> <span class="bonus">+4 Points</span> agar saare Crewmates ko maar diya (Full Wipe).</li>
-                                <li><i class="fas fa-shield-alt"></i> <strong>CREWMATE:</strong> <span class="highlight">+3 Points</span> agar poora round survive + tasks finish.</li>
-                            </ul>
-                            <div style="margin-top:10px; background:rgba(255,51,51,0.1); padding:8px;">ध्यान: Agar Impostor ne first kill wrong kiya (Rule 1), toh Crewmates ko points nahi milenge.</div>
+                    <div class="rule-content">
+                        <ul class="rule-list">
+                            <li>
+                                <i class="fas fa-skull" style="color: var(--neon-red);"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> <strong>IMPOSTOR:</strong> <span class="highlight">+2 Points</span> for each successful kill.</div>
+                                    <div><span class="lang-tag">HIN</span> <strong>IMPOSTOR:</strong> <span class="highlight">+2 Points</span> har successful kill ke liye.</div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-bomb" style="color: var(--neon-red);"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> <strong>IMPOSTOR BONUS:</strong> <span class="bonus">+4 Points</span> for a Full Wipe (killing all Crewmates).</div>
+                                    <div><span class="lang-tag">HIN</span> <strong>IMPOSTOR BONUS:</strong> <span class="bonus">+4 Points</span> agar saare Crewmates ko maar diya (Full Wipe).</div>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-shield-alt" style="color: var(--neon-cyan);"></i>
+                                <div class="rule-text-group">
+                                    <div><span class="lang-tag">ENG</span> <strong>CREWMATE:</strong> <span class="highlight">+3 Points</span> for surviving the round and finishing tasks.</div>
+                                    <div><span class="lang-tag">HIN</span> <strong>CREWMATE:</strong> <span class="highlight">+3 Points</span> agar poora round survive kiya aur tasks finish kiye.</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="warning-box">
+                            <div><span class="lang-tag">ENG</span> <strong>NOTE:</strong> If the Impostor breaks Rule 1 on their first kill, Crewmates will not receive any points.</div>
+                            <div><span class="lang-tag">HIN</span> <strong>NOTE:</strong> Agar Impostor ne first kill hi wrong kill kiya (Rule 1 break kiya), toh Crewmates ko points nahi milenge.</div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
 
@@ -621,7 +662,7 @@
     </div>
 
     <footer>
-        <p>© 2026 RODY ESPORTS // SYSTEMS ONLINE // हिंग्लिश + ENGLISH</p>
+        <p>&copy; 2026 RODY ESPORTS // SYSTEMS ONLINE</p>
         <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.5;">SECURE CONNECTION ESTABLISHED</p>
     </footer>
 
@@ -635,7 +676,7 @@
                 video.muted = false;
                 icon.classList.remove('fa-volume-mute');
                 icon.classList.add('fa-volume-up');
-                btn.style.borderColor = '#00ffaa';
+                btn.style.borderColor = 'var(--neon-green)';
             } else {
                 video.muted = true;
                 icon.classList.remove('fa-volume-up');
@@ -670,7 +711,7 @@
             const tbody = document.getElementById('tableBody');
             
             if (!data) {
-                tbody.innerHTML = '<tr><td colspan="10" style="padding: 40px;">⛔ NO DATA FOUND</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="10" style="padding: 40px;">No Data Found</td></tr>';
                 return;
             }
 
