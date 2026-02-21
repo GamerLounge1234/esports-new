@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHAPESHIFTER // DUEL LANGUAGE TOURNAMENT</title>
+    <title>SHAPESHIFTER // DUEL LANGUAGE ARENA</title>
     
     <!-- premium fonts & icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Syne:wght@400;700;800&family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        /* ---------- ULTRA-PREMIUM DESIGN SYSTEM ---------- */
+        /* ===== NEXT‑LEVEL DESIGN SYSTEM ===== */
         * {
             margin: 0;
             padding: 0;
@@ -20,403 +19,487 @@
         }
 
         :root {
-            --bg-dark: #0a0c0f;
-            --bg-panel: rgba(12, 18, 28, 0.85);
-            --cyber-cyan: #00f7ff;
-            --cyber-red: #ff3a3a;
-            --cyber-gold: #ffd966;
-            --cyber-violet: #b184ff;
-            --glass-deep: rgba(20, 30, 45, 0.7);
-            --glass-edge: rgba(255, 255, 255, 0.07);
-            --text-primary: #ffffff;
-            --text-secondary: #b0c0d0;
-            --glow-cyan: 0 0 30px rgba(0, 247, 255, 0.6);
-            --glow-red: 0 0 30px rgba(255, 58, 58, 0.5);
-            --border-glow: 0 0 0 1px rgba(0, 247, 255, 0.3) inset, 0 0 20px rgba(0, 247, 255, 0.2);
-            
-            --font-header: 'Syne', sans-serif;
-            --font-body: 'Plus Jakarta Sans', sans-serif;
-            --font-mono: 'Space Grotesk', monospace;
+            /* deep space — premium muted neons */
+            --abyss: #0b0d17;
+            --elevation-1: #14182c;
+            --elevation-2: #1e233b;
+            --primary-glow: #3c7eff;      /* electric cobalt */
+            --secondary-glow: #ff4d6d;     /* soft crimson */
+            --tertiary-glow: #ffd166;      /* warm gold */
+            --glass-deep: rgba(20, 25, 50, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --text-main: #f0f3ff;
+            --text-soft: #b9c6e6;
+            --glow-primary: 0 0 30px rgba(60, 126, 255, 0.35);
+            --glow-secondary: 0 0 30px rgba(255, 77, 109, 0.35);
+            --glow-tertiary: 0 0 30px rgba(255, 209, 102, 0.3);
+            --transition-prem: all 0.25s cubic-bezier(0.2, 0, 0, 1);
         }
 
         body {
-            background-color: #040608;
-            font-family: var(--font-body);
-            color: var(--text-primary);
-            line-height: 1.5;
+            background-color: var(--abyss);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            line-height: 1.5;
+            font-weight: 300;
+            letter-spacing: 0.3px;
         }
 
-        /* cinematic video layer */
+        /* background video + advanced overlays */
         #bg-video {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             z-index: -3;
-            opacity: 0.5;
-            filter: blur(3px) saturate(1.8);
+            filter: blur(2px) brightness(0.3) saturate(1.2);
         }
 
         .overlay-grid {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background-image: 
-                linear-gradient(rgba(0, 247, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 58, 58, 0.02) 1px, transparent 1px);
-            background-size: 50px 50px;
+                linear-gradient(rgba(10, 15, 30, 0.85) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(10, 15, 30, 0.85) 1px, transparent 1px);
+            background-size: 60px 60px;
             z-index: -2;
             pointer-events: none;
+            opacity: 0.4;
         }
 
-        .scanline-adv {
+        .scanline {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(to bottom, 
-                transparent 0%, 
-                rgba(0, 247, 255, 0.02) 10%,
-                transparent 20%);
-            background-size: 100% 8px;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0px, rgba(255,255,255,0.01) 1px, transparent 2px);
             z-index: -1;
-            animation: scan 16s linear infinite;
             pointer-events: none;
+            opacity: 0.5;
         }
 
-        @keyframes scan {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(300%); }
-        }
-
-        /* sound toggle - luxury */
+        /* sound toggle — ultra slick */
         #sound-control {
             position: fixed;
-            bottom: 40px; right: 40px;
-            width: 75px; height: 75px;
-            background: rgba(0, 15, 25, 0.8);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--cyber-cyan);
+            bottom: 35px;
+            right: 35px;
+            z-index: 100;
+            width: 65px;
+            height: 65px;
+            background: var(--elevation-2);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             display: flex;
-            align-items: center; justify-content: center;
-            font-size: 2rem;
-            color: var(--cyber-cyan);
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            z-index: 999;
-            box-shadow: 0 0 30px rgba(0, 247, 255, 0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: borderPulse 3s infinite;
+            color: white;
+            font-size: 1.7rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: var(--transition-prem);
+            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.7);
+            border-top-color: rgba(255,255,255,0.5);
+            border-left-color: rgba(255,255,255,0.3);
         }
 
         #sound-control:hover {
-            transform: scale(1.2) rotate(5deg);
-            background: var(--cyber-cyan);
-            color: #000;
-            box-shadow: 0 0 60px var(--cyber-cyan);
+            transform: scale(1.15) rotate(5deg);
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 45px var(--primary-glow);
         }
 
-        @keyframes borderPulse {
-            0% { border-color: var(--cyber-cyan); box-shadow: 0 0 20px var(--cyber-cyan); }
-            50% { border-color: var(--cyber-red); box-shadow: 0 0 40px var(--cyber-red); }
-            100% { border-color: var(--cyber-cyan); box-shadow: 0 0 20px var(--cyber-cyan); }
-        }
-
-        /* main container */
-        .world {
-            max-width: 1600px;
+        /* layout */
+        .main-wrapper {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 3rem;
+            padding: 0 2rem;
             position: relative;
             z-index: 10;
         }
 
-        /* hero section — commanding */
-        .hero {
-            min-height: 95vh;
+        /* HERO section — hypnotic */
+        .hero-section {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
             position: relative;
         }
 
-        .hero-glitch-super {
-            font-family: var(--font-header);
-            font-size: 6.5rem;
+        .hero-glitch {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3rem, 12vw, 7rem);
             font-weight: 800;
-            line-height: 1.1;
             text-transform: uppercase;
-            letter-spacing: 0.25rem;
-            background: linear-gradient(120deg, #fff 0%, #b8d4ff 30%, #ffbaba 70%, #fff 100%);
+            letter-spacing: 0.15em;
+            color: white;
+            text-shadow: 8px 8px 0 rgba(60, 126, 255, 0.3), -4px -4px 0 rgba(255, 77, 109, 0.3);
+            line-height: 1.1;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero-glitch span {
+            display: block;
+            font-size: 0.5em;
+            font-weight: 400;
+            letter-spacing: 0.4em;
+            color: var(--text-soft);
+            text-shadow: none;
+        }
+
+        .organizers-badge {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem 3rem;
+            padding: 1.8rem 4rem;
+            background: var(--glass-deep);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-radius: 60px;
+            box-shadow: 0 35px 60px -30px black;
+        }
+
+        .org-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .org-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--primary-glow);
+            letter-spacing: 2px;
+            font-weight: 400;
+            border-right: 1px solid rgba(255,255,255,0.2);
+            padding-right: 20px;
+        }
+
+        .org-names {
+            font-weight: 700;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #fff, #b0beff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 40px rgba(0, 247, 255, 0.5);
-            margin-bottom: 2rem;
-            filter: drop-shadow(0 0 30px #00f7ff80);
         }
 
-        .dual-language-badge {
-            display: flex;
-            gap: 40px;
-            padding: 1.2rem 3.5rem;
-            background: rgba(0, 247, 255, 0.05);
-            border: 1px solid var(--cyber-cyan);
-            border-radius: 60px;
-            backdrop-filter: blur(20px);
-            margin-top: 2rem;
-            box-shadow: var(--border-glow);
-        }
-
-        .lang-tab {
-            font-family: var(--font-mono);
-            font-weight: 600;
-            font-size: 1.4rem;
-            color: var(--cyber-cyan);
-            cursor: pointer;
-            transition: 0.2s;
-            padding: 0 20px;
-            border-right: 2px solid rgba(255,255,255,0.1);
-        }
-        .lang-tab:last-child { border-right: none; }
-        .lang-tab.active { color: white; text-shadow: 0 0 20px cyan; }
-        .lang-tab:hover { color: white; }
-
-        .scroll-down {
+        .scroll-indicator {
             position: absolute;
             bottom: 30px;
-            font-size: 2rem;
-            color: var(--cyber-cyan);
-            animation: bounce 2.2s infinite;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 70px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 30px;
+            display: flex;
+            justify-content: center;
         }
 
-        /* ---------- BILINGUAL RULES SECTION (next level) ---------- */
+        .scroll-indicator::after {
+            content: '';
+            width: 6px;
+            height: 15px;
+            background: white;
+            border-radius: 3px;
+            margin-top: 12px;
+            animation: glide 2s infinite;
+        }
+
+        @keyframes glide {
+            0% { opacity: 0; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(15px); }
+            100% { opacity: 0; transform: translateY(0); }
+        }
+
+        /* SECTION TITLE — double / mirror concept */
         .section-title {
-            font-family: var(--font-header);
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin: 6rem 0 4rem;
             text-align: center;
-            position: relative;
+            font-family: 'Syne', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 5rem 0 4rem;
+            text-transform: uppercase;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 30px;
+            gap: 25px;
         }
-        .section-title span {
-            background: linear-gradient(45deg, var(--cyber-red), var(--cyber-cyan));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
+
         .section-title::before,
         .section-title::after {
             content: '';
             height: 3px;
             width: 120px;
-            background: linear-gradient(90deg, transparent, var(--cyber-red), var(--cyber-cyan), transparent);
+            background: linear-gradient(90deg, transparent, var(--primary-glow), var(--secondary-glow), transparent);
+            border-radius: 3px;
         }
 
-        .lang-panel {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        .lang-panel.active {
-            display: block;
-            opacity: 1;
+        /* language toggle pill (conceptual, but both langs appear at once) */
+        .lang-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 100px;
+            padding: 0.2rem 1.2rem;
+            font-size: 0.8rem;
+            font-weight: 400;
+            margin-left: 15px;
+            letter-spacing: 2px;
+            color: var(--text-soft);
+            vertical-align: middle;
         }
 
-        /* premium card grid */
+        /* RULES: bilingual symmetrical grid */
         .rules-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
-            margin-bottom: 80px;
+            margin: 3rem 0;
         }
 
-        .rule-card-next {
-            background: var(--bg-panel);
-            backdrop-filter: blur(18px);
-            border: 1px solid var(--glass-edge);
-            border-radius: 24px;
-            padding: 30px;
-            transition: all 0.35s ease;
-            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.7);
-            overflow: hidden;
+        .rule-card {
+            background: var(--glass-deep);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 2rem 1.8rem;
+            transition: var(--transition-prem);
+            box-shadow: 0 40px 50px -35px black;
             position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
-        .rule-card-next::before {
+
+        .rule-card::after {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, var(--cyber-red), var(--cyber-cyan));
-        }
-        .rule-card-next:hover {
-            transform: translateY(-10px) scale(1.01);
-            border-color: var(--cyber-cyan);
-            box-shadow: var(--glow-cyan);
+            inset: 0;
+            border-radius: 32px;
+            padding: 2px;
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
 
-        .rule-icon-big {
+        .rule-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(60, 126, 255, 0.3);
+            box-shadow: var(--glow-primary), 0 50px 70px -30px black;
+        }
+
+        .rule-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .rule-icon {
             font-size: 2.4rem;
-            background: linear-gradient(135deg, var(--cyber-red), var(--cyber-cyan));
+            background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-right: 20px;
         }
 
-        .rule-head {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.8rem;
-            border-bottom: 1px dashed rgba(255,255,255,0.15);
-            padding-bottom: 0.8rem;
-        }
-        .rule-head h3 {
-            font-family: var(--font-header);
-            font-size: 1.9rem;
+        .rule-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: -0.02em;
+            line-height: 1.2;
         }
 
-        .rule-content-dual {
-            font-size: 1.1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        /* bilingual content split */
+        .rule-lang {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 0.8rem;
         }
 
-        .english {
-            color: var(--cyber-cyan);
-            font-weight: 500;
-            border-left: 4px solid var(--cyber-cyan);
-            padding-left: 20px;
-            background: rgba(0,247,255,0.03);
+        .eng {
+            border-right: 1px dashed rgba(255,255,255,0.15);
+            padding-right: 1.2rem;
         }
-        .hindi {
-            color: var(--cyber-gold);
+
+        .hing {
+            padding-left: 0.5rem;
+        }
+
+        .lang-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            opacity: 0.6;
+            letter-spacing: 2px;
+            margin-bottom: 0.8rem;
             font-weight: 400;
-            border-left: 4px solid var(--cyber-gold);
-            padding-left: 20px;
-            background: rgba(255,217,102,0.02);
         }
 
-        .list-bilingual {
-            list-style: none;
+        .rule-desc {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-soft);
         }
-        .list-bilingual li {
+
+        .highlight {
+            color: var(--primary-glow);
+            font-weight: 600;
+            text-shadow: 0 0 8px rgba(60, 126, 255, 0.5);
+        }
+
+        .danger {
+            color: var(--secondary-glow);
+            font-weight: 600;
+        }
+
+        .bonus {
+            color: var(--tertiary-glow);
+            font-weight: 600;
+        }
+
+        .rule-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .rule-list li {
             margin-bottom: 1rem;
             display: flex;
-            gap: 15px;
-            align-items: baseline;
-        }
-        .list-bilingual li i {
-            color: var(--cyber-violet);
-            width: 24px;
-        }
-        .list-bilingual li span strong {
-            color: white;
+            gap: 12px;
+            align-items: flex-start;
         }
 
-        .bonus-tag {
-            background: linear-gradient(145deg, #ffd96630, #b184ff30);
-            padding: 0.4rem 1rem;
+        .rule-list i {
+            margin-top: 4px;
+            color: var(--primary-glow);
+        }
+
+        /* POINT SYSTEM CARD — special treatment */
+        .points-card .rule-lang {
+            grid-template-columns: 1fr;  /* stacked on small but still two blocks */
+        }
+
+        /* leaderboard — pristine */
+        .leaderboard-container {
+            background: var(--glass-deep);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            border: 1px solid rgba(255,255,255,0.06);
             border-radius: 40px;
-            border: 1px solid var(--cyber-gold);
-            font-size: 0.9rem;
-            display: inline-block;
-            margin-top: 10px;
+            padding: 2rem 0;
+            margin: 5rem 0 7rem;
+            box-shadow: 0 70px 100px -50px black, var(--glow-primary);
+            position: relative;
         }
 
-        /* leaderboard — ultra clean */
-        .leaderboard-vault {
-            background: rgba(0, 15, 25, 0.6);
-            backdrop-filter: blur(40px);
-            border: 1px solid var(--cyber-cyan);
-            border-radius: 40px;
-            padding: 25px 20px;
-            box-shadow: 0 30px 50px -20px #000, 0 0 0 1px rgba(0,247,255,0.3) inset;
-            margin-bottom: 100px;
+        .leaderboard-container::before {
+            content: '⏣ LIVE FEED ⏣';
+            position: absolute;
+            top: -12px;
+            left: 50px;
+            background: var(--elevation-2);
+            padding: 0.3rem 2rem;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            color: var(--primary-glow);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
         }
 
-        .leaderboard-vault table {
+        .table-scroll {
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-glow) transparent;
+        }
+
+        table {
             width: 100%;
             border-collapse: collapse;
-            font-family: var(--font-mono);
+            font-family: 'Space Grotesk', sans-serif;
         }
 
         th {
-            text-align: center;
-            padding: 20px 5px;
-            font-size: 1rem;
-            font-weight: 600;
+            text-align: left;
+            padding: 1.5rem 1rem 1rem 2.5rem;
+            font-weight: 500;
             text-transform: uppercase;
-            color: var(--cyber-cyan);
-            letter-spacing: 1.5px;
-            border-bottom: 2px solid var(--cyber-cyan);
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            color: var(--text-soft);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         td {
-            padding: 16px 5px;
-            text-align: center;
-            font-weight: 500;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
+            padding: 1.2rem 1rem 1.2rem 2.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+            font-weight: 400;
+            color: #ced6f0;
         }
 
-        .player-name-td {
+        .player-cell {
             display: flex;
             align-items: center;
-            gap: 15px;
-            padding-left: 25px;
-            font-weight: 600;
+            gap: 20px;
         }
 
-        .rank-icon {
-            width: 40px; height: 40px;
-            background: rgba(0,247,255,0.1);
-            border-radius: 12px;
+        .rank-badge {
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
-            color: var(--cyber-cyan);
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
-        tr:hover td {
-            color: white;
-            text-shadow: 0 0 10px cyan;
-        }
-
-        .total-score-final {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(145deg, #fff, var(--cyber-gold));
+        .total-score {
+            font-weight: 700;
+            font-size: 1.6rem;
+            background: linear-gradient(135deg, #fff, #adb9e4);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            letter-spacing: 1px;
+        }
+
+        tbody tr:hover td {
+            color: white;
+            text-shadow: 0 0 10px rgba(255,255,255,0.4);
         }
 
         footer {
-            padding: 40px;
-            font-family: var(--font-mono);
             text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            color: #5f6b7a;
+            padding: 3rem;
+            font-family: 'Space Grotesk', monospace;
+            color: #4b5679;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            background: rgba(6, 8, 14, 0.8);
+            backdrop-filter: blur(10px);
         }
 
-        @keyframes bounce {
-            0%,100%{ transform: translateY(0); }
-            50%{ transform: translateY(-10px); }
-        }
-
-        @media (max-width: 1000px) {
-            .rules-grid { grid-template-columns: 1fr; }
-            .hero-glitch-super { font-size: 4rem; }
-            .world { padding: 0 1.5rem; }
+        @media (max-width: 800px) {
+            .rule-lang { grid-template-columns: 1fr; gap: 0.5rem; }
+            .eng { border-right: none; border-bottom: 1px dashed rgba(255,255,255,0.15); padding-bottom: 1rem; }
+            .section-title { font-size: 2.2rem; }
         }
     </style>
 </head>
@@ -426,135 +509,157 @@
     <source src="amongusnew.mp4" type="video/mp4">
 </video>
 <div class="overlay-grid"></div>
-<div class="scanline-adv"></div>
+<div class="scanline"></div>
 
 <div id="sound-control" onclick="toggleSound()">
     <i class="fas fa-volume-mute" id="sound-icon"></i>
 </div>
 
-<div class="world">
-
-    <section class="hero">
-        <h1 class="hero-glitch-super">SHAPESHIFTER<br><span style="font-size:0.7em; letter-spacing: 10px;">DUEL//LIVE</span></h1>
-        <div class="dual-language-badge" id="langToggle">
-            <span class="lang-tab active" data-lang="english">🇬🇧 ENGLISH</span>
-            <span class="lang-tab" data-lang="hindi">🇮🇳 हिंदी (HINGLISH)</span>
+<div class="main-wrapper">
+    <header class="hero-section">
+        <h1 class="hero-glitch">SHAPESHIFTER<br><span>DUAL LANG TOURNAMENT</span></h1>
+        <div class="organizers-badge">
+            <div class="org-item"><span class="org-label">ORGANISERS</span><span class="org-names">RODY ✦ MOON ✦ SHUZ</span></div>
+            <div class="org-item"><span class="org-label">LANG</span><span class="org-names">EN / HINGLISH</span></div>
         </div>
-        <div class="organizers-badge" style="margin-top: 40px; background: rgba(0,0,0,0.4); padding: 1rem 3rem; border-radius: 40px; backdrop-filter: blur(10px);">
-            <span style="color: var(--cyber-red);">✧ ORGANIZERS ✧</span>
-            <span style="font-weight:700; margin-left: 20px;">RODY • MOON • SHUZ</span>
-        </div>
-        <div class="scroll-down"><i class="fa-regular fa-circle-down"></i></div>
-    </section>
+        <div class="scroll-indicator"></div>
+    </header>
 
-    <!-- DUAL LANGUAGE RULES -->
+    <!-- RULES section with perfect bilingual cards -->
     <section>
-        <h2 class="section-title"><span>⚡</span> MISSION PROTOCOLS <span>⚡</span></h2>
-        
-        <!-- english panel -->
-        <div id="panel-english" class="lang-panel active">
-            <div class="rules-grid">
-                <!-- rule 01 english -->
-                <div class="rule-card-next">
-                    <div class="rule-head"><i class="fas fa-user-secret rule-icon-big"></i><h3>KILL RESTRICTION</h3></div>
-                    <div class="rule-content-dual">
-                        <div class="english">When impostor shifts into a specific player, they can ONLY kill that player.</div>
-                        <div class="hindi">Jab impostor kisi player ka shape leta hai, to sirf usi player ko kill kar sakta hai.</div>
-                        <div style="background: #0f1a24; border-radius: 16px; padding: 15px; margin-top: 10px;">
-                            <span class="bonus-tag">⛔ until kill confirmed, no body report</span>
-                        </div>
+        <h2 class="section-title">⛓️ MISSION PROTOCOLS <span class="lang-badge">ENGLISH • हिंग्लिश</span></h2>
+        <div class="rules-grid">
+            <!-- CARD 1: Kill restriction -->
+            <div class="rule-card">
+                <div class="rule-header">
+                    <i class="fas fa-mask rule-icon"></i>
+                    <h3 class="rule-name">KILL RESTRICTION</h3>
+                </div>
+                <div class="rule-lang">
+                    <div class="eng">
+                        <div class="lang-label">🇬🇧 ENGLISH</div>
+                        <div class="rule-desc">If impostor <span class="highlight">shapeshifts into player X</span>, they can <strong>only kill X</strong>. No other kill until X is dead. Body cannot be reported before kill confirm.</div>
+                    </div>
+                    <div class="hing">
+                        <div class="lang-label">🇮🇳 HINGLISH</div>
+                        <div class="rule-desc">Agar impostor kisi specific player ka shape leta hai (jaise RODY), toh <span class="highlight">sirf usi player ko kill karna allowed hai.</span> Kisi aur ko kill kiya toh rule break. Jab tak kill confirm na ho, body report allowed nahi.</div>
                     </div>
                 </div>
-                <!-- rule 02 english -->
-                <div class="rule-card-next">
-                    <div class="rule-head"><i class="fas fa-gavel rule-icon-big"></i><h3>PENALTIES & CONDUCT</h3></div>
-                    <div class="rule-content-dual">
-                        <div class="english">Wrong kill → immediate elimination from match. Disrespect → permanent ban.</div>
-                        <div class="hindi">Galat kill kiya to match se turant nikal diya jayega. Bad-tamizi → permanent ban.</div>
-                    </div>
+            </div>
+            <!-- CARD 2: Penalties -->
+            <div class="rule-card">
+                <div class="rule-header">
+                    <i class="fas fa-gavel rule-icon"></i>
+                    <h3 class="rule-name">PENALTIES & CONDUCT</h3>
                 </div>
-                <!-- rule 03 english -->
-                <div class="rule-card-next">
-                    <div class="rule-head"><i class="fas fa-cogs rule-icon-big"></i><h3>GAME CONFIG</h3></div>
-                    <div class="rule-content-dual">
-                        <ul class="list-bilingual">
-                            <li><i class="fas fa-users"></i><span><span class="english">2 members per team</span> | <span class="hindi">2 member team mein</span></span></li>
-                            <li><i class="fas fa-tools"></i><span><span class="english">4 engineers, vent 15s</span> | <span class="hindi">4 engineers, vent 15s</span></span></li>
-                            <li><i class="fas fa-user-tag"></i><span><span class="english">Each player impostor once</span> | <span class="hindi">Har player sirf ek baar impostor banega</span></span></li>
-                            <li><i class="fas fa-ban"></i><span><span class="english">Cannot vote out impostor</span> | <span class="hindi">Impostor ko vote out karna mana hai</span></span></li>
-                            <li><i class="fas fa-microphone"></i><span><span class="english">Discord VC mandatory</span> | <span class="hindi">Discord VC zaroori</span></span></li>
+                <div class="rule-lang">
+                    <div class="eng">
+                        <div class="lang-label">🇬🇧 ENGLISH</div>
+                        <ul class="rule-list">
+                            <li><i class="fas fa-skull"></i> <span class="danger">Wrong kill</span> → instant elimination from match.</li>
+                            <li><i class="fas fa-ban"></i> Disrespect → <span class="danger">permanent ban</span>.</li>
+                        </ul>
+                    </div>
+                    <div class="hing">
+                        <div class="lang-label">🇮🇳 HINGLISH</div>
+                        <ul class="rule-list">
+                            <li><i class="fas fa-skull"></i> Galat player ko kill kiya toh <span class="danger">match se turant kick</span>.</li>
+                            <li><i class="fas fa-ban"></i> Staff se misbehavior → <span class="danger">perma ban</span>.</li>
                         </ul>
                     </div>
                 </div>
-                <!-- rule 04 english points -->
-                <div class="rule-card-next" style="border-color: #ffd966;">
-                    <div class="rule-head"><i class="fas fa-star rule-icon-big" style="background:linear-gradient(135deg, gold, #b184ff); -webkit-background-clip:text;"></i><h3>POINT SYSTEM</h3></div>
-                    <div class="rule-content-dual">
-                        <div class="english">Impostor: +2 per kill | Full wipe +4 bonus | Crewmate survive +3</div>
-                        <div class="hindi">Impostor: har kill ke +2 | poore crew ko khatam +4 | Crewmate bach gaya +3</div>
-                        <div class="bonus-tag" style="margin-top:15px;">⚠️ if impostor breaks rule1, crew gets zero</div>
+            </div>
+            <!-- CARD 3: Game Config -->
+            <div class="rule-card">
+                <div class="rule-header">
+                    <i class="fas fa-cogs rule-icon"></i>
+                    <h3 class="rule-name">GAME CONFIG</h3>
+                </div>
+                <div class="rule-lang">
+                    <div class="eng">
+                        <div class="lang-label">🇬🇧 ENGLISH</div>
+                        <ul class="rule-list">
+                            <li><i class="fas fa-users"></i> Teams: 2 members</li>
+                            <li><i class="fas fa-tools"></i> 4 engineers, vent 15s</li>
+                            <li><i class="fas fa-user-tag"></i> 1 impostor chance only</li>
+                            <li><i class="fas fa-microphone"></i> Discord VC mandatory</li>
+                        </ul>
+                    </div>
+                    <div class="hing">
+                        <div class="lang-label">🇮🇳 HINGLISH</div>
+                        <ul class="rule-list">
+                            <li><i class="fas fa-users"></i> Har team mein sirf 2 members</li>
+                            <li><i class="fas fa-tools"></i> 4 engineers, vent cooldown 15s</li>
+                            <li><i class="fas fa-user-tag"></i> Har player sirf 1 baar impostor banega</li>
+                            <li><i class="fas fa-microphone"></i> Discord VC join karna mandatory</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- hindi panel (hinglish) -->
-        <div id="panel-hindi" class="lang-panel">
-            <div class="rules-grid">
-                <div class="rule-card-next"><div class="rule-head"><i class="fas fa-user-secret"></i><h3>नियम 01 // किल रेस्ट्रिक्शन</h3></div><div class="rule-content-dual"><div class="hindi">Impostor kisi ka shape le to sirf usi player ko kill kare. Galat kill = turant elimination.</div><div class="english">(Shape limits kill to that player only)</div></div></div>
-                <div class="rule-card-next"><div class="rule-head"><i class="fas fa-gavel"></i><h3>नियम 02 // पेनाल्टी</h3></div><div class="rule-content-dual"><div class="hindi">Wrong kill ya misbehavior → ban. Staff ki respect mandatory hai.</div></div></div>
-                <div class="rule-card-next"><div class="rule-head"><i class="fas fa-cogs"></i><h3>नियम 03 // कॉन्फिग</h3></div><div class="rule-content-dual"><div class="hindi">2 members per team. 4 engineers (vent 15s). Har player ek baar impostor. Impostor vote out karna mana hai. Discord VC join karna padega.</div></div></div>
-                <div class="rule-card-next"><div class="rule-head"><i class="fas fa-star"></i><h3>पॉइंट सिस्टम</h3></div><div class="rule-content-dual"><div class="hindi">Impostor: +2 har kill pe. Poora wipe +4 bonus. Crewmate +3 agar safe. Agar impostor rule 1 tod de to crewmate ko zero points.</div></div></div>
+            <!-- CARD 4: Point system (classified) special gold hint -->
+            <div class="rule-card points-card">
+                <div class="rule-header">
+                    <i class="fas fa-star rule-icon" style="color: var(--tertiary-glow);"></i>
+                    <h3 class="rule-name">💰 POINT SYSTEM</h3>
+                </div>
+                <div class="rule-lang">
+                    <div class="eng">
+                        <div class="lang-label">🇬🇧 ENGLISH</div>
+                        <ul class="rule-list">
+                            <li><i class="fas fa-skull"></i> Impostor kill: <span class="highlight">+2</span></li>
+                            <li><i class="fas fa-bomb"></i> Full crew wipe: <span class="bonus">+4 bonus</span></li>
+                            <li><i class="fas fa-shield-alt"></i> Crewmate survive+task: <span class="highlight">+3</span></li>
+                        </ul>
+                    </div>
+                    <div class="hing">
+                        <div class="lang-label">🇮🇳 HINGLISH</div>
+                        <ul class="rule-list">
+                            <li><i class="fas fa-skull"></i> Har kill par <span class="highlight">2 points</span></li>
+                            <li><i class="fas fa-bomb"></i> Saare crewmates ka elimination: <span class="bonus">+4 extra</span></li>
+                            <li><i class="fas fa-shield-alt"></i> Crewmate safe + tasks: <span class="highlight">3 points</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top: 1rem; background: rgba(255,77,109,0.1); border-radius: 18px; padding: 0.8rem; border-left: 4px solid var(--secondary-glow); font-size: 0.9rem;">
+                    ⚠️ NOTE: Wrong kill (rule 1) → crewmates ko koi points nahi.
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- LEADERBOARD FIREBASE -->
+    <!-- LEADERBOARD -->
     <section>
-        <h2 class="section-title"><span>🔷</span> LIVE STANDINGS <span>🔷</span></h2>
-        <div class="leaderboard-vault">
-            <div style="overflow-x: auto;">
+        <h2 class="section-title">📡 LIVE STANDINGS <span class="lang-badge">DYNAMIC</span></h2>
+        <div class="leaderboard-container">
+            <div class="table-scroll">
                 <table id="scoreTable">
-                    <thead><tr><th>PLAYER</th><th>R1</th><th>R2</th><th>R3</th><th>R4</th><th>R5</th><th>R6</th><th>R7</th><th>R8</th><th>TOTAL</th></tr></thead>
-                    <tbody id="tableBody"><tr><td colspan="10" style="text-align:center; padding:60px;"><i class="fas fa-sync-alt fa-spin"></i> encrypting uplink...</td></tr></tbody>
+                    <thead>
+                        <tr><th>OPERATIVE</th><th>R1</th><th>R2</th><th>R3</th><th>R4</th><th>R5</th><th>R6</th><th>R7</th><th>R8</th><th>TOTAL</th></tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr><td colspan="10" style="padding: 50px; text-align:center;"><i class="fas fa-spinner fa-pulse"></i> establishing uplink...</td></tr>
+                    </tbody>
                 </table>
             </div>
         </div>
     </section>
-
-    <footer>
-        <p>© 2026 RODY ESPORTS // द्विभाषीय कोर इंजन</p>
-        <p style="opacity:0.3;">हिंदी + ENGLISH • SHAPESHIFTER TOURNAMENT</p>
-    </footer>
 </div>
 
-<script>
-    // sound toggle
-    function toggleSound() {
-        const video = document.getElementById('bg-video');
-        const icon = document.getElementById('sound-icon');
-        if (video.muted) {
-            video.muted = false;
-            icon.className = 'fas fa-volume-up';
-        } else {
-            video.muted = true;
-            icon.className = 'fas fa-volume-mute';
-        }
-    }
+<footer>
+    <p>RODY ESPORTS // SHAPESHIFTER LEAGUE // 2026</p>
+    <p style="opacity:0.3; font-size:0.7rem; margin-top:0.5rem;">DUAL LANGUAGE INTERFACE • हिंग्लिश SUPPORT</p>
+</footer>
 
-    // bilingual tabs
-    document.querySelectorAll('.lang-tab').forEach(tab => {
-        tab.addEventListener('click', e => {
-            document.querySelectorAll('.lang-tab').forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            const lang = tab.dataset.lang;
-            document.querySelectorAll('.lang-panel').forEach(panel => panel.classList.remove('active'));
-            document.getElementById('panel-'+lang).classList.add('active');
-        });
-    });
+<script>
+    function toggleSound() {
+        const v = document.getElementById('bg-video');
+        const ic = document.getElementById('sound-icon');
+        if (v.muted) { v.muted = false; ic.classList.replace('fa-volume-mute','fa-volume-up'); }
+        else { v.muted = true; ic.classList.replace('fa-volume-up','fa-volume-mute'); }
+    }
 </script>
 
-<!-- FIREBASE MODULE (same config, enhanced render) -->
+<!-- firebase module (exact config from above) -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
@@ -574,30 +679,31 @@
     const db = getDatabase(app);
     const playersRef = ref(db, 'players');
 
-    onValue(playersRef, (snapshot) => {
-        const data = snapshot.val();
+    onValue(playersRef, (snap) => {
+        const data = snap.val();
         const tbody = document.getElementById('tableBody');
-        if (!data) {
-            tbody.innerHTML = '<tr><td colspan="10" style="padding:40px;">NO DATA FEED</td></tr>';
-            return;
-        }
-        const players = Object.values(data);
-        players.forEach(p => {
+        if (!data) { tbody.innerHTML = '<tr><td colspan="10" style="padding:40px;">⚡ no data</td></tr>'; return; }
+
+        const arr = Object.values(data);
+        arr.forEach(p => {
             p.total = 0;
-            for(let i=1; i<=8; i++) p.total += parseInt(p[`r${i}`] || 0);
+            for(let i=1;i<=8;i++) p.total += (parseInt(p[`r${i}`]) || 0);
         });
-        players.sort((a,b) => b.total - a.total);
+        arr.sort((a,b)=> b.total - a.total);
 
         tbody.innerHTML = '';
-        players.forEach((p, idx) => {
-            const rankIcon = idx === 0 ? '🥇' : (idx === 1 ? '🥈' : (idx === 2 ? '🥉' : idx+1));
-            let row = `<tr>
-                <td class="player-name-td"><div class="rank-icon">${rankIcon}</div> ${p.name}</td>`;
+        arr.forEach((p, idx) => {
+            let badge = idx+1;
+            if(idx===0) badge = '👑';
+            else if(idx===1) badge = '🥈';
+            else if(idx===2) badge = '🥉';
+
+            let row = `<tr><td class="player-cell"><div class="rank-badge">${badge}</div><span>${p.name}</span></td>`;
             for(let i=1;i<=8;i++) {
-                let val = p[`r${i}`] || 0;
-                row += `<td>${val}</td>`;
+                let sc = p[`r${i}`] || 0;
+                row += `<td>${sc}</td>`;
             }
-            row += `<td class="total-score-final">${p.total}</td></tr>`;
+            row += `<td class="total-score">${p.total}</td></tr>`;
             tbody.innerHTML += row;
         });
     });
